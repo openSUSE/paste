@@ -1,0 +1,242 @@
+* {
+    margin: 0;
+}
+
+body {
+    font-family: "Lucida Grande", Verdana;
+    background-color: #F0F0F0;
+    background-image: url("./header-repeat.png");
+    background-repeat: repeat-x;
+}
+
+h1.pagetitle {
+   font-size: 18px;
+   color: #AC2A2A;
+}
+
+#container {
+    margin: 0 auto;
+    width: 80%;
+    min-width: 700px;
+}
+
+#header {
+    width: 100%;
+    height: 52px;
+}
+
+#header .logo {
+    width: 300px;
+    height: 50px;
+    float: left;
+    border: 0;
+}
+
+#header .links {
+    float: right;
+    margin-top: 26px;
+    color: #AFAFAF;
+    font-size: 13px;
+}
+
+#header .links a {
+    color: #AFAFAF;
+    text-decoration: none;
+}
+
+#header .links a:hover {
+    border-bottom: 1px solid #AFAFAF;
+}
+
+/* Main */
+
+#main {
+    margin-top: 10px;
+    width: 100%;
+    float: left;
+}
+
+#content {
+    float: left;
+    width: 70%;
+    background-color: #fff;
+    padding: 10px;
+    border: 2px solid #999;
+}
+
+#newpaste {
+    float: left;
+    width: 100%;
+    height: 250px;
+    border: 1px solid #aaa;
+    margin-bottom: 10px;
+}
+
+#sub {
+    width: auto;
+    float: left;
+}
+
+#lang {
+    width: auto;
+    float: right;
+}
+
+#data {
+    width: 100%;
+    float: left;
+    margin-bottom: 10px;
+}
+
+#data label {
+    color: #2F2E2E;
+    font-size: 11px;
+}
+
+#data #info {
+    border: 1px solid #aaa;
+    height: 18px;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+#data input#private {
+    margin-left: 4px;
+}
+
+/* Side */
+
+#side {
+    width: 25%;
+    float: right;
+    color: #333;
+    font-size: 14px;
+}
+
+#side a {
+    text-decoration: none;
+    color: #333;
+}
+
+#side a:hover {
+    border-bottom: 1px solid #333;
+}
+
+#side ul {
+    list-style: none;
+    padding: 5px;
+}
+
+#side ul li {
+    margin-bottom: 3px;
+}
+
+#side h2 {
+    font-size: 20px;
+}
+
+/* Pastes */
+#paste {
+    font-size: 12px;
+}
+
+#paste h1 {
+    margin-bottom: -13px;
+}
+
+#paste p#meta {
+    color: #AFAFAF;
+    padding-left: 2px;
+}
+
+#paste p#meta #detail {
+    margin-right: 10px;
+}
+
+#paste p#meta #detail a {
+    text-decoration: none;
+    color: #AFAFAF;
+}
+
+#paste p#meta #detail a:hover {
+    border-bottom: 1px solid #AFAFAF;
+}
+
+#paste .pasted {
+    margin-top: 10px;
+    background-color: #fff;
+    overflow: auto;
+    border: 1px solid #eee;
+    padding: 2px;
+    padding-left: 0;
+}
+
+#paste .raw textarea {
+    width: 100%;
+    height: 200px;
+    border: 1px solid #eee;
+}
+
+/* Lists */
+#table {
+	margin-top: 10px;
+	border: 1px solid #666666;
+}
+
+#table th {
+    width: auto;
+    color: #282828;
+    font-size: 13px;
+    text-align: left;
+}
+
+#table tbody tr td {
+	font-size: 8pt;
+	padding: 3px 8px;
+	border-left: 1px solid #D9D9D9;
+}
+
+#table tbody td#name {
+	width: 12%;
+}
+
+#table tbody td#title {
+    width: 70%;
+}
+
+#table tbody tr#odd td {
+	background: #EDF3FE;
+}
+
+#table tbody tr#even td {
+	background: #fff;
+}
+
+#table a {
+    text-decoration: none;
+    color: #000;
+}
+
+#table a:hover {
+    border-bottom: 1px solid #000;
+}
+
+/* Footer */
+#footer {
+    float: left;
+    width: 70%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 11px;
+}
+
+#footer .left{
+    float: left;
+    color: #AC2A2A;
+    font-weight: bold;
+}
+
+#footer .right {
+    float: right;
+    color: #6A4848;
+}
