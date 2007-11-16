@@ -15,5 +15,5 @@
 	<div id="container">
 		<div id="header">
 			<div class="logo"><a href="<?=base_url()?>"><img src="<?=base_url()?>static/logo.png" /></a></div>
-			<div class="links"><a href="<?=base_url()?>lists">Recent</a></div>
+			<div class="links"><a href="<?=base_url()?>index.php/lists">Recent</a></div>
 		</div>
