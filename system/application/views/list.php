@@ -1,32 +1,39 @@
 <?php $this->load->view('header');?>
+<h1 class="pagetitle">Recent Pastes</h1>
+<table class="recent">
+	<tbody>
+		<tr>
+			<th class="title">Title</th>
+			<th class="name">Name</th>
+			<th class="lang">Language</th>
+			<th class="time">When</th>
+		</tr>
 
-<div id="main">
-	<div id="content">
-		<h1 class="pagetitle">Recent Pastes</h1>
-			<table id="table">
-				<tbody>
-					<tr><th>Title</th><th>Name</th><th>Submitted</th></tr>
 		<?php 
 		function checkNum($num){
-            return ($num%2) ? TRUE : FALSE;
-        }
-		
-		foreach($pastes as $paste) {
-			if(checkNum($paste['id']) == TRUE) {
-				echo "<tr id=\"even\">";
-			} else {
-				echo "<tr id=\"odd\">";
-			}
-			echo "<td id=\"title\" style=\"border:0\"><a href=\"".base_url().'view/'.$paste['pid']."\">".$paste['title']."</a></td>";
-			echo "<td id=\"name\">".$paste['name']."</td>";
-			echo "<td id=\"created\">".$paste['created']."</td>";
-			echo "</tr>";
-		}?>
-			</tbody>
-			</table>
-	</div>
-	
-	<?php $this->load->view('sidebar');?>
-</div>
+			return ($num%2) ? TRUE : FALSE;
+		}
+				
+		if(!empty($pastes)){ 
+			foreach($pastes as $paste) {
+				if(checkNum($paste['id']) == TRUE) {
+					$eo = "even";
+				} else {
+					$eo = "odd";
+				}
+		?>	
 
+		<tr class="<?=$eo?>">
+			<td class="first"><a href="<?=base_url()?>view/<?=$paste['pid']?>"><?=$paste['title']?></a></td>
+			<td><?=$paste['name']?></td>
+			<td><?=$paste['lang']?></td>
+			<td><? $p = explode(",", timespan($paste['created'], time())); echo $p[0];?> ago.</td>
+		</tr>
+
+		<? } } else { ?>
+			<p>There have been no pastes :(</p>
+		<? }?>
+	</tbody>
+</table>
+<?=$pages?>
 <?php $this->load->view('footer');?>

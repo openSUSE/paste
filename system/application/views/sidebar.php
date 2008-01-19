@@ -1,5 +1,1 @@
-<div id="side">
-	<h2>Stikked</h2>
-	<p>Edit Sidebar.php in /system/application/views to change the sidebar.</p>
-	<br/>
-</div>
+Stikked is an open-source project supported by <a href="http://hippstr.com">HiPPstr</a> and <a href="http://cpcdesigns.com">CPC Designs</a>, freely availbile for <a href="#">Download</a>.

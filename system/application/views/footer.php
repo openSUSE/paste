@@ -1,11 +1,9 @@
-		<div id="footer">
-			<div class="left">
-			&copy; 2007 HiPPstr Networks<br/>
-			Licensed under the GPL
-			</div>
-			<div class="right">
-			Created By Ben McRedmond
+							</div>
+						</div>
+					</div>
+				<div class="border-bottom"></div>
 			</div>
 		</div>
-	</div>
-</body>
+	</body>
+
+</html>

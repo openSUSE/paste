@@ -13,7 +13,7 @@ class Create extends Controller {
 		$this->load->helper('date');
 		$data['id'] = NULL;
 		$data['pid'] = substr(md5(md5(rand())), 0, 8);
-		$data['created'] = mdate('%y-%m-%d %h:%i:%a');
+		$data['created'] = time();
 		$data['name'] = htmlentities($_POST['name']);
 		$data['title'] = htmlentities($_POST['title']);
 		$data['paste'] = $this->process->syntax($_POST['code'], $_POST['lang']);

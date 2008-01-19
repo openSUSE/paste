@@ -44,6 +44,6 @@ $route['default_controller'] = "home";
 $route['scaffolding_trigger'] = "";
 
 $route['view/:any'] = 'view';
-$route['list/:num'] = 'list';
+$route['lists/:num'] = 'lists';
 
 ?>

@@ -7,6 +7,11 @@ class Pastes extends Model {
         parent::Model();
     }
 
+	function count(){
+		$query = $this->db->get('pastes');
+		return $query->num_rows();
+	}
+
 	function create($data) {
 		$this->db->insert('pastes', $data);
 	}
@@ -22,14 +27,14 @@ class Pastes extends Model {
 			$data['lang'] = $row->lang;
 			$data['paste'] = $row->paste;
 			$data['created'] = $row->created;
-			$data['url'] = base_url()."index.php/view/".$row->pid;
+			$data['url'] = base_url()."view/".$row->pid;
 			$data['raw'] = $row->raw;
 		}
 		
 		return $data;
 	}
 	
-	function getlist($start=0, $amount=10) {
+	function getList($start=0, $amount=10) {
 		$this->db->where('private', 0);
 		$this->db->orderby("created", 'desc');
 		$query = $this->db->get('pastes', $amount, $start);

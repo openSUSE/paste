@@ -7,6 +7,8 @@ class View extends Controller {
 	
 	function index() {
 		$this->load->model('pastes');
+		$this->load->helper('date');
+		
 		if($this->uri->segment(2) == "") {
 			redirect('');
 		} else {
