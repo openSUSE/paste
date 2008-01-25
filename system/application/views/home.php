@@ -1,15 +1,15 @@
 <?php $this->load->view('header'); ?>
-<form action="<?=base_url()?>index.php/create" method="post" accept-charset="utf-8">
+<form action="<?=base_url()?>" method="post" accept-charset="utf-8">
 	<div class="data">
 		<label>Name </label><input type="text" name="name" value="" class="info" />
 		<label>Title </label><input type="text" name="title" value="" class="info" />
 		<label>Private </label><input type="checkbox" name="private" value="1" class="private" />
 	</div>
-	
+	<?php if(isset($this->validation->error_string)){echo $this->validation->error_string;}?>
 	<div><textarea name="code" class="paste_body" rows="auto" cols="95"></textarea></div>
 	
 	<div>
-		<input type="submit" value="Paste!" class="submit" /> 
+		<input type="submit" name="submit" value="Paste!" class="submit" /> 
 		
 		<select name="lang" class="lang singline">
 			<option value="text" selected="selected">Text</option>

@@ -134,6 +134,7 @@ a:hover {
 	width: 700px;
 	height: 5px;
 	float: left;
+	margin-bottom: 20px;
 }
 
 /* Form */
@@ -186,8 +187,16 @@ a:hover {
 	color: #777;
 }
 
+.pages a {
+	color: inherit;
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
 .pages .current {
 	color: #000;
+	margin-left: 3px;
+	margin-right: 3px;
 }
 
 .recent {
@@ -303,4 +312,28 @@ a:hover {
     padding: 2px;
     padding-left: 0;
     font-size: 13px;
+}
+
+/* MISC */
+.message {
+	float: left;
+    margin-bottom: 10px;
+    padding: 5px;
+    color: #333;
+    font-size: 12px;
+}
+
+.message.error {
+    background-color: #FBE6F2;
+    border: 1px solid #D893A1;
+}
+
+.message.success {
+    background-color: #FAFFF3;
+    border: 1px solid #ACD373;
+}
+
+.message.instruction {
+	background-color: #FFFFA9;
+	border: 1px solid #FFEF9C;
 }
