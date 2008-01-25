@@ -25,8 +25,8 @@ class Pastes extends Model {
 		$data['id'] = NULL;
 		$data['pid'] = substr(md5(md5(rand())), 0, 8);
 		$data['created'] = time();
-		if(!empty($data['name'])){$data['name'] = htmlspecialchars($post['name']);} else {$data['name'] = $this->config->item("unknown_poster"); }
-		if(!empty($data['title'])){$data['title'] = htmlspecialchars($post['title']);} else {$data['title'] = $this->config->item("unknown_title"); }
+		if(!empty($post['name'])){$data['name'] = htmlspecialchars($post['name']);} else {$data['name'] = $this->config->item("unknown_poster"); }
+		if(!empty($post['title'])){$data['title'] = htmlspecialchars($post['title']);} else {$data['title'] = $this->config->item("unknown_title"); }
 		$data['paste'] = $this->process->syntax($post['code'], $post['lang']);
 		$data['raw'] = htmlspecialchars($post['code']);
 		$data['lang'] = htmlspecialchars($post['lang']);
