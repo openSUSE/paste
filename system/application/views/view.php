@@ -1,4 +1,8 @@
 <?php $this->load->view('header', $data); ?>
+<?php if(isset($insert)){
+	echo $insert;
+}?>
+
 <script type="text/javascript">
 $(document).ready(function(){
 		$(".raw").hide();
@@ -10,7 +14,7 @@ $(document).ready(function(){
 
 <div class="paste">
 	<div class="info">
-		<h1 class="pagetitle"><?=$title?></h1>
+		<h1 class="pagetitle right"><?=$title?></h1>
 		<div class="meta">
 			<span class="detail"><strong>By</strong> <?=$name?>, <? $p = explode(',', timespan($created, time())); echo $p[0]?> ago, written in <?=$lang?>.</span><br/>
 			<span class="detail"><strong>URL </strong><a href="<?=$url?>"><?=$url?></a></span><br/>

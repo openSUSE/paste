@@ -6,31 +6,30 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<title>Stikked</title>
-		<link rel="stylesheet" href="<?=base_url()?>static/style.css" type="text/css" media="screen" title="main" charset="utf-8" />
-		<script src="<?=base_url()?>static/jquery.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="<?=base_url()?>static/styles/main.css" type="text/css" media="screen" title="main" charset="utf-8" />
+		<script src="<?=base_url()?>static/js/jquery.js" type="text/javascript"></script>
+		<?php if(!empty($scripts)){?>
+		<?php foreach($scripts as $script){?>
+		<script src="<?=base_url()?>static/js/<?=$script?>" type="text/javascript"></script>
+		<?}}?>
 	</head>
 
-	<body onload="">
+	<body>
 		<div id="container">
-			<div id="left">
-				<div class="logo">
-					<a href="<?=base_url()?>"><img src="<?=base_url()?>static/logo.png" alt="Stikked - Command-V your life." border="0"/></a>
+			<div class="header">
+				<div class="container">
+					<a href="<?=base_url()?>"><img src="<?=base_url()?>static/images/logo.png" alt="sticked" class="logo" /></a> 
+					<div class="links">
+						<ul>
+							<?php $l = $this->uri->segment(1)?>
+							<li <?php if($l == ""){ echo 'class="active"'; }?>><a href="<?=base_url()?>">Paste</a></li>
+							<li <?php if($l == "lists" || $l == "view"){ echo 'class="active"'; }?>><a href="<?=base_url()?>lists">Recent</a></li>
+							<li <?php if($l == "about"){ echo 'class="active"'; }?>><a href="<?=base_url()?>about">About</a></li>
+						</ul>
+					</div>
 				</div>
-				<div class="toolbar">
-					<ul>
-					<?php $page = $this->uri->segment(1);?>
-						<li class="<?if($page ==""){?>active<?}?>"><a href="<?=base_url()?>">Paste</a></li>
-						<li class="<?if($page =="lists" || $page == "view"){?>active<?}?>"><a href="<?=base_url()?>lists">Recent Pastes</a></li>
-						<li class="<?if($page =="about"){?>active<?}?> last"><a href="<?=base_url()?>about">About</a></li>
-					</ul>
-				</div>
-				<div class="sidebar">
-					<?php $this->load->view('sidebar');?>
-				</div>	
 			</div>
 			
-			<div id="content">
-				<div class="border-top"></div>
-					<div class="border-content">
-						<div class="page">
-							<div class="container">
+			<div class="page">
+				<div class="content">
+					<div class="container">

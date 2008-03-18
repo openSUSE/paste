@@ -25,8 +25,24 @@ class Pastes extends Model {
 		$data['id'] = NULL;
 		$data['pid'] = substr(md5(md5(rand())), 0, 8);
 		$data['created'] = time();
-		if(!empty($post['name'])){$data['name'] = htmlspecialchars($post['name']);} else {$data['name'] = $this->config->item("unknown_poster"); }
-		if(!empty($post['title'])){$data['title'] = htmlspecialchars($post['title']);} else {$data['title'] = $this->config->item("unknown_title"); }
+		if(!empty($post['name'])){
+			$data['name'] = htmlspecialchars($post['name']);
+		} else {
+			$data['name'] = $this->config->item("unknown_poster");
+			if($data['name'] == "random"){
+				$nouns = $this->config->item("nouns");
+				$adjectives = $this->config->item("adjectives");
+				
+				$data['name'] = $adjectives[array_rand($adjectives)]." ".$nouns[array_rand($nouns)];
+			}  
+		}
+		
+		if(!empty($post['title'])){
+			$data['title'] = htmlspecialchars($post['title']);
+		} else {
+			$data['title'] = $this->config->item("unknown_title"); 
+		}
+		
 		$data['paste'] = $this->process->syntax($post['code'], $post['lang']);
 		$data['raw'] = htmlspecialchars($post['code']);
 		$data['lang'] = htmlspecialchars($post['lang']);
@@ -39,6 +55,21 @@ class Pastes extends Model {
 		
 		$this->db->insert('pastes', $data);
 		return $data['pid'];
+	}
+	
+	function checkPaste($seg=2) {
+		if($this->uri->segment($seg) == ""){
+			return FALSE;
+		} else {
+			$this->db->where("pid", $this->uri->segment($seg));
+			$query = $this->db->get("pastes");
+
+			if($query->num_rows() > 0) {
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		}
 	}
 	
 	function getPaste($seg=2) {

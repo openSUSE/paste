@@ -1,1 +1,0 @@
-Stikked is an open-source project supported by <a href="http://hippstr.com">HiPPstr</a> and <a href="http://cpcdesigns.com">CPC Designs</a>, freely availbile for <a href="#">Download</a>.

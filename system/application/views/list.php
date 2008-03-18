@@ -5,7 +5,7 @@
 		function checkNum($num){
 			return ($num%2) ? TRUE : FALSE;
 		}
-				
+		$n = 0;		
 		if(!empty($pastes)){ ?>
 			<table class="recent">
 				<tbody>
@@ -16,11 +16,12 @@
 						<th class="time">When</th>
 					</tr>
 		<?	foreach($pastes as $paste) {
-				if(checkNum($paste['id']) == TRUE) {
+				if(checkNum($n) == TRUE) {
 					$eo = "even";
 				} else {
 					$eo = "odd";
 				}
+				$n++;
 		?>	
 
 		<tr class="<?=$eo?>">
