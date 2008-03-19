@@ -31,6 +31,10 @@ h3, h4 {
 	font-weight: normal;
 }
 
+h1 {
+	font-size: 21px;
+}
+
 a, a:link, a:visited {
 	color: #455f15;
 	text-decoration: none;
@@ -157,6 +161,10 @@ a:hover {
 	color: #2f2f2f;
 }
 
+.content .form .data small {
+	font-size: 11px;
+}
+
 .content .form .textfield {
 	border: 1px solid #aaa;
 	color: #333;
@@ -200,10 +208,13 @@ a:hover {
 }
 
 .content .recent {
+	clear: both;
 	width: 700px;
 }
 
 .content .recent th {
+	font-weight: bold;
+	font-size: 13px;
 	text-align: left;
 }
 
@@ -232,6 +243,7 @@ a:hover {
 }
 
 .content .recent tr td {
+	font-size: 13px;
 	padding: 3px;
 }
 
@@ -246,7 +258,7 @@ a:hover {
 .content .pages {
 	width: 100%;
 	text-align: center;
-	font-size: 20px;
+	font-size: 16px;
 	margin-top: 20px;
 	color: #aaa;
 }
@@ -260,8 +272,9 @@ a:hover {
 	color: #444;
 }
 
-.content .pages .current {
+.content .pages b {
 	color: #000;
+	font-weight: normal;
 }
 
 .content .info {
@@ -280,10 +293,16 @@ a:hover {
 		text-align: right;	
 }
 
+.content .pagetitle.clear {
+	clear: both;
+	width: 100%;
+}
+
 .content .meta {
 	float: left;
 	clear: none;
 	text-align: left;
+	font-size: 13px;
 }
 
 .content .raw {

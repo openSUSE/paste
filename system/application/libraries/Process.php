@@ -1,9 +1,16 @@
 <?php
 
+// 
+//  Process.php
+//  stikked
+//  
+//  Created by Ben McRedmond on 2008-03-19.
+//  Copyright 2008 Stikked. Some rights reserved.
+// 
+
 include_once('geshi/geshi.php');
 
 Class Process {
-	
 	function syntax($source, $lang) {
 		$source = $source;
 		$language = $lang;	

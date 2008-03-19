@@ -5,7 +5,7 @@
 //  stikked
 //  
 //  Created by Ben McRedmond on 2008-01-25.
-//  Copyright 2008 HiPPstr. All rights reserved.
+//  Copyright 2008 Stikked. Some rights reserved.
 // 
 
 class Pastes extends Model {
@@ -15,6 +15,7 @@ class Pastes extends Model {
     }
 
 	function count(){
+		$this->db->where("private", 0);
 		$query = $this->db->get('pastes');
 		return $query->num_rows();
 	}
@@ -117,8 +118,6 @@ class Pastes extends Model {
 		$config['per_page'] = $amount; 
 		$config['full_tag_open'] = '<div class="pages">';
 		$config['full_tag_close'] = '</div>';
-		$config['cur_tag_open'] = '<span class="current">';
-		$config['cur_tag_close'] = '</span>';
 		$config['uri_segment'] = $seg;
 		
 		$this->pagination->initialize($config);

@@ -1,5 +1,13 @@
 <?php
 
+// 
+//  main.php
+//  stikked
+//  
+//  Created by Ben McRedmond on 2008-03-19.
+//  Copyright 2008 Stikked. Some rights reserved.
+// 
+
 class Main extends Controller {
 
 	function __construct() {
