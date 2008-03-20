@@ -34,15 +34,28 @@ class Main extends Controller {
 			if ($this->validation->run() == FALSE){
 				$this->load->view('home');
 			} else {
+				$opt = "";
+			
 				if(isset($_POST['acopy']) and $_POST['acopy'] == "1"){
-					redirect("view/".$this->pastes->createPaste($_POST)."/c");
-				} else {						      	  
-					redirect("view/".$this->pastes->createPaste($_POST));	
-		 		}
+					$opt = "/c";
+				}
+				
+				redirect("view/".$this->pastes->createPaste($_POST).$opt);
 			}
 		}
 	}
 		
+	function raw() {
+		$this->load->model('pastes');
+		$check = $this->pastes->checkPaste(3);
+		if($check) {
+			$data = $this->pastes->getPaste(3);
+			$this->load->view('raw', $data);
+		} else{
+			show_404();
+		}
+	}	
+	
 	function lists() {
 		$this->load->model('pastes');
 		$data = $this->pastes->getLists();
@@ -57,7 +70,7 @@ class Main extends Controller {
 			$data = $this->pastes->getPaste(2);
 		
 			if($this->uri->segment(3) == "c"){
-				$data['scripts'] = array("jquery.clipboard.js");
+				$data['scripts'] = array("jquery.js", "jquery.clipboard.js");
 				$data['insert'] = '
 				<script type="text/javascript" charset="utf-8">
 					$.clipboardReady(function(){
@@ -73,6 +86,17 @@ class Main extends Controller {
 		}
 	}
 	
+	function cron() {
+		$this->load->model('pastes');
+		$key = $this->uri->segment(2);
+		if($key != $this->config->item("cron_key")){
+			show_404();
+		} else {
+			$this->pastes->cron(); 
+			return 0;
+		}
+	}
+		
 	function about() {
 		$this->load->view("about");
 	}

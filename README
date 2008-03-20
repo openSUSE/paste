@@ -1,6 +1,6 @@
 
  README
- stikked - Version 0.4.1
+ stikked - Version 0.4.2
  
  Created by Ben McRedmond on 2008-03-18.
  Contact me about stikked at info@stikked.com.
@@ -14,5 +14,5 @@ Stikked is an open-source php pastebin, this pastebin may be used under the foll
 	(4). You acknowledge that the geshi library is included with stikked, licensing information on this can be found in /system/application/libraries/geshi/docs/.
 	(5). You acknowledge the terms under which the jQuery "clipboard" plugin is released, these terms can be found in /static/js/jquery.clipboard.js.
 	(6). You agree to the terms of the GPL license agreement under which stikked is released, you can find a copy of this license in this directory under the name "LICENSE".
-	
+
 For install instructions see INSTALL.

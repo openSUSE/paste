@@ -165,6 +165,11 @@ a:hover {
 	font-size: 11px;
 }
 
+.content .form .data .label.spaced {
+	width: 100px;
+	padding-left: 40px;
+}
+
 .content .form .textfield {
 	border: 1px solid #aaa;
 	color: #333;
@@ -201,10 +206,9 @@ a:hover {
 	border: 1px solid #999;
 }
 
-.content .form .lang {
-	float: right;
-	width: 200px;
-	font-size: 14px;
+.content .form .selectfield {
+	width: 150px;
+	font-size: 10px;
 }
 
 .content .recent {

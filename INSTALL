@@ -1,6 +1,6 @@
 
  INSTALL
- stikked - Version 0.4.1
+ stikked - Version 0.4.2
 
  Created by Ben McRedmond on 2008-03-18.
  Contact me about Stikked at info@stikked.com.
@@ -27,5 +27,13 @@ You will be prompted for the password enter it, and it will create the table str
 	(5.2) Open /system/application/config/database.php - and fill in the relevant information for your database.
 
 (6). You can configure additional options in /system/application/config/stikked.php
+
+(7). Configure the cron for auto-expiration (*nix only):
+	(7.1) Set the key for cron in /system/application/config/stikked.php.
+	(7.2) Open a shell and run crontab -e and enter:
 	
-(7). You should be up and running now, post any bugs to http://code.google.com/p/stikked.
+	00, 30 * * * * curl --silent --compressed http://example.com/cron/key > /dev/null 2>&1
+	
+	(7.2) Save and pray.
+
+(8). You should be up and running now, post any bugs to http://code.google.com/p/stikked.

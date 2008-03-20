@@ -7,7 +7,6 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<title>Stikked</title>
 		<link rel="stylesheet" href="<?=base_url()?>static/styles/main.css" type="text/css" media="screen" title="main" charset="utf-8" />
-		<script src="<?=base_url()?>static/js/jquery.js" type="text/javascript"></script>
 		<?php if(!empty($scripts)){?>
 		<?php foreach($scripts as $script){?>
 		<script src="<?=base_url()?>static/js/<?=$script?>" type="text/javascript"></script>

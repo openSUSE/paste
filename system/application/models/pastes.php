@@ -24,8 +24,23 @@ class Pastes extends Model {
 		$this->load->library('process');
 		
 		$data['id'] = NULL;
-		$data['pid'] = substr(md5(md5(rand())), 0, 8);
 		$data['created'] = time();
+		$data['raw'] = htmlspecialchars($post['code']);
+		$data['lang'] = htmlspecialchars($post['lang']);
+
+		do {	
+			$data['pid'] = substr(md5(md5(rand())), 0, 8);
+			$this->db->where("pid", $data['pid']);
+			$query = $this->db->get("pastes");
+			if($query->num_rows > 0) {
+				$n = 0;
+				break;
+			} else {
+				$n = 1;
+				break;
+ 			}
+		} while($n == 0);
+		
 		if(!empty($post['name'])){
 			$data['name'] = htmlspecialchars($post['name']);
 		} else {
@@ -43,18 +58,39 @@ class Pastes extends Model {
 		} else {
 			$data['title'] = $this->config->item("unknown_title"); 
 		}
-		
-		$data['paste'] = $this->process->syntax($post['code'], $post['lang']);
-		$data['raw'] = htmlspecialchars($post['code']);
-		$data['lang'] = htmlspecialchars($post['lang']);
-		
-		if(isset($post['private'])) {
+				
+		if(isset($post['private']) and $post['private'] > 0) {
 			$data['private'] = 1;
 		} else {
 			$data['private'] = 0;
 		}
 		
+		if($post['expire'] == 0){
+			$data['expire'] = "0000-00-00 00:00:00";
+		} else {
+			$format = "Y-m-d H:i:s";
+			$data['toexpire'] = 1;
+			switch($post['expire']){
+				case "30":
+					$data['expire'] = mktime(date("H"),(date("i")+30), date("s"), date("m"), date("d"), date("Y"));
+				case "60":
+					$data['expire'] = mktime((date("H") + 1), date("i"), date("s"), date("m"), date("d"), date("Y"));
+				case "360":
+					$data['expire'] = mktime((date("H") + 6), date("i"), date("s"), date("m"), date("d"), date("Y"));
+				case "720":
+					$data['expire'] = mktime((date("H") + 12), date("i"), date("s"), date("m"), date("d"), date("Y"));
+				case "1440":
+					$data['expire'] = mktime((date("H") + 24), date("i"), date("s"), date("m"), date("d"), date("Y"));
+				case "10080":
+					$data['expire'] = mktime(date("H"), date("i"), date("s"), date("m"), (date("d")+7), date("Y"));
+				case "40320":
+					$data['expire'] = mktime(date("H"), date("i"), date("s"), date("m"), (date("d")+24), date("Y"));
+			}
+		}
+		
+		$data['paste'] = $this->process->syntax($post['code'], $data['lang']);
 		$this->db->insert('pastes', $data);
+				
 		return $data['pid'];
 	}
 	
@@ -87,6 +123,7 @@ class Pastes extends Model {
 		foreach ($query->result() as $row)
 		{
 		    $data['title'] = $row->title;
+			$data['pid'] = $row->pid;
 			$data['name'] = $row->name;
 			$data['lang'] = $row->lang;
 			$data['paste'] = $row->paste;
@@ -127,6 +164,21 @@ class Pastes extends Model {
 		$data['pastes'] = $pastes;
 		
 		return $data;
+	}
+	
+	function cron(){
+		$now = now();
+
+		$this->db->where("toexpire", "1");
+		$query = $this->db->get("pastes");
+		
+		foreach($query->result_array() as $row){
+			$stamp = $row['expire'];
+			if($now > $stamp){
+				$this->db->where('id', $row['id']);
+				$this->db->delete('pastes');
+			}
+		}
 	}
 }
 

@@ -9,6 +9,14 @@
 // 
 
 /**
+ * Key for Cron
+ *
+ * The password required to run the cron job
+ *
+**/
+$config['cron_key'] = "";
+
+/**
  * Pastes Per Page
  *
  * Number of pastes per page, on the recent pastes listings.
