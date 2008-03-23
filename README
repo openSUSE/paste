@@ -1,6 +1,6 @@
 
  README
- stikked - Version 0.4.2
+ stikked - Version 0.4.3.1
  
  Created by Ben McRedmond on 2008-03-18.
  Contact me about stikked at info@stikked.com.
@@ -8,7 +8,7 @@
 
 
 Stikked is an open-source php pastebin, this pastebin may be used under the following conditions:
-	(1). The "Created By" and "Copyright" statement remain in the footer.
+	(1). The footer message remains intact, you may add to it but not take away.
 	(2). You acknowledge that Stikked is built off the open-source CodeIgniter framework available at http://codeigniter.com which is licensed under the terms outlined in "CI_LICENSE".
 	(3). You acknowledge the JQuery library is included with Stikked and is dual licensed under the GPL/MIT licenses available at http://jquery.com.
 	(4). You acknowledge that the geshi library is included with stikked, licensing information on this can be found in /system/application/libraries/geshi/docs/.
