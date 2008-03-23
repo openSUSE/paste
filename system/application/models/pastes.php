@@ -2,11 +2,11 @@
 
 // 
 //  pastes.php
-//  stikked
+//  pasteio
 //  
-//  Created by Ben McRedmond on 2008-01-25.
-//  Copyright 2008 Stikked. Some rights reserved.
-// 
+//  Created by Ben McRedmond on 2008-03-19.
+//  Copyright 2008 Ben McRedmond. Some rights reserved.
+//
 
 class Pastes extends Model {
 
