@@ -3,11 +3,11 @@
 <div class="about">
 	<h1 class="pagetitle clear">About</h1>
 	<p class="first">
-		PasteIO is built using The <a href="http://codeigniter.com"><strong>Codeigniter</strong></a> PHP Framework and The <a href="http://jquery.com"><strong>jQuery</strong></a> Javascript Library. It is an open-source freely available pastebin availible for download from <a href="http://code.google.com/p/PasteIO"><strong>Google Code</strong></a>.
+		Stikked is built using The <a href="http://codeigniter.com"><strong>Codeigniter</strong></a> PHP Framework and The <a href="http://jquery.com"><strong>jQuery</strong></a> Javascript Library. It is an open-source freely available pastebin availible for download from <a href="http://stikked.com"><strong>Google Code</strong></a>.
 	</p>
 
 	<p>
-		PasteIO allows you to easily <strong>share code with anyone </strong>you wish and is provided to you for free. We created PasteIO for the following reasons:</p>
+		Stikked allows you to easily <strong>share code with anyone </strong>you wish and is provided to you for free. We created Stikked for the following reasons:</p>
 		<ul>
 			<li>IRC and Private Chats were <strong>spammed</strong>.</li>
 			<li>Pastebins were <strong>ugly</strong>.</li>
@@ -18,7 +18,7 @@
 	</p>
 	
 	<p>
-		PasteIO is also available on your iphone by inserting "iphone" into any PasteIO url for example:
+		Stikked is also available on your iphone by inserting "iphone" into any Stikked url for example:
 		
 		<code>
 			http://paste.mycodenow.com/view/052faec8
@@ -32,13 +32,13 @@
 	</p>
 
 	<p>
-		PasteIO is supported by <a href="http://hippstr.com">HiPPstr</a> and <a href="http://livemediaproductions.com">Live Media Productions</a>.
+		Stikked is supported by <a href="http://hippstr.com">HiPPstr</a> and <a href="http://mycodenow.com">MyCodeNow</a>.
 	</p>
 
 	<h1 class="pagetitle clear space">Alternative Pasting Methods</h1>
 	<p class="first">
 		Below you can download the TextMate bundle, which allows you to paste to MyCodeNow directly from TextMate (or E-Editor). A shell script is coming soon.<br/>
-		<a href="http://pasteio.googlecode.com/files/pasteio.tmbundle.zip">Download TextMate Bundle</a>
+		<a href="http://stikked.googlecode.com/files/stikked.tmbundle.zip">Download TextMate Bundle</a>
 	</p>
 </div>
 
