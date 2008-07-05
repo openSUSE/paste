@@ -141,6 +141,7 @@ a:hover {
 
 .content .form .data {
 	width: 100%;
+	clear: both;
 	margin-bottom: 10px;
 	margin-left: -5px;
 }
@@ -149,6 +150,14 @@ a:hover {
 	margin-bottom: 10px;
 	float: left;
 	width: 100%;
+}
+
+.content .form .data .show {
+	font-size: 12px;
+}
+
+.content .form .data .advanced {
+	display: none;
 }
 
 .content .form .data tr.last {
@@ -243,7 +252,7 @@ a:hover {
 }
 
 .content .recent tr.title {
-	line-height: auto;
+	line-height: inherit;
 }
 
 .content .recent tr td {
@@ -292,14 +301,18 @@ a:hover {
 }
 
 .content .pagetitle.right {
-		float: right;
-		clear: right;
-		text-align: right;	
+	float: right;
+	clear: right;
+	text-align: right;	
 }
 
 .content .pagetitle.clear {
 	clear: both;
 	width: 100%;
+}
+
+.content .pagetitle.space {
+	margin-top: 20px;
 }
 
 .content .meta {
@@ -309,30 +322,32 @@ a:hover {
 	font-size: 13px;
 }
 
-.content .raw {
+.paste {
+	margin: 0 auto;
+	width: 700px;
+}
+
+.paste.full {
+	width: 95%;
+}
+
+.paste .text_formatted {
 	clear: both;
 	float: left;
-	margin-top: 10px;
-}
-
-.content .raw textarea {
-	border: 1px solid #aaa;
-	width: 700px;
-	height: 200px;
-}
-
-.content .text_formatted {
-	float: left;
+	width: 688px;
 	margin-top: 10px;
 	border: 1px solid #aaa;
 	padding: 10px;
 	padding-left: 0px;
-	width: 680px;
 }
 
-.content .text_formatted ol {
+.paste .text_formatted.full {
+	width: 100%;
+}
+
+.text_formatted ol {
 	list-style: decimal outside;
-	margin-left: 50px;
+	padding-left: 50px;
 }
 
 .content .about {
