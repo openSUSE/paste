@@ -1,21 +1,54 @@
 <?php
 
-// 
-//  main.php
-//  stikked
-//  
-//  Created by Ben McRedmond on 2008-03-19.
-//  Copyright 2008 Stikked. Some rights reserved.
-// 
+/** 
+* Main Controller for Stikked
+* 
+* @author Ben McRedmond <hello@benmcredmond.com>
+* @copyright Ben McRedmond
+* @package Stikked
+*
+*/
+
+/** 
+* Main controller class for stikked.
+*
+* @author Ben McRedmond <hello@benmcredmond.com>
+* @version 0.5.1
+* @access public
+* @copyright Ben McRedmond
+* @package Stikked
+* @subpackage Controllers
+*
+*/
 
 class Main extends Controller 
 {
+
+	/** 
+	* Class Constructor, loads languages model which is inherited in the pastes model.
+	*
+	* @return void
+	*/
 
 	function __construct() 
 	{
 		parent::__construct();
 		$this->load->model('languages');
 	}
+	
+	
+	/** 
+	* Sets all the fields in a paste form, depending on whether the form is being repopulated or items need to be loaded from session data.
+	*
+	* @param string $lang Paste language
+	* @param string $title Paste title
+	* @param string $paste Paste body
+	* @param bool|string $reply Is this paste a reply? Bool if not, otherwise it's the id of the paste.
+	* @return Array
+	* @access private
+	* @see index()
+	* @see view()
+	*/	
 	
 	function _form_prep($lang='php', $title = '', $paste='', $reply=false)
 	{
@@ -66,6 +99,16 @@ class Main extends Controller
 		}
 		return $data;
 	}
+	
+	
+	/** 
+	* Controller method to load front page.
+	*
+	* @return void
+	* @access public
+	* @see _form_prep()
+	* @see _valid_lang()
+	*/
 	
 	function index()
 	{
@@ -134,6 +177,15 @@ class Main extends Controller
 			}
 		}
 	}
+	
+	
+	/** 
+	* Controller method to load raw pastes.
+	*
+	* @return void
+	* @access public
+	*
+	*/
 		
 	function raw()
 	{
@@ -151,6 +203,15 @@ class Main extends Controller
 		}
 	}
 	
+	
+	/** 
+	* Controller method to download pastes.
+	*
+	* @return void
+	* @access public
+	*
+	*/
+	
 	function download()
 	{
 		$this->load->model('pastes');
@@ -167,12 +228,30 @@ class Main extends Controller
 	
 	}
 	
+	
+	/** 
+	* Controller method to show recent pastes.
+	*
+	* @return void
+	* @access public
+	*
+	*/
+	
 	function lists()
 	{
 		$this->load->model('pastes');
 		$data = $this->pastes->getLists();
 		$this->load->view('list', $data);
 	}
+	
+		
+	/** 
+	* Controller method to show a paste.
+	*
+	* @return void
+	* @access public
+	*
+	*/
 	
 	function view() 
 	{
@@ -209,6 +288,15 @@ class Main extends Controller
 		}
 	}
 	
+	
+	/** 
+	* Loads data for view_options from session data or not if not set.
+	*
+	* @return array
+	* @access private
+	*
+	*/
+	
 	function _view_options_prep()
 	{
 		$this->load->helper('form');
@@ -224,6 +312,15 @@ class Main extends Controller
 		}
 		return $data;
 	}
+	
+	
+	/** 
+	* Displays the page where a user can change their paste viewing settings which are saved to session data.
+	*
+	* @return void
+	* @access public
+	*
+	*/
 	
 	function view_options()
 	{
@@ -259,6 +356,15 @@ class Main extends Controller
 		}
 	}
 	
+	
+	/** 
+	* Controller method to run the cron. Requires a valid cron key supplied as an argument in the url.
+	*
+	* @return void;
+	* @access public
+	*
+	*/
+	
 	function cron()
 	{
 		$this->load->model('pastes');
@@ -273,11 +379,30 @@ class Main extends Controller
 			return 0;
 		}
 	}
+	
+	
+	/** 
+	* Controller method to load about view.
+	*
+	* @return void
+	* @access public
+	*
+	*/
 		
 	function about()
 	{
 		$this->load->view('about');
 	}
+	
+	
+	/** 
+	* Validation callback method to validate whether the paste language is valid. 
+	*
+	* @return bool
+	* @access private
+	* @see index()
+	*
+	*/
 	
 	function _valid_lang($lang) 
 	{

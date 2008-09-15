@@ -1,12 +1,25 @@
 <?php
 
-// 
-//  pastes.php
-//  pasteio
-//  
-//  Created by Ben McRedmond on 2008-03-19.
-//  Copyright 2008 Ben McRedmond. Some rights reserved.
-//
+/** 
+* Main model for stikked
+* 
+* @author Ben McRedmond <hello@benmcredmond.com>
+* @copyright Ben McRedmond
+* @package Stikked
+*
+*/
+
+/** 
+* Main model class for pastes table/stikked.
+*
+* @author Ben McRedmond <hello@benmcredmond.com>
+* @version 0.5.1
+* @access public
+* @copyright Ben McRedmond
+* @package Stikked
+* @subpackage Models
+*
+*/
 
 class Pastes extends Model 
 {
@@ -16,6 +29,15 @@ class Pastes extends Model
         parent::__construct();
     }
 
+
+	/** 
+	* Counts pastes in the database to be used when generating pagination
+	*
+	* @return int
+	* @access public
+	* @see getLists()
+	*/
+
 	function countPastes()
 	{
 		$this->db->where('private', 0);
@@ -23,6 +45,14 @@ class Pastes extends Model
 		return $query->num_rows();
 	}
 
+
+	/** 
+	* Creates a paste in the database. This doesn't take any arguments as it's easier to use the input class.
+	*
+	* @return String
+	* @access public
+	*/
+	
 	function createPaste()
 	{
 		$this->load->library('process');
@@ -141,6 +171,15 @@ class Pastes extends Model
 		return 'view/'.$data['pid'];
 	}
 	
+	
+	/** 
+	* Checks if a paste exists
+	*
+	* @param int $seg URL Segment which the paste id is in
+	* @return boolean
+	* @access public
+	*/
+	
 	function checkPaste($seg=2)
 	{
 		if($this->uri->segment($seg) == "")
@@ -162,6 +201,16 @@ class Pastes extends Model
 			}
 		}
 	}
+	
+	
+	/** 
+	* Gets a specific paste from the database and all its related meta-data
+	*
+	* @param int $seg URL Segment which the paste id is in
+	* @param bool|string $replies False if you don't want to retrieve replies from the database. Paste ID if you do want to retrieve replies from database. Mostly here for legacy support, eg. iPhone views.
+	* @return array
+	* @access public
+	*/
 	
 	function getPaste($seg=2, $replies=false)
 	{	
@@ -269,6 +318,16 @@ class Pastes extends Model
 		return $data;
 	}
 	
+	
+	/** 
+	* Gets a list of x most recent pastes according to the amount set in the stikked config file.
+	*
+	* @param string $root Url root needed for pagination
+	* @param int $seg Segment which determines the page we're on for pagination.
+	* @return array
+	* @access public
+	*/
+	
 	function getLists($root='lists/', $seg=2)
 	{
 		$this->load->library('pagination');
@@ -302,6 +361,14 @@ class Pastes extends Model
 		return $data;
 	}
 	
+	
+	/** 
+	* Finds paste that need to be deleted and deletes them.
+	*
+	* @return void
+	* @access public
+	*/
+	
 	function cron()
 	{
 		$now = now();
@@ -321,32 +388,6 @@ class Pastes extends Model
 
 		return;
 	}
-	
-	function checkReply($seg=2)
-	{
-		$this->db->select('replyto');
-		$this->db->where('pid', $this->uri->segment($seg));
-		$query = $this->db->get('pastes');
-		
-		if($query->num_rows() > 0)
-		{
-			foreach($query->result_array() as $row){
-				$pid = $row['replyto'];
-			}
-		
-			$this->db->select('id');
-			$this->db->where('pid', $pid);
-			$query = $this->db->get('pastes');
-			if($query->num_rows() > 0)
-			{
-				return true;
-			}
-		}
-		else
-		{
-			return false;
-		}
-	} 
 }
 
 ?>
