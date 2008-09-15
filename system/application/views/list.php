@@ -1,6 +1,6 @@
-<?php $this->load->view('header');?>
-<small><a href="<?php echo site_url("view/options")?>">Change view options</a></small><br/><br/>
-<h1 class="pagetitle">Recent Pastes</h1>
+<?php $this->load->view('defaults/header');?>
+<small><a class="control" href="<?php echo site_url("view/options")?>">Change paste viewing options</a></small><br/><br/>
+<h1>Recent Pastes</h1>
 
 		<?php 
 		function checkNum($num){
@@ -39,4 +39,5 @@
 			<p>There have been no pastes :(</p>
 		<? }?>
 <?=$pages?>
-<?php $this->load->view('footer');?>
+<div class="spacer"></div>
+<?php $this->load->view('defaults/footer');?>

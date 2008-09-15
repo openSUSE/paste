@@ -34,7 +34,7 @@
 $active_group = "default";
 
 $db['default']['hostname'] = "localhost";
-$db['default']['username'] = "password";
+$db['default']['username'] = "user";
 $db['default']['password'] = "password";
 $db['default']['database'] = "stikked";
 $db['default']['dbdriver'] = "mysql";

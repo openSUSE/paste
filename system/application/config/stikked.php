@@ -9,6 +9,14 @@
 // 
 
 /**
+ * Site Name
+ * 
+ * The name of your site
+ *
+*/
+$config['site_name'] = "Stikked";
+
+/**
  * Key for Cron
  *
  * The password required to run the cron job

@@ -8,94 +8,119 @@
 //  Copyright 2008 Ben McRedmond. Some rights reserved.
 //
 
-class Pastes extends Model {
+class Pastes extends Model 
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
     }
 
-	function countPastes(){
-		$this->db->where("private", 0);
+	function countPastes()
+	{
+		$this->db->where('private', 0);
 		$query = $this->db->get('pastes');
 		return $query->num_rows();
 	}
 
-	function createPaste($post) {
+	function createPaste()
+	{
 		$this->load->library('process');
 		
 		$data['id'] = NULL;
 		$data['created'] = time();
-		$data['raw'] = htmlspecialchars($post['code']);
-		$data['lang'] = htmlspecialchars($post['lang']);
-
-		do {	
-			$data['pid'] = substr(md5(md5(rand())), 0, 8);
-			$this->db->where("pid", $data['pid']);
-			$query = $this->db->get("pastes");
-			if($query->num_rows > 0) {
-				$n = 0;
-				break;
-			} else {
-				if($data['pid'] == "options"){
-					$n = 0;
-					break;
-				}
-				$n = 1;
-				break;
- 			}
-		} while($n == 0);
+		$data['raw'] = htmlspecialchars($this->input->post('code'));
+		$data['lang'] = htmlspecialchars($this->input->post('lang'));
+		$data['replyto'] = $this->input->post('reply');
 		
-		if(!empty($post['name'])){
-			$data['name'] = htmlspecialchars($post['name']);
-		} else {
-			$data['name'] = $this->config->item("unknown_poster");
-			if($data['name'] == "random"){
-				$nouns = $this->config->item("nouns");
-				$adjectives = $this->config->item("adjectives");
+		if($this->input->post('name'))
+		{
+			$data['name'] = htmlspecialchars($this->input->post('name'));
+		}
+		else
+		{
+			$data['name'] = $this->config->item('unknown_poster');
+			if($data['name'] == 'random')
+			{
+				$nouns = $this->config->item('nouns');
+				$adjectives = $this->config->item('adjectives');
 				
 				$data['name'] = $adjectives[array_rand($adjectives)]." ".$nouns[array_rand($nouns)];
 			}  
 		}
 		
-		if(!empty($post['title'])){
-			$data['title'] = htmlspecialchars($post['title']);
-		} else {
-			$data['title'] = $this->config->item("unknown_title"); 
+		if($this->input->post('title'))
+		{
+			$data['title'] = htmlspecialchars($this->input->post('title'));
 		}
-				
-		if(isset($post['private']) and $post['private'] > 0) {
-			$data['private'] = 1;
-		} else {
-			$data['private'] = 0;
+		else
+		{
+			$data['title'] = $this->config->item('unknown_title'); 
 		}
+
+		$data['private'] = $this->input->post('private');
 		
-		if($post['expire'] == 0){
-			$data['expire'] = "0000-00-00 00:00:00";
-		} else {
-			$format = "Y-m-d H:i:s";
+		do {
+		
+			if($this->input->post('private'))
+			{
+				$data['pid'] = substr(md5(md5(rand())), 0, 8);
+			}
+			else
+			{
+				$data['pid'] = rand(10000,99999999);
+			}
+				
+				$this->db->select('id');
+				$this->db->where('pid', $data['pid']);
+				$query = $this->db->get('pastes');
+				if($query->num_rows > 0 or $data['pid'] == 'download')
+				{
+					$n = 0;
+					break;
+				}
+				else
+				{
+					$n = 1;
+					break;
+				}
+		
+		} while($n == 0);
+		
+		if($this->input->post('expire') == 0)
+		{
+			$data['expire'] = '0000-00-00 00:00:00';
+		}
+		else
+		{
+			$format = 'Y-m-d H:i:s';
 			$data['toexpire'] = 1;
-			switch($post['expire']){
-				case "30":
+			switch($this->input->post('expire'))
+			{
+				case '30':
 					$data['expire'] = mktime(date("H"),(date("i")+30), date("s"), date("m"), date("d"), date("Y"));
-				case "60":
+				case '60':
 					$data['expire'] = mktime((date("H") + 1), date("i"), date("s"), date("m"), date("d"), date("Y"));
-				case "360":
+				case '360':
 					$data['expire'] = mktime((date("H") + 6), date("i"), date("s"), date("m"), date("d"), date("Y"));
-				case "720":
+				case '720':
 					$data['expire'] = mktime((date("H") + 12), date("i"), date("s"), date("m"), date("d"), date("Y"));
-				case "1440":
+				case '1440':
 					$data['expire'] = mktime((date("H") + 24), date("i"), date("s"), date("m"), date("d"), date("Y"));
-				case "10080":
+				case '10080':
 					$data['expire'] = mktime(date("H"), date("i"), date("s"), date("m"), (date("d")+7), date("Y"));
-				case "40320":
+				case '40320':
 					$data['expire'] = mktime(date("H"), date("i"), date("s"), date("m"), (date("d")+24), date("Y"));
 			}
 		}
 
-		if($this->input->post('snipurl') == false){
-			$data['snipurl'] = 0;
-		} else {						
-			$target = "http://snipr.com/site/snip?r=simple&link=".site_url("view/".$data['pid']);
+		if($this->input->post('snipurl') == false)
+		{
+			$data['snipurl'] = false;
+		}
+		else
+		{						
+			$target = 'http://snipr.com/site/snip?r=simple&link='.site_url('view/'.$data['pid']);
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $target);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -104,73 +129,164 @@ class Pastes extends Model {
 			
 			curl_close($ch);
 			
-			if(empty($data['snipurl'])){
-				$data['snipurl'] = 0;
+			if(empty($data['snipurl']))
+			{
+				$data['snipurl'] = false;
 			}
 		}
 		
-		$data['paste'] = $this->process->syntax($post['code'], $data['lang']);
-		$this->db->insert('pastes', $data);		
+		$data['paste'] = $this->process->syntax($this->input->post('code'), $this->input->post('lang'));
+		$this->db->insert('pastes', $data);
 
-		return "view/".$data['pid'];
+		return 'view/'.$data['pid'];
 	}
 	
-	function checkPaste($seg=2) {
-		if($this->uri->segment($seg) == ""){
+	function checkPaste($seg=2)
+	{
+		if($this->uri->segment($seg) == "")
+		{
 			return false;
-		} else {
-			$this->db->where("pid", $this->uri->segment($seg));
-			$query = $this->db->get("pastes");
+		}
+		else
+		{
+			$this->db->where('pid', $this->uri->segment($seg));
+			$query = $this->db->get('pastes');
 
-			if($query->num_rows() > 0) {
+			if($query->num_rows() > 0)
+			{
 				return true;
-			} else {
+			}
+			else
+			{
 				return false;
 			}
 		}
 	}
 	
-	function getPaste($seg=2) {
-		if($this->uri->segment($seg) == "") {
+	function getPaste($seg=2, $replies=false)
+	{	
+		if($this->uri->segment($seg) == '')
+		{
 			redirect('');
-		} else {
-			$pid = $this->uri->segment($seg);
-			$data['script'] = "jquery.js"; 
 		}
-		
+		else
+		{
+			$pid = $this->uri->segment($seg);
+			$data['script'] = 'jquery.js'; 
+		}
+			
 		$this->db->where('pid', $pid);
 		$query = $this->db->get('pastes');
 		
-		foreach ($query->result() as $row)
+		foreach ($query->result_array() as $row)
 		{
-		    $data['title'] = $row->title;
-			$data['pid'] = $row->pid;
-			$data['name'] = $row->name;
-			$data['lang'] = $row->lang;
-			$data['paste'] = $row->paste;
-			$data['created'] = $row->created;
-			$data['url'] = site_url("view/".$row->pid);
-			$data['raw'] = $row->raw;
-			$data['snipurl'] = $row->snipurl;
+		    $data['title'] = $row['title'];
+			$data['pid'] = $row['pid'];
+			$data['name'] = $row['name'];
+			$data['lang_code'] = $row['lang'];
+			$data['lang'] = $this->languages->code_to_description($row['lang']);
+			$data['paste'] = $row['paste'];
+			$data['created'] = $row['created'];
+			$data['url'] = site_url('view/'.$row['pid']);
+			$data['raw'] = $row['raw'];
+			$data['snipurl'] = $row['snipurl'];
+			$inreply = $row['replyto'];
 		}
-				
+		
+		if($inreply)
+		{
+			$this->db->select('name, title');
+			$this->db->where('pid', $inreply);
+			$query = $this->db->get('pastes');
+			
+			if($query->num_rows() > 0)
+			{
+				foreach($query->result_array() as $row)
+				{
+					$data['inreply']['title'] = $row['title'];
+					$data['inreply']['name'] = $row['name'];
+					$data['inreply']['url'] = site_url('view/'.$inreply);
+				}
+			}
+			else
+			{
+				$data['inreply'] = false;
+			}
+		}
+
+		$data['scripts'] = array('jquery.js');
+
+		if($this->db_session->flashdata('acopy') == 'true')
+		{
+			if($data['snipurl'])
+			{
+				$url = $data['snipurl'];
+			}
+			else
+			{
+				$url = $data['url'];
+			}
+			
+			$data['status_message'] = 'URL copied to clipboard';
+			$data['scripts'] = array('jquery.js', 'jquery.clipboard.js', 'jquery.timers.js');
+			$data['insert'] = '
+			<script type="text/javascript" charset="utf-8">
+				$.clipboardReady(function(){
+					$.clipboard("'.$url.'");
+					return false;
+				}, { swfpath: "'.base_url().'static/flash/jquery.clipboard.swf"} );
+			</script>';
+		}
+		
+		if($replies)
+		{
+			$this->db->select('title, name, created, pid, snipurl');
+			$this->db->where('replyto', $data['pid']);
+			$this->db->order_by('id', 'desc');
+			$this->db->limit(10);
+			
+			$query = $this->db->get('pastes');
+
+			if($query->num_rows() > 0)
+			{
+				$n = 0;
+				foreach($query->result_array() as $row)
+				{
+					$data['replies'][$n]['title'] = $row['title'];
+					$data['replies'][$n]['name'] = $row['name'];
+					$data['replies'][$n]['created'] = $row['created'];
+					$data['replies'][$n]['pid'] = $row['pid'];
+					$data['replies'][$n]['snipurl'] = $row['snipurl'];
+					$n++;
+				}
+			}
+			else
+			{
+				$replies = false;
+			}			
+		}
+		
 		return $data;
 	}
 	
-	function getLists($root="lists/", $seg=2) {
+	function getLists($root='lists/', $seg=2)
+	{
 		$this->load->library('pagination');
 		$amount = $this->config->item('per_page');
 		
-		if(! $this->uri->segment(2)) {
+		if(! $this->uri->segment(2))
+		{
 			$page = 0;
-		} else {
+		}
+		else
+		{
 			$page = $this->uri->segment(2);
 		}
 		
 		$this->db->where('private', 0);
-		$this->db->orderby("created", 'desc');
+		$this->db->orderby('created', 'desc');
 		$query = $this->db->get('pastes', $amount, $page);
-		$pastes = $query->result_array();
+		$data['pastes'] = $query->result_array();
 		
 		$config['base_url'] = site_url($root);
 		$config['total_rows'] = $this->countPastes();
@@ -183,20 +299,21 @@ class Pastes extends Model {
 			
 		$data['pages'] = $this->pagination->create_links();	
 		
-		$data['pastes'] = $pastes;
-		
 		return $data;
 	}
 	
-	function cron(){
+	function cron()
+	{
 		$now = now();
 
-		$this->db->where("toexpire", "1");
-		$query = $this->db->get("pastes");
+		$this->db->where('toexpire', '1');
+		$query = $this->db->get('pastes');
 		
-		foreach($query->result_array() as $row){
+		foreach($query->result_array() as $row)
+		{
 			$stamp = $row['expire'];
-			if($now > $stamp){
+			if($now > $stamp)
+			{
 				$this->db->where('id', $row['id']);
 				$this->db->delete('pastes');
 			}
@@ -204,6 +321,32 @@ class Pastes extends Model {
 
 		return;
 	}
+	
+	function checkReply($seg=2)
+	{
+		$this->db->select('replyto');
+		$this->db->where('pid', $this->uri->segment($seg));
+		$query = $this->db->get('pastes');
+		
+		if($query->num_rows() > 0)
+		{
+			foreach($query->result_array() as $row){
+				$pid = $row['replyto'];
+			}
+		
+			$this->db->select('id');
+			$this->db->where('pid', $pid);
+			$query = $this->db->get('pastes');
+			if($query->num_rows() > 0)
+			{
+				return true;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	} 
 }
 
 ?>

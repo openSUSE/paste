@@ -45,7 +45,66 @@ CREATE TABLE IF NOT EXISTS `languages` (
   `description` varchar(32) character set utf8 collate utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `languages`
+--
+
+INSERT INTO `languages` (`code`, `description`) VALUES
+('c', 'C'),
+('css', 'CSS'),
+('cpp', 'C++'),
+('html4strict', 'HTML (4 Strict)'),
+('java', 'Java'),
+('perl', 'Perl'),
+('php', 'PHP'),
+('python', 'Python'),
+('ruby', 'Ruby'),
+('text', 'Plain Text'),
+('asm', 'ASM (Nasm Syntax)'),
+('xhtml', 'XHTML'),
+('actionscript', 'Actionscript'),
+('ada', 'ADA'),
+('apache', 'Apache Log'),
+('applescript', 'AppleScript'),
+('autoit', 'AutoIT'),
+('bash', 'Bash'),
+('bptzbasic', 'BptzBasic'),
+('c_mac', 'C for Macs'),
+('csharp', 'C#'),
+('ColdFusion', 'coldfusion'),
+('delphi', 'Delphi'),
+('eiffel', 'Eiffel'),
+('fortran', 'Fortran'),
+('freebasic', 'FreeBasic'),
+('gml', 'GML'),
+('groovy', 'Groovy'),
+('inno', 'Inno'),
+('java5', 'Java 5'),
+('javascript', 'Javascript'),
+('latex', 'LaTeX'),
+('mirc', 'mIRC'),
+('mysql', 'MySQL'),
+('nsis', 'NSIS'),
+('objc', 'Objective C'),
+('ocaml', 'OCaml'),
+('oobas', 'OpenOffice BASIC'),
+('orcale8', 'Orcale 8 SQL'),
+('pascal', 'Pascal'),
+('plsql', 'PL/SQL'),
+('qbasic', 'Q(uick)BASIC'),
+('robots', 'robots.txt'),
+('scheme', 'Scheme'),
+('sdlbasic', 'SDLBasic'),
+('smalltalk', 'Smalltalk'),
+('smarty', 'Smarty'),
+('sql', 'SQL'),
+('tcl', 'TCL'),
+('vbnet', 'VB.NET'),
+('vb', 'Visual BASIC'),
+('winbatch', 'Winbatch'),
+('xml', 'XML'),
+('z80', 'z80 ASM');
+
 
 --
 -- Table structure for table `pastes`
@@ -64,5 +123,6 @@ CREATE TABLE IF NOT EXISTS `pastes` (
   `expire` int(10) NOT NULL default '0',
   `toexpire` tinyint(1) unsigned NOT NULL,
   `snipurl` varchar(64) character set utf8 collate utf8_unicode_ci NOT NULL default '0',
+  `replyto` varchar(8) character set utf8 collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=122 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=154 ;

@@ -78,7 +78,7 @@ $autoload['plugin'] = array();
 |
 */
 
-$autoload['config'] = array("stikked");
+$autoload['config'] = array('stikked');
 
 
 /*
