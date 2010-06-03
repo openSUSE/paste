@@ -1,12 +1,3 @@
-<script type="text/javascript">
-	$(document).ready(function(){
-		$(".show").click(function(){
-			$(".advanced").hide();
-			$(".advanced_options").show();					
-			return false;
-		});
-	});
-</script>
 
 <?php if(isset($this->validation->error_string)){ echo $this->validation->error_string; }?>
 <div class="grid_16 box box-shadow alpha clear-both navigation">
@@ -102,8 +93,6 @@
 		<input type="hidden" value="<?php echo $reply; ?>" name="reply" />
 		<?php }?>
 
-		<div class="clear"/>
-
-		<div style="float: right;"><button type="submit" value="submit" name="submit">Create</button></div>
+		<div class="grid_15" style="float: right;"><button style="float: right;" type="submit" value="submit" name="submit">Create</button></div>
 	</form>
 </div>

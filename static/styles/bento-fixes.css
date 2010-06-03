@@ -6,6 +6,14 @@
   margin-right: 15px;
 }
 
+.text_formatted ol {
+	padding-left: 50px;
+}
+
+.text_formatted ol li {
+	list-style: decimal outside;
+}
+
 .item_group {
 	clear: both;
    width: 900px;
@@ -40,5 +48,38 @@ label {
 }
 
 textarea {
-   width: 700px;
+   width: 720px;
+}
+
+#header ul#local-navigation{
+    list-style: none inside;
+    width: 200px;
+    float: right;
+}
+#header ul#local-navigation,
+#header ul#local-navigation li {
+    border-color: #4e4e4e;
+    border-style: solid;
+    margin: 0;
+    float: right;
+}
+#header ul#local-navigation {
+    border-right-width: 1px;
+}
+#header ul#local-navigation li {
+    border-left-width: 1px;
+    height: 30px;
+}
+#header ul#local-navigation li a {
+    color: #fefefe;
+    display: block;
+    height: 100%;
+    margin: 0 15px;
+    padding-top: 7px;
+    text-decoration: none;
+    width: 100%;
+}
+#header ul#local-navigation li a:hover,
+#header ul#local-navigation li a:focus {
+    color: #690;
 }

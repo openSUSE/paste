@@ -9,12 +9,12 @@
 		<title><?php echo $page_title;?></title>
 		<link rel="stylesheet" href="<?=base_url()?>static/themes/bento/css/style.css" type="text/css" />
 		<link rel="stylesheet" href="<?=base_url()?>static/styles/bento-fixes.css" type="text/css" />
-		<script src="<?=base_url()?>static/themes/bento/js/l10n/global-navigation-data-en_US.js" type="text/javascript" charset="utf-8"></script>
-		<script src="<?=base_url()?>static/themes/bento/js/global-navigation.js" type="text/javascript" charset="utf-8"></script>	
-		<?php if(!empty($scripts)){?>
-		<?php foreach($scripts as $script){?>
-		<script src="<?=base_url()?>static/js/<?=$script?>" type="text/javascript"></script>
-		<?}}?>		
+		<script type="text/javascript" src="<?=base_url()?>static/themes/bento/js/jquery.js"></script> 
+		<script type="text/javascript" src="<?=base_url()?>static/themes/bento/js/script.js"></script> 
+		<script type="text/javascript" src="<?=base_url()?>static/themes/bento/js/l10n/global-navigation-data-en_US.js"></script> 
+		<script type="text/javascript" src="<?=base_url()?>static/themes/bento/js/global-navigation.js"></script> 
+ 
+		<link rel="icon" type="image/png" href="http://static.opensuse.org/themes/bento/images/favicon.png" /> 
 	</head>
 	<body>
 <?
@@ -25,9 +25,9 @@
   			    'container_12', '<!-- Search -->' , 'images/'),
              array('<ul id="global-navigation" style="width: 500px;">',
 				 'container_16',
-				 '<ul id="global-navigation" style="float: right; width: 200px;">
-				 <li style="float: right;"><a href="'.site_url("lists").'" title="Recent Pastes">Recent</a></li>
-				 <li style="float: right;"><a href="'.base_url().'" title="Create A New Paste">Create</a></li></ul>',
+				 '<ul id="local-navigation">
+				 <li><a href="'.site_url("lists").'" title="Recent Pastes">Recent</a></li>
+				 <li><a href="'.base_url().'" title="Create A New Paste">Create</a></li></ul>',
 				 base_url().'static/themes/bento/images/'),
 				 $content );
   echo $content;
