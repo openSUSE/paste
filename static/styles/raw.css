@@ -9,6 +9,8 @@
 body {
 	font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", Verdana,  "Helvetica Neue", Helvetica, sans-serif;
 	font-size: 14px;
+	background: #dddddd;
+	color: #444;
 }
 
 #container {
