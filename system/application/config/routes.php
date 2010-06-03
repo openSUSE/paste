@@ -52,7 +52,4 @@ $route['lists'] = 'main/lists';
 $route['lists/:num'] = 'main/lists/$1';
 $route['about'] = 'main/about';
 
-$route['iphone/:num'] = 'iphone';
-$route['iphone/view/:any'] = 'iphone/view';
-
 ?>
