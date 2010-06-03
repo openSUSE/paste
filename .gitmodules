@@ -1,0 +1,3 @@
+[submodule "static/themes"]
+	path = static/themes
+	url = git://gitorious.org/opensuse/themes.git
