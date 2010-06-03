@@ -29,6 +29,5 @@
 			</pre>
 			<?php if(!$this->db_session->userdata("view_raw")){?><a href="<?=site_url("view/".$pid)?>">Go Back</a><?php } else { ?><a href="<?=base_url()?>">Go Home</a><?php }?>		
 		</div>
-		<?php $this->load->view('defaults/stats'); ?>
 	</body>
 </html>

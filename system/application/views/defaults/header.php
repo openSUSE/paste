@@ -36,7 +36,7 @@
 
 		<div id="subheader" class="container_16">
 			<div id="breadcrump" class="grid_12 alpha">
-				<a href="#" title=""><img src="<?=base_url()?>static/themes/bento/images/home_grey.png" width="16" height="16" alt="Home" /> Paste</a> &gt;
+				<a href="<?=base_url()?>" title=""><img src="<?=base_url()?>static/themes/bento/images/home_grey.png" width="16" height="16" alt="Home" /> Paste</a> &gt;
 				<?php 
 					if(isset($title))	{ 
 						if(isset($url)) { 
