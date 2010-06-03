@@ -16,8 +16,16 @@ body {
 	margin: 20px auto;	
 }
 
+h1 {font-size: 1.7em; margin-bottom: 1.2em;}
+h1, h2, h3, h4, h5, h6 { color: #690; margin-top: 0.5em; margin-bottom: 1.2em;}
+p {line-height: 150%;}
+a {color: #690; text-decoration: none; cursor: pointer;}
+a:visited {}
+a:hover, a:focus, a:active {color: #39c; text-decoration: underline;}
+
 pre {
-	background-color: #eee;
+	background-color: #f6f6f6;
+	border: 1px dotted #690;
 	padding: 5px;
 	font-family: monospace;
 	overflow: auto;
