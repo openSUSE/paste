@@ -117,59 +117,32 @@ class Pastes extends Model
 		
 		} while($n == 0);
 		
-		if($this->input->post('expire') == 0)
-		{
-			$data['expire'] = '0000-00-00 00:00:00';
-		}
-		else
-		{
-			$format = 'Y-m-d H:i:s';
-			$data['toexpire'] = 1;
-			switch($this->input->post('expire'))
-			{
-				case '30':
-					$data['expire'] = mktime(date("H"),(date("i")+30), date("s"), date("m"), date("d"), date("Y"));
-					break;
-				case '60':
-					$data['expire'] = mktime((date("H") + 1), date("i"), date("s"), date("m"), date("d"), date("Y"));
-					break;
-				case '360':
-					$data['expire'] = mktime((date("H") + 6), date("i"), date("s"), date("m"), date("d"), date("Y"));
-					break;
-				case '720':
-					$data['expire'] = mktime((date("H") + 12), date("i"), date("s"), date("m"), date("d"), date("Y"));
-					break;
-				case '1440':
-					$data['expire'] = mktime((date("H") + 24), date("i"), date("s"), date("m"), date("d"), date("Y"));
-					break;
-				case '10080':
-					$data['expire'] = mktime(date("H"), date("i"), date("s"), date("m"), (date("d")+7), date("Y"));
-					break;
-				case '40320':
-					$data['expire'] = mktime(date("H"), date("i"), date("s"), date("m"), (date("d")+24), date("Y"));
-					break;
-			}
-		}
 
-		if($this->input->post('snipurl') == false)
+		$format = 'Y-m-d H:i:s';
+		$data['toexpire'] = 1;
+		switch($this->input->post('expire'))
 		{
-			$data['snipurl'] = false;
-		}
-		else
-		{						
-			$target = 'http://snipr.com/site/snip?r=simple&link='.site_url('view/'.$data['pid']);
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, $target);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		
-			$data['snipurl'] = curl_exec($ch);
-			
-			curl_close($ch);
-			
-			if(empty($data['snipurl']))
-			{
-				$data['snipurl'] = false;
-			}
+			case '60':
+				$data['expire'] = mktime((date("H") + 1), date("i"), date("s"), date("m"), date("d"), date("Y"));
+				break;
+			case '360':
+				$data['expire'] = mktime((date("H") + 6), date("i"), date("s"), date("m"), date("d"), date("Y"));
+				break;
+			case '720':
+				$data['expire'] = mktime((date("H") + 12), date("i"), date("s"), date("m"), date("d"), date("Y"));
+				break;
+			case '1440':
+				$data['expire'] = mktime((date("H") + 24), date("i"), date("s"), date("m"), date("d"), date("Y"));
+				break;
+			case '10080':
+				$data['expire'] = mktime(date("H"), date("i"), date("s"), date("m"), (date("d")+7), date("Y"));
+				break;
+			case '40320':
+				$data['expire'] = mktime(date("H"), date("i"), date("s"), date("m"), (date("d")+24), date("Y"));
+				break;
+			default:
+				$data['expire'] = mktime(date("H"),(date("i")+30), date("s"), date("m"), date("d"), date("Y"));
+				break;
 		}
 		
 		$data['paste'] = $this->process->syntax($this->input->post('code'), $this->input->post('lang'));

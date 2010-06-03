@@ -50,7 +50,7 @@ class Main extends Controller
 	* @see view()
 	*/	
 	
-	function _form_prep($lang='php', $title = '', $paste='', $reply=false)
+	function _form_prep($lang='text', $title = '', $paste='', $reply=false)
 	{
 		$this->load->model('languages');
 		$this->load->helper("form");
@@ -140,11 +140,6 @@ class Main extends Controller
 			}
 			else
 			{
-				if(isset($_POST['acopy']) and $_POST['acopy'] > 0)
-				{
-					$this->db_session->set_flashdata('acopy', 'true');
-				}
-				
 				if($this->input->post('remember') and $this->input->post('reply') == false )
 				{
 					$user_data = array(
@@ -163,8 +158,8 @@ class Main extends Controller
 				{
 					$user_data = array(
 							'name' => '',
-							'lang' => 'php',
-							'expire' => '0',
+							'lang' => 'text',
+							'expire' => '60',
 							'acopy' => '0',
 							'snipurl' => '0',
 							'private' => '0',
