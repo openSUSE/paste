@@ -197,7 +197,31 @@ class Main extends Controller
 			show_404();
 		}
 	}
-	
+
+	/** 
+	* Controller method to load raw pastes.
+	*
+	* @return void
+	* @access public
+	*
+	*/
+		
+	function simple()
+	{
+		$this->load->model('pastes');
+		$check = $this->pastes->checkPaste(3);
+		if($check)
+		{
+		
+			$data = $this->pastes->getPaste(3);
+			$this->load->view('view/simple', $data);
+		}
+		else
+		{
+			show_404();
+		}
+	}
+
 	
 	/** 
 	* Controller method to download pastes.
@@ -257,10 +281,10 @@ class Main extends Controller
 		if($check)
 		{
 			
-			if($this->db_session->userdata('view_raw'))
+			if($this->db_session->userdata('view_simple'))
 			{
 				$this->db_session->keep_flashdata('acopy');
-				redirect('view/raw/'.$this->uri->segment(2));
+				redirect('view/simple/'.$this->uri->segment(2));
 			}
 			
 			$data = $this->pastes->getPaste(2, true);
@@ -298,12 +322,12 @@ class Main extends Controller
 		if($this->db_session->userdata('remember_view') > 0)
 		{
 			$data['full_width_set'] = $this->db_session->userdata('full_width');
-			$data['view_raw_set'] = $this->db_session->userdata('view_raw');
+			$data['view_simple_set'] = $this->db_session->userdata('view_simple');
 		}
 		else
 		{
 			$data['full_width_set'] = false;
-			$data['view_raw_set'] = false;
+			$data['view_simple_set'] = false;
 		}
 		return $data;
 	}
@@ -329,7 +353,7 @@ class Main extends Controller
 			$this->load->library('validation');
 			
 			$rules['full_width'] = 'max_length[1]';
-			$rules['view_raw'] = 'max_length[1]';
+			$rules['view_simple'] = 'max_length[1]';
 			
 			$this->validation->set_rules($rules);
 			
@@ -341,7 +365,7 @@ class Main extends Controller
 			{
 				$user_data = array(
 					'full_width' => $this->input->post('full_width'),
-					'view_raw' => $this->input->post('view_raw'),
+					'view_simple' => $this->input->post('view_simple'),
 					'remember_view' => true
 					);
 				$this->db_session->set_userdata($user_data);

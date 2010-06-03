@@ -8,13 +8,13 @@
 		<p class="explain border">Here you can change your preferences for viewing pastes. Requires cookies to be enabled.</p>								
 										
 		<div class="grid_15">
-			<label for="view_raw">View Raw
-				<span class="instruction">This changes the default paste view to the raw view. Useful for dialup + low bandwith users.</span>
+			<label for="view_simple">View Simple
+				<span class="instruction">This changes the default paste view to the simple view. Useful for dialup + low bandwith users.</span>
 			</label>
 			<div class="text_beside"><?php
-			$set = array('name' => 'view_raw', 'id' => 'view_raw', 'class' => 'checkbox', 'value' => '1', 'checked' => $view_raw_set);
+			$set = array('name' => 'view_simple', 'id' => 'view_simple', 'class' => 'checkbox', 'value' => '1', 'checked' => $view_simple_set);
 			echo form_checkbox($set);
-			?><p>Use the raw view by default</p>
+			?><p>Use the simple view by default</p>
 			</div>
 		</div>			
 			

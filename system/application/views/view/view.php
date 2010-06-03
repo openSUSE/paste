@@ -81,7 +81,9 @@
 <div class="grid_16 box box-shadow alpha">
 	<div class="box-header header-tabs">
 	<ul style="float: right;">
-		<li><a href="<?=site_url("view/raw/".$pid)?>">View Raw</a></li>
+		<li><a href="<?=site_url("view/simple/".$pid)?>">Simple</a></li>
+		<li><a href="<?=site_url("view/raw/".$pid)?>">Raw</a></li>
+		<li><a href="<?=site_url("view/download/".$pid)?>">Download</a></li>
 		<li><a href="<?=site_url("view/options")?>">Change Viewing Options</a></li>
 	</ul>
 	</div>
