@@ -1,7 +1,13 @@
 <?php $this->load->view('defaults/header');?>
-<small><a class="control" href="<?php echo site_url("view/options")?>">Change paste viewing options</a></small><br/><br/>
-<h1>Recent Pastes</h1>
 
+<div class="grid_16 box box-shadow alpha omega">
+<div class="box-header header-tabs">
+<ul style="float: right;">
+	<li><a href="<?php echo site_url("view/options")?>">Change paste viewing options</a></li>
+</ul>
+</div>
+
+<div class="grid_15 alpha omega">
 		<?php 
 		function checkNum($num){
 			return ($num%2) ? TRUE : FALSE;
@@ -38,6 +44,7 @@
 		<?} else { ?>
 			<p>There have been no pastes :(</p>
 		<? }?>
-<?=$pages?>
-<div class="spacer"></div>
+</div>
+</div>
+<p style="text-align: center;"><?=$pages?></p>
 <?php $this->load->view('defaults/footer');?>

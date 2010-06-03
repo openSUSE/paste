@@ -1,25 +1,13 @@
 <?php $this->load->view("defaults/header"); ?>
 
-<div class="form_wrapper margin full">
+<div class="grid_16 box box-shadow alpha">
+<h2 class="box-header">Viewing options:</h2>
+	
 	<form action="<?=site_url("view/options")?>" method="post">
 
-		<h1>Change paste viewing options</h1>
 		<p class="explain border">Here you can change your preferences for viewing pastes. Requires cookies to be enabled.</p>								
 										
-		<div class="item">
-			<label for="full_width">Expand Pastes
-				<span class="instruction">This automatically expands the width of a paste to fill the whole page.</span>
-			</label>
-			<div class="text_beside">
-			<?php
-			$set = array('name' => 'full_width', 'id' => 'full_width', 'value' => '1', 'checked' => $full_width_set);
-			echo form_checkbox($set);
-			?>
-			<p>Expand Pastes by default</p>
-			</div>
-		</div>
-		
-		<div class="item">
+		<div class="grid_15">
 			<label for="view_raw">View Raw
 				<span class="instruction">This changes the default paste view to the raw view. Useful for dialup + low bandwith users.</span>
 			</label>
@@ -30,8 +18,7 @@
 			</div>
 		</div>			
 			
-		<div><button type="submit" value="submit" name="submit">Save</button></div>
-		<div class="spacer"></div>
+		<div style="float: right;"><button type="submit" value="submit" name="submit">Save</button></div>
 	</form>
 </div>
 

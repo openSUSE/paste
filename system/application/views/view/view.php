@@ -17,43 +17,20 @@
 	echo $insert;
 }?>
 
-<div class="paste_info">
+<div class="grid_16 box box-shadow alpha">
+	<h2 class="box-header">Info:</h2>
 	<div class="info">
-		<h1 class="pagetitle right"><?=$title?></h1>
-		<div class="meta">
-			<span class="detail by">By <?=$name?>, <? $p = explode(',', timespan($created, time())); echo $p[0]?> ago, written in <?=$lang?>.</span>
-			<?php if(isset($inreply)){?><span class="detail by">This paste is a reply to <a href="<?php echo $inreply['url']?>"><?php echo $inreply['title']; ?></a> by <?php echo $inreply['name']; ?></span><?php }?>
-			<div class="spacer"></div>
-			<span class="detail"><span class="item">URL </span><a href="<?=$url?>"><?=$url?></a></span>
-			
-			<?php if(!empty($snipurl)){?>
-				<span class="detail"><span class="item">Snipurl </span><a href="<?=$snipurl?>"><?php echo htmlspecialchars($snipurl) ?></a></span>
-			<?php }?>
-			
-			<div class="spacer"></div>
-			
-			<span class="detail"><a class="control" href="<?=site_url("view/download/".$pid)?>">Download Paste</a> or <a class="control" href="<?=site_url("view/raw/".$pid)?>">View Raw</a> &mdash; <a href="#" class="expand control">Expand paste</a> to full width of browser | <a href="<?=site_url("view/options")?>">Change Viewing Options</a></span>
-		</div>
-	</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="paste <?php if($full_width){ echo "full"; }?>">
-	<div class="text_formatted <?php if($full_width){ echo "full"; }?>">
-		<div class="container">
-			<?=$paste?>
-		</div>
+		<p>By <?=$name?>, <? $p = explode(',', timespan($created, time())); echo $p[0]?> ago, written in <?=$lang?>.</p>
+		<?php if(isset($inreply)){?><p>This paste is a reply to <a href="<?php echo $inreply['url']?>"><?php echo $inreply['title']; ?></a> by <?php echo $inreply['name']; ?></p><?php }?>
+		<p>URL <a href="<?=$url?>"><?=$url?></a></p>
 	</div>
 </div>
 
-<div class="spacer"></div>
+<?if(isset($replies) and !empty($replies)) {?>
+<div class="grid_16 box box-shadow alpha">
+	<h2 class="box-header">Replies to <?php echo $title; ?>:</h2>
 
-<div class="replies">
-
-	<div class="container">
+	<div class="grid_15">
 		<?php
 		
 		function checkNum($num){
@@ -63,7 +40,6 @@
 		if(isset($replies) and !empty($replies)){		
 			$n = 1;
 		?>
-			<h1>Replies to <?php echo $title; ?></h1>
 			
 			<table class="recent">
 				<tbody>
@@ -96,10 +72,24 @@
 		
 		<?php 
 			$reply_form['page']['title'] = "Reply to \"$title\"";
-			$reply_form['page']['instructions'] = 'Here you can reply to the paste above';
-		$this->load->view('defaults/paste_form', $reply_form); ?>
+			$reply_form['page']['instructions'] = 'Here you can reply to the paste above'; ?>
 	</div>
-
 </div>
 
-<?php $this->load->view('view/view_footer'); ?>
+<?}?>
+
+<div class="grid_16 box box-shadow alpha">
+	<div class="box-header header-tabs">
+	<ul style="float: right;">
+		<li><a href="<?=site_url("view/raw/".$pid)?>">View Raw</a></li>
+		<li><a href="<?=site_url("view/options")?>">Change Viewing Options</a></li>
+	</ul>
+	</div>
+	<div class="text_formatted">
+		<?=$paste?>
+	</div>
+</div>
+
+<? $this->load->view('defaults/paste_form', $reply_form); ?>
+
+<?php $this->load->view('defaults/footer'); ?>
