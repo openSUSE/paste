@@ -76,12 +76,8 @@ class Languages extends Model
 		foreach($query->result_array() as $row)
 		{
 			$data[$row['code']] = $row['description'];
-			if($row['code'] == 'text')
-			{
-				$data["0"] = "-----------------";
-			}
 		}
-		
+		uasort($data, "strnatcasecmp");
 		return $data;
 	}
 	

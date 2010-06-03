@@ -75,7 +75,7 @@ class Main extends Controller
 			$data['title_set'] = $title;
 			$data['reply'] = $reply;
 
-			if($lang != 'php' or ($lang == 'php' and $this->db_session->userdata('lang') == false))
+			if($this->db_session->userdata('lang') == false)
 			{
 				$data['lang_set'] = $lang;
 			}
