@@ -138,7 +138,19 @@ class Pastes extends Model
 				$data['expire'] = mktime(date("H"), date("i"), date("s"), date("m"), (date("d")+7), date("Y"));
 				break;
 			case '40320':
-				$data['expire'] = mktime(date("H"), date("i"), date("s"), date("m"), (date("d")+24), date("Y"));
+				$data['expire'] = mktime(date("H"), date("i"), date("s"), (date("m")+1), date("d"), date("Y"));
+				break;
+			case '151200':
+				$data['expire'] = mktime(date("H"), date("i"), date("s"), (date("m")+3), date("d"), date("Y"));
+				break;
+			case '604800':
+				$data['expire'] = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), (date("Y")+1));
+				break;
+			case '1209600':
+				$data['expire'] = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), (date("Y")+2));
+				break;
+			case '1814400':
+				$data['expire'] = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), (date("Y")+3));
 				break;
 			default:
 				$data['expire'] = mktime(date("H"),(date("i")+30), date("s"), date("m"), date("d"), date("Y"));
