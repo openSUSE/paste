@@ -22,13 +22,15 @@
   $content = stream_get_contents($handle);
   fclose($handle);
   $content = str_replace( array('<ul id="global-navigation">',
-  			    'container_12', '<!-- Search -->' , 'images/'),
+  			    'container_12', 'images/'),
              array('<ul id="global-navigation" style="width: 500px;">',
 				 'container_16',
+				 base_url().'static/themes/bento/images/'),
+				 $content );
+  $content = preg_replace( '/<form id="global-search-form".*\n.*\n.*\n.*\n.*/',
 				 '<ul id="local-navigation">
 				 <li><a href="'.site_url("lists").'" title="Recent Pastes">Recent</a></li>
 				 <li><a href="'.base_url().'" title="Create A New Paste">Create</a></li></ul>',
-				 base_url().'static/themes/bento/images/'),
 				 $content );
   echo $content;
 ?>
