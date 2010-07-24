@@ -22,7 +22,7 @@
 	<div class="info">
 		<p>By <?=$name?>, <? $p = explode(',', timespan($created, time())); echo $p[0]?> ago, written in <?=$lang?>.</p>
 		<?php if(isset($inreply)){?><p>This paste is a reply to <a href="<?php echo $inreply['url']?>"><?php echo $inreply['title']; ?></a> by <?php echo $inreply['name']; ?></p><?php }?>
-		<p>URL <a href="<?=$url?>"><?=$url?></a></p>
+		<p>URL <a href="<?=str_replace("/index.php/view","",$url)?>"><?=str_replace("/index.php/view","",$url)?></a></p>
 	</div>
 </div>
 
