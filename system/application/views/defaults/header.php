@@ -14,7 +14,7 @@
 		<script type="text/javascript" src="<?=base_url()?>static/themes/bento/js/l10n/global-navigation-data-en_US.js"></script> 
 		<script type="text/javascript" src="<?=base_url()?>static/themes/bento/js/global-navigation.js"></script> 
  
-		<link rel="icon" type="image/png" href="http://static.opensuse.org/themes/bento/images/favicon.png" /> 
+		<link rel="icon" type="image/png" href="<?=base_url()?>static/themes/bento/images/favicon.png" />
 	</head>
 	<body>
 <?
