@@ -14,7 +14,7 @@
  * The name of your site
  *
 */
-$config['site_name'] = "openSUSE Paste";
+$config['site_name'] = "SUSE Paste";
 
 /**
  * Key for Cron
@@ -60,7 +60,7 @@ $config['unknown_title'] = "Untitled";
  *
 **/
 
-$config['nouns'] = array('Lizzard', 'Geeko', 'Chameleon');
+$config['nouns'] = array('Lizzard', 'Geeko', 'Agama', 'Alligator', 'Basilisk', 'Gecko', 'Iguana', 'Anole', 'Skink', 'Whiptail');
 
 $config['adjectives'] = array('Anonymous', 'Unknown', 'Paranoid');
 

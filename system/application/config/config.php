@@ -11,7 +11,7 @@
 |	http://www.example.com/
 |
 */
-$config['base_url']	= "http://www.example.com/";
+$config['base_url']	= "http://susepaste.org/";
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +23,7 @@ $config['base_url']	= "http://www.example.com/";
 | variable so that it is blank.
 |
 */
-$config['index_page'] = "index.php";
+$config['index_page'] = "";
 
 /*
 |--------------------------------------------------------------------------
@@ -292,7 +292,7 @@ $config['compress_output'] = FALSE;
 | regarding date handling.
 |
 */
-$config['time_reference'] = 'local';
+$config['time_reference'] = 'gmt';
 
 
 /*
