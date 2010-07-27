@@ -32,7 +32,7 @@
 		?>	
 
 		<tr class="<?=$eo?>">
-			<td class="first"><a href="<?=site_url("view/".$paste['pid'])?>"><?=$paste['title']?></a></td>
+			<td class="first"><a href="<?=site_url($paste['pid'])?>"><?=$paste['title']?></a></td>
 			<td><?=$paste['name']?></td>
 			<td><?=$paste['lang']?></td>
 			<td><? $p = explode(",", timespan($paste['created'], time())); echo $p[0];?> ago.</td>

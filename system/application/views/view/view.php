@@ -21,8 +21,8 @@
 	<h2 class="box-header">Info:</h2>
 	<div class="info">
 		<p>By <?=$name?>, <? $p = explode(',', timespan($created, time())); echo $p[0]?> ago, written in <?=$lang?>.</p>
-		<?php if(isset($inreply)){?><p>This paste is a reply to <a href="<?php echo $inreply['url']?>"><?php echo $inreply['title']; ?></a> by <?php echo $inreply['name']; ?></p><?php }?>
-		<p>URL <a href="<?=str_replace("/index.php/view","",$url)?>"><?=str_replace("/index.php/view","",$url)?></a></p>
+		<?php if(isset($inreply)){?><p>This paste is a reply to <a href="<?php echo str_replace("/view/","/",$inreply['url'])?>"><?php echo $inreply['title']; ?></a> by <?php echo $inreply['name']; ?></p><?php }?>
+		<p>URL <a href="<?=str_replace("/view/","/",$url)?>"><?=str_replace("/view/","/",$url)?></a></p>
 	</div>
 </div>
 
