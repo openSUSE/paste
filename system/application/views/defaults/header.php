@@ -1,7 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
  	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<? if(!isset($page_title)) $page_title=$this->config->item('site_name'); ?>
+<? if(!isset($page_title)) $page_title=$this->config->item('site_name');
+if (!function_exists('base_url')) {
+	function base_url() {
+		return $config['base_url'];
+	}
+}
+if (!function_exists('site_url')) {
+	function site_url($arg) {
+		return $config['base_url'].'/'.$arg;
+	}
+}
+
+?>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
