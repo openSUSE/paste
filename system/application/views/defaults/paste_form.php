@@ -5,7 +5,7 @@
 			<h2 class="box-header">Here you can create your paste:</h2>
 		<?php } else { ?>
 			<h2 class="box-header"><?php echo $page['instructions']; ?></h2>
-		<?php } ?></p>								
+		<?php } ?>
 		
 	<form action="<?=base_url()?>" method="post">
 		<div class="item_group">
@@ -91,7 +91,7 @@
 				echo form_dropdown('expire', $options, $expire_set, $expire_extra); ?>
 			</div>
 		   
-			<div class="item"><button style="float: right;" type="submit" value="submit" name="submit">Create</button></div>
+			<div class="item" style="float: right; margin-right: 21px;"><button style="float: right; width: 115px;" type="submit" value="submit" name="submit">Create</button></div>
 		</div>
 		
 		
