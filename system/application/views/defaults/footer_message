@@ -1,0 +1,13 @@
+  <!-- Start: included footer part -->
+  <div id="footer" class="container_16">
+    <!-- TODO: add content -->
+    <div id="footer-legal" class="border-top grid_16">
+<a href="http://wwww.i-tux.cz"><img style="margin: 5px; float: left; " src="/static/images/i-tux.png" alt="i-Tux hosting" height="50"/></a>
+<a href="http://wwww.i-tux.cz"><img style="margin: 5px; float: right;" src="/static/images/i-tux.png" alt="i-Tux hosting" height="50"/></a>
+<p>Based on open source software <a href="http://code.google.com/p/stikked/">Stikked</a>. Original note is 
+"<!-- Removing this breaches the license -->Created by <a href="http://benmcredmond.com">Ben McRedmond</a> and Powered By <a href="http://code.google.com/p/stikked/">Stikked</a><!-- Removing this breaches the license -->".</p>
+<p>This version was adopted to the <a href="http://www.opensuse.org">openSUSE</a> needs by <a href="http://michal.hrusecky.net">Michal Hrušecký</a> from <a href="http://wiki.opensuse.org/openSUSE:Boosters_team">openSUSE Boosters team</a>.</p>
+<p>Hosting and bandwidth for this site is provided without any charge by <a href="http://www.i-tux.cz">i-Tux hosting</a>.</p>
+<p>&copy; 2010 Novell, Inc. All rights reserved. Novell is a registered trademark and openSUSE and SUSE are trademarks of Novell, Inc. in the United States and other countries.</p>
+    </div>
+  </div>
