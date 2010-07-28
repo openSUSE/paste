@@ -2,14 +2,9 @@
  	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <? if(!isset($page_title)) $page_title=$this->config->item('site_name');
-if (!function_exists('base_url')) {
-	function base_url() {
-		return $config['base_url'];
-	}
-}
 if (!function_exists('site_url')) {
 	function site_url($arg) {
-		return $config['base_url'].'/'.$arg;
+		return $config['site_url'].'/'.$arg;
 	}
 }
 
@@ -19,14 +14,14 @@ if (!function_exists('site_url')) {
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<title><?php echo $page_title;?></title>
-		<link rel="stylesheet" href="<?=base_url()?>static/themes/bento/css/style.css" type="text/css" />
-		<link rel="stylesheet" href="<?=base_url()?>static/styles/bento-fixes.css" type="text/css" />
-		<script type="text/javascript" src="<?=base_url()?>static/themes/bento/js/jquery.js"></script> 
-		<script type="text/javascript" src="<?=base_url()?>static/themes/bento/js/script.js"></script> 
-		<script type="text/javascript" src="<?=base_url()?>static/themes/bento/js/l10n/global-navigation-data-en_US.js"></script> 
-		<script type="text/javascript" src="<?=base_url()?>static/themes/bento/js/global-navigation.js"></script> 
+		<link rel="stylesheet" href="<?=site_url()?>static/themes/bento/css/style.css" type="text/css" />
+		<link rel="stylesheet" href="<?=site_url()?>static/styles/bento-fixes.css" type="text/css" />
+		<script type="text/javascript" src="<?=site_url()?>static/themes/bento/js/jquery.js"></script> 
+		<script type="text/javascript" src="<?=site_url()?>static/themes/bento/js/script.js"></script> 
+		<script type="text/javascript" src="<?=site_url()?>static/themes/bento/js/l10n/global-navigation-data-en_US.js"></script> 
+		<script type="text/javascript" src="<?=site_url()?>static/themes/bento/js/global-navigation.js"></script> 
  
-		<link rel="icon" type="image/png" href="<?=base_url()?>static/themes/bento/images/favicon.png" />
+		<link rel="icon" type="image/png" href="<?=site_url()?>static/themes/bento/images/favicon.png" />
 	</head>
 	<body>
 <?
@@ -37,12 +32,12 @@ if (!function_exists('site_url')) {
   			    'container_12', 'images/'),
              array('<ul id="global-navigation" style="width: 500px;">',
 				 'container_16',
-				 base_url().'static/themes/bento/images/'),
+				 site_url().'static/themes/bento/images/'),
 				 $content );
   $content = preg_replace( '/<form id="global-search-form".*\n.*\n.*\n.*\n.*/',
 				 '<ul id="local-navigation">
 				 <li><a href="'.site_url("lists").'" title="Recent Pastes">Recent</a></li>
-				 <li><a href="'.base_url().'" title="Create A New Paste">Create</a></li></ul>',
+				 <li><a href="'.site_url().'" title="Create A New Paste">Create</a></li></ul>',
 				 $content );
   echo $content;
 ?>
@@ -50,7 +45,7 @@ if (!function_exists('site_url')) {
 
 		<div id="subheader" class="container_16">
 			<div id="breadcrump" class="grid_12 alpha">
-				<a href="<?=base_url()?>" title=""><img src="<?=base_url()?>static/themes/bento/images/home_grey.png" width="16" height="16" alt="Home" /> Paste</a> &gt;
+				<a href="<?=site_url()?>" title=""><img src="<?=site_url()?>static/themes/bento/images/home_grey.png" width="16" height="16" alt="Home" /> Paste</a> &gt;
 				<?php 
 					if(isset($title))	{ 
 						if(isset($url)) { 
