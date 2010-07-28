@@ -45,7 +45,7 @@
 		
 		<div class="item_group">
 
-			<div class="item">
+<!--			<div class="item">
 				<label for="remember">Remember You
 					<span class="instruction">Remember your settings for next time?</span>
 				</label>
@@ -55,7 +55,7 @@
 						echo form_checkbox($set);
 					?>
 				</div>
-			</div>
+			</div>-->
 
 			<div class="item">
 				<label for="private">Private
@@ -69,7 +69,7 @@
 				</div>
 			</div>						
 		
-			<div class="item" style="float:right;">
+			<div class="item">
 				<label for="expire">Delete After
 					<span class="instruction">When should we delete your paste?</span>
 				</label>
@@ -90,6 +90,8 @@
 								);
 				echo form_dropdown('expire', $options, $expire_set, $expire_extra); ?>
 			</div>
+		   
+			<div class="item"><button style="float: right;" type="submit" value="submit" name="submit">Create</button></div>
 		</div>
 		
 		
@@ -97,6 +99,5 @@
 		<input type="hidden" value="<?php echo $reply; ?>" name="reply" />
 		<?php }?>
 
-		<div class="grid_15" style="float: right;"><button style="float: right;" type="submit" value="submit" name="submit">Create</button></div>
 	</form>
 </div>
