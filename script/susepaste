@@ -1,0 +1,62 @@
+#!/bin/sh
+
+ ##############################################################################
+ #                                                                            #
+ # SUSE Paste script                                                          #
+ #                                                                            #
+ # Copyright (C) 2007-2009 by Michal Hrusecky <Michal@Hrusecky.net>           #
+ #                                                                            #
+ # This program is free software: you can redistribute it and/or modify       #
+ # it under the terms of the GNU General Public License as published by       #
+ # the Free Software Foundation, either version 3 of the License, or          #
+ # (at your option) any later version.                                        #
+ #                                                                            #
+ # This program is distributed in the hope that it will be useful,            #
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of             #
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              #
+ # GNU General Public License for more details.                               #
+ #                                                                            #
+ # You should have received a copy of the GNU General Public License          #
+ # along with this program.  If not, see <http://www.gnu.org/licenses/>.      #
+ #                                                                            #
+ ##############################################################################
+
+# Default values
+
+# Nickname displayed as an author
+[ "$NICK"     ] || NICK=""
+# Title of your paste
+[ "$TITLE"    ] || TITLE=""
+# Syntax highlighting (for possible values check the documentation)
+[ "$SYNTAX"   ] || SYNTAX="text"
+# Time to live for your paste in minutes (for possible values check the documentation)
+[ "$EXPIRE"   ] || EXPIRE=30
+# You shouldn't try to overwite this.
+# Use first argument if you need input from file.
+                   INPUT="<-"
+
+# Read configuration file
+
+[ -r ~/.susepaste ] && . ~/.susepaste
+
+# Do we want to use stdin or paste content of the file?
+
+if [ -r "$1" ]; then
+	INPUT="<$1"
+	[ "$TITLE" ] || TITLE="`basename $1`"
+fi
+
+# Real pasting and getting back the URL of the paste
+
+URL="`
+curl -v -F "code=$INPUT" -F "title=$TITLE"  -F "expire=$EXPIRE"   \
+        -F "name=$NICK"  -F "submit=submit" -F "lang=$SYNTAX"     \
+        http://susepaste.org 2>&1 | sed -n 's|<\ Location:\ ||p' `"
+
+# Check the results and inform the user
+
+if expr "$URL" : "^http://susepaste.org/[0-9]\+" > /dev/null; then
+	echo "Pasted as $URL"
+else
+	echo "Paste failed :-("
+fi
