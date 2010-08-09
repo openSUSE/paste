@@ -56,7 +56,10 @@ curl -v -F "code=$INPUT" -F "title=$TITLE"  -F "expire=$EXPIRE"   \
 # Check the results and inform the user
 
 if expr "$URL" : "^http://susepaste.org/[0-9]\+" > /dev/null; then
-	echo "Pasted as $URL"
+	ID="`echo "$URL" | sed 's|^http://susepaste.org/||'`"
+	echo "Pasted as:"
+	echo "   http://susepaste.org/$ID"
+	echo "   http://paste.opensuse.org/$ID"
 else
 	echo "Paste failed :-("
 fi
