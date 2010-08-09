@@ -11,7 +11,7 @@
 |	http://www.example.com/
 |
 */
-$config['base_url']	= "http://susepaste.org/";
+$config['base_url']	= "http://" . $_SERVER["HTTP_HOST"];
 
 /*
 |--------------------------------------------------------------------------
