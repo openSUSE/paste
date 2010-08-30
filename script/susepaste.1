@@ -1,0 +1,249 @@
+.TH SUSEPASTE "1" "September 2010" "SUSEpaste 0.2" "User Commands"
+.SH NAME
+susepaste \- paste text on openSUSE Paste
+.SH SYNOPSIS
+.B susepaste
+[\fIFILE\fR]
+.SH DESCRIPTION
+.PP
+Paste some text to the openSUSE pastebin site, namely http://susepaste.org and
+http://paste.opensuse.org These links are interchangeable, both sites are the
+same server, so you can use either one of them.  If no argument present, it
+will read the text from standard input. Otherwise it will paste content of the
+file. After pasting, it will print out URL.
+.PP
+Options can be changed either in ~/.susepaste configuration file or via
+exporting of the variables. Settings int he configuration file overrides the
+settings provided by variables!
+.SH OPTIONS
+.TP
+\fBNICK\fR
+nickname of the author of the paste
+.TP
+\fBTITLE\fR
+name of the paste
+.TP
+\fBSYNTAX\fR
+what kind of syntax highlighting should be used. Default is text, possible
+values are:
+     \fIabap\fR             ABAP
+     \fIactionscript\fR     ActionScript
+     \fIada\fR              Ada
+     \fIapache\fR           Apache configuration
+     \fIapplescript\fR      AppleScript
+     \fIapt_sources\fR      Apt sources
+     \fIasm\fR              ASM
+     \fIasp\fR              ASP
+     \fIautoconf\fR         Autoconf
+     \fIautohotkey\fR       Autohotkey
+     \fIautoit\fR           AutoIt
+     \fIavisynth\fR         AviSynth
+     \fIawk\fR              awk
+     \fIbash\fR             Bash
+     \fIbasic4gl\fR         Basic4GL
+     \fIbibtex\fR           BibTeX
+     \fIblitzbasic\fR       BlitzBasic
+     \fIbnf\fR              bnf
+     \fIboo\fR              Boo
+     \fIbf\fR               Brainfuck
+     \fIc\fR                C
+     \fIcsharp\fR           C#
+     \fIc_mac\fR            C (Mac)
+     \fIcpp\fR              C++
+     \fIcpp-qt\fR           C++ (QT)
+     \fIcaddcl\fR           CAD DCL
+     \fIcadlisp\fR          CAD Lisp
+     \fIcfdg\fR             CFDG
+     \fIchaiscript\fR       ChaiScript
+     \fIcil\fR              CIL
+     \fIclojure\fR          Clojure
+     \fIcmake\fR            CMake
+     \fIcobol\fR            COBOL
+     \fIcfm\fR              ColdFusion
+     \fIcss\fR              CSS
+     \fIcuesheet\fR         Cuesheet
+     \fId\fR                D
+     \fIdcs\fR              DCS
+     \fIdelphi\fR           Delphi
+     \fIdiff\fR             Diff
+     \fIdiv\fR              DIV
+     \fIdos\fR              DOS
+     \fIdot\fR              dot
+     \fIecmascript\fR       ECMAScript
+     \fIeiffel\fR           Eiffel
+     \fIemail\fR            eMail (mbox)
+     \fIerlang\fR           Erlang
+     \fIfsharp\fR           F#
+     \fIfo\fR               FO (abas-ERP)
+     \fIfortran\fR          Fortran
+     \fIfreebasic\fR        FreeBasic
+     \fI4cs\fR              GADV 4CS
+     \fIgambas\fR           GAMBAS
+     \fIgdb\fR              GDB
+     \fIgenero\fR           genero
+     \fIgenie\fR            Genie
+     \fIglsl\fR             glSlang
+     \fIgml\fR              GML
+     \fIgettext\fR          GNU Gettext
+     \fImake\fR             GNU make
+     \fIgnuplot\fR          Gnuplot
+     \fIgroovy\fR           Groovy
+     \fIgwbasic\fR          GwBasic
+     \fIhaskell\fR          Haskell
+     \fIhicest\fR           HicEst
+     \fIhq9plus\fR          HQ9+
+     \fIhtml4strict\fR      HTML
+     \fIicon\fR             Icon
+     \fIini\fR              INI
+     \fIinno\fR             Inno
+     \fIintercal\fR         INTERCAL
+     \fIio\fR               Io
+     \fIj\fR                J
+     \fIjava\fR             Java
+     \fIjava5\fR            Java(TM) 2 Platform Standard Edition
+     \fIjavascript\fR       Javascript
+     \fIjquery\fR           jQuery
+     \fIkixtart\fR          KiXtart
+     \fIklonec\fR           KLone C
+     \fIklonecpp\fR         KLone C++
+     \fIlatex\fR            LaTeX
+     \fIlisp\fR             Lisp
+     \fIlocobasic\fR        Locomotive Basic
+     \fIlogtalk\fR          Logtalk
+     \fIlolcode\fR          LOLcode
+     \fIlotusformula\fR     Lotus Notes @Formulas
+     \fIlotusscript\fR      LotusScript
+     \fIlscript\fR          LScript
+     \fIlsl2\fR             LSL2
+     \fIlua\fR              Lua
+     \fImagiksf\fR          MagikSF
+     \fImapbasic\fR         MapBasic
+     \fImatlab\fR           Matlab M
+     \fImpasm\fR            Microchip Assembler
+     \fIreg\fR              Microsoft Registry
+     \fImirc\fR             mIRC Scripting
+     \fImmix\fR             MMIX
+     \fImodula2\fR          Modula-2
+     \fImodula3\fR          Modula-3
+     \fIm68k\fR             Motorola 68000 Assembler
+     \fImxml\fR             MXML
+     \fImysql\fR            MySQL
+     \fInewlisp\fR          newlisp
+     \fInsis\fR             NSIS
+     \fIoberon2\fR          Oberon-2
+     \fIobjc\fR             Objective-C
+     \fIocaml\fR            OCaml
+     \fIocaml-brief\fR      OCaml (brief)
+     \fIpf\fR               OpenBSD Packet Filter
+     \fIoobas\fR            OpenOffice.org Basic
+     \fIoracle8\fR          Oracle 8 SQL
+     \fIoracle11\fR         Oracle 11 SQL
+     \fIoxygene\fR          Oxygene (Delphi Prism)
+     \fIoz\fR               OZ
+     \fIpascal\fR           Pascal
+     \fIpcre\fR             PCRE
+     \fIper\fR              per
+     \fIperl\fR             Perl
+     \fIperl6\fR            Perl 6
+     \fIphp\fR              PHP
+     \fIphp-brief\fR        PHP (brief)
+     \fIpic16\fR            PIC16
+     \fIpike\fR             Pike
+     \fIpixelbender\fR      Pixel Bender 1.0
+     \fIplsql\fR            PL/SQL
+     \fItext\fR             Plain Text
+     \fIpostgresql\fR       PostgreSQL
+     \fIpovray\fR           POVRAY
+     \fIpowerbuilder\fR     PowerBuilder
+     \fIpowershell\fR       PowerShell
+     \fIprogress\fR         Progress
+     \fIprolog\fR           Prolog
+     \fIproperties\fR       PROPERTIES
+     \fIprovidex\fR         ProvideX
+     \fIpurebasic\fR        PureBasic
+     \fIpython\fR           Python
+     \fIq\fR                q/kdb+
+     \fIqbasic\fR           QBasic/QuickBASIC
+     \fIrsplus\fR           R / S+
+     \fIrails\fR            Rails
+     \fIrebol\fR            REBOL
+     \fIrobots\fR           robots.txt
+     \fIrpmspec\fR          RPM Specification File
+     \fIruby\fR             Ruby
+     \fIsas\fR              SAS
+     \fIscala\fR            Scala
+     \fIscheme\fR           Scheme
+     \fIscilab\fR           SciLab
+     \fIsdlbasic\fR         sdlBasic
+     \fIsmalltalk\fR        Smalltalk
+     \fIsmarty\fR           Smarty
+     \fIsql\fR              SQL
+     \fIsystemverilo\fR     SystemVerilog
+     \fItsql\fR             T-SQL
+     \fItcl\fR              TCL
+     \fIteraterm\fR         Tera Term Macro
+     \fIthinbasic\fR        thinBasic
+     \fItyposcript\fR       TypoScript
+     \fIunicon\fR           Unicon (Unified Extended Dialect)
+     \fIidl\fR              Uno Idl
+     \fIvala\fR             Vala
+     \fIvbnet\fR            vb.net
+     \fIverilog\fR          Verilog
+     \fIvhdl\fR             VHDL
+     \fIvim\fR              Vim Script
+     \fIvb\fR               Visual Basic
+     \fIvisualfoxpro\fR     Visual Fox Pro
+     \fIvisualprolog\fR     Visual Prolog
+     \fIwhitespace\fR       Whitespace
+     \fIwhois\fR            Whois (RPSL format)
+     \fIwinbatch\fR         Winbatch
+     \fIxpp\fR              X++
+     \fIxbasic\fR           XBasic
+     \fIxml\fR              XML
+     \fIxorg_conf\fR        Xorg configuration
+     \fIz80\fR              ZiLOG Z80 Assembler
+.TP
+\fBEXPIRE\fR
+for how log will be paste stored on the server. Default is 30 minutes,
+possible values are:
+     \fI30\fR            30 Minutes
+     \fI60\fR             1 Hour
+     \fI360\fR            6 Hours
+     \fI720\fR           12 Hours
+     \fI1440\fR           1 Day
+     \fI10080\fR          1 Week
+     \fI40320\fR          1 Month
+     \fI151200\fR         3 Months
+     \fI604800\fR         1 Year
+     \fI1209600\fR        2 Years
+     \fI1814400\fR        3 Years
+
+.SH EXAMPLES
+
+How to post list of your usb devices:
+
+     \fBlsusb -v | TITLE="My usb devices" NICK="Geeko" susepaste\fR
+
+How to post susepaste that will last one hour:
+
+     \fBTITLE="openSUSE paste" EXPIRY="60" SYNTAX="bash" susepaste `which susepaste`\fR
+
+.SH COPYRIGHT
+Copyright (C) 2010 by Michal Hrusecky <Michal@Hrusecky.net>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+.SH AUTHORS
+Michal Hrusecky <Michal@Hrusecky.net>
+

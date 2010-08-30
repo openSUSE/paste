@@ -4,7 +4,7 @@
  #                                                                            #
  # SUSE Paste script                                                          #
  #                                                                            #
- # Copyright (C) 2007-2009 by Michal Hrusecky <Michal@Hrusecky.net>           #
+ # Copyright (C) 2007-2010 by Michal Hrusecky <Michal@Hrusecky.net>           #
  #                                                                            #
  # This program is free software: you can redistribute it and/or modify       #
  # it under the terms of the GNU General Public License as published by       #
@@ -55,7 +55,7 @@ curl -v -F "code=$INPUT" -F "title=$TITLE"  -F "expire=$EXPIRE"   \
 
 # Check the results and inform the user
 
-if expr "$URL" : "^http://susepaste.org/[0-9]\+" > /dev/null; then
+if expr "$URL" : "^http://susepaste.org/[0-9a-f]\+" > /dev/null; then
 	ID="`echo "$URL" | sed 's|^http://susepaste.org/||'`"
 	echo "Pasted as:"
 	echo "   http://susepaste.org/$ID"
