@@ -69,7 +69,6 @@ class Main extends Controller
 			$data['expire_set'] = $this->db_session->userdata('expire');
 			$data['acopy_set'] = $this->db_session->userdata('acopy');
 			$data['private_set'] = $this->db_session->userdata('private');			
-			$data['snipurl_set'] = $this->db_session->userdata('snipurl');
 			$data['remember_set'] = $this->db_session->userdata('remember');
 			$data['paste_set'] = $paste;
 			$data['title_set'] = $title;
@@ -90,7 +89,6 @@ class Main extends Controller
 			$data['expire_set'] = $this->input->post('expire');
 			$data['acopy_set'] = $this->input->post('acopy');
 			$data['private_set'] = $this->input->post('private');			
-			$data['snipurl_set'] = $this->input->post('snipurl');
 			$data['remember_set'] = $this->input->post('remember');
 			$data['paste_set'] = $this->input->post('paste');
 			$data['title_set'] = $this->input->post('title');
@@ -147,7 +145,6 @@ class Main extends Controller
 							'lang' => $this->input->post('lang'),
 							'expire' => $this->input->post('expire'),
 							'acopy' => $this->input->post('acopy'),
-							'snipurl' => $this->input->post('snipurl'),
 							'private' => $this->input->post('private'),
 							'remember' => $this->input->post('remember')
 						);
@@ -161,7 +158,6 @@ class Main extends Controller
 							'lang' => 'text',
 							'expire' => '60',
 							'acopy' => '0',
-							'snipurl' => '0',
 							'private' => '0',
 							'remember' => '0'
 						);

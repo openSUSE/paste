@@ -236,7 +236,6 @@ class Pastes extends Model
 			$data['created'] = $row['created'];
 			$data['url'] = site_url('view/'.$row['pid']);
 			$data['raw'] = $row['raw'];
-			$data['snipurl'] = $row['snipurl'];
 			$inreply = $row['replyto'];
 		}
 		
@@ -265,14 +264,7 @@ class Pastes extends Model
 
 		if($this->db_session->flashdata('acopy') == 'true')
 		{
-			if($data['snipurl'])
-			{
-				$url = $data['snipurl'];
-			}
-			else
-			{
-				$url = $data['url'];
-			}
+			$url = $data['url'];
 			
 			$data['status_message'] = 'URL copied to clipboard';
 			$data['scripts'] = array('jquery.js', 'jquery.clipboard.js', 'jquery.timers.js');
@@ -287,7 +279,7 @@ class Pastes extends Model
 		
 		if($replies)
 		{
-			$this->db->select('title, name, created, pid, snipurl');
+			$this->db->select('title, name, created, pid');
 			$this->db->where('replyto', $data['pid']);
 			$this->db->order_by('id', 'desc');
 			$this->db->limit(10);
@@ -303,7 +295,6 @@ class Pastes extends Model
 					$data['replies'][$n]['name'] = $row['name'];
 					$data['replies'][$n]['created'] = $row['created'];
 					$data['replies'][$n]['pid'] = $row['pid'];
-					$data['replies'][$n]['snipurl'] = $row['snipurl'];
 					$n++;
 				}
 			}

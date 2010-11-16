@@ -244,7 +244,6 @@ CREATE TABLE IF NOT EXISTS `pastes` (
   `created` int(10) NOT NULL,
   `expire` int(10) NOT NULL default '0',
   `toexpire` tinyint(1) unsigned NOT NULL,
-  `snipurl` varchar(64) character set utf8 collate utf8_unicode_ci NOT NULL default '0',
   `replyto` varchar(8) character set utf8 collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=154 ;
