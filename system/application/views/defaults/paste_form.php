@@ -7,7 +7,7 @@
 			<h2 class="box-header"><?php echo $page['instructions']; ?></h2>
 		<?php } ?>
 		
-	<form action="<?=base_url()?>" method="post">
+	<form name="paste-form" action="<?=base_url()?>" method="post">
 		<div class="item_group">
 			<div class="item">
 				<label for="name">Author
@@ -99,6 +99,16 @@
 		<?php if($reply){?>
 		<input type="hidden" value="<?php echo $reply; ?>" name="reply" />
 		<?php }?>
+		<div id="spammer">
+		<input type="checkbox" value="1" name="spammer" id="spammer-check" checked="true" />
+		I'm a spammer
+		<script language="JavaScript">
+				window.onload=function() {
+					document.getElementById('spammer-check').checked = false;
+					document.getElementById('spammer').style.display = 'none';
+				}
+		</script>
+		</div>
 
 	</form>
 </div>
