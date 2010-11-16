@@ -86,9 +86,10 @@
 									"151200" => "3 Monts",
 									"604800" => "1 Year",
 									"1209600" => "2 Years",
-									"1814400" => "3 Years"
+									"1814400" => "3 Years",
+									"0" => "Never"
 								);
-				echo form_dropdown('expire', $options, $expire_set, $expire_extra); ?>
+				echo form_dropdown('expire', $options, 10080, $expire_extra); ?>
 			</div>
 		   
 			<div class="item" style="float: right; margin-right: 21px;"><button style="float: right; width: 115px;" type="submit" value="submit" name="submit">Create</button></div>

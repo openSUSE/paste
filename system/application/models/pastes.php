@@ -119,9 +119,15 @@ class Pastes extends Model
 		
 
 		$format = 'Y-m-d H:i:s';
-		$data['toexpire'] = 1;
+		if($this->input->post('expire')==0) {
+			$data['toexpire'] = 0;
+		} else {
+			$data['toexpire'] = 1;
+		}
 		switch($this->input->post('expire'))
 		{
+			case '0':
+				$data['expire'] = 0;
 			case '60':
 				$data['expire'] = mktime((date("H") + 1), date("i"), date("s"), date("m"), date("d"), date("Y"));
 				break;
