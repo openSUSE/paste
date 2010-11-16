@@ -164,6 +164,7 @@ class Pastes extends Model
 		}
 		
 		$data['paste'] = $this->process->syntax($this->input->post('code'), $this->input->post('lang'));
+		$data['ip'] = $_SERVER["REMOTE_ADDR"];
 		$this->db->insert('pastes', $data);
 
 		return $data['pid'];
