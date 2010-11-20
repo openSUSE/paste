@@ -122,7 +122,7 @@ class Main extends Controller
 		{
 			$match_int = count(preg_split('/http:/i', $this->input->post('code')));
 			if(($match_int != FALSE) &&
-				((($match_int * 200 ) / strlen($this->input->post('code')))>1)) {
+				(((($match_int-2) * 200 ) / strlen($this->input->post('code')))>1)) {
 					show_404();
 					return;
 			}
