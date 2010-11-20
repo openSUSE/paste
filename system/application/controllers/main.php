@@ -116,14 +116,14 @@ class Main extends Controller
 			$this->load->view('home', $data);
 		}
 		else if($_POST['spammer']==1) {
-			show_404();
+			show_error("You are spammer!!!");
 		}
 		else
 		{
 			$match_int = count(preg_split('/http:/i', $this->input->post('code')));
 			if(($match_int != FALSE) &&
 				(((($match_int-2) * 200 ) / strlen($this->input->post('code')))>1)) {
-					show_404();
+					show_error("You are spammer!!!");
 					return;
 			}
 
