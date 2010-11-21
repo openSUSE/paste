@@ -119,6 +119,7 @@ INSERT INTO `languages` (`code`, `description`) VALUES
 ('html4strict', 'HTML'),
 ('chaiscript', 'ChaiScript'),
 ('icon', 'Icon'),
+('image', 'Image file'),
 ('ini', 'INI'),
 ('inno', 'Inno'),
 ('intercal', 'INTERCAL'),
