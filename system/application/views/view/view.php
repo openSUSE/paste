@@ -20,9 +20,18 @@
 <div class="grid_16 box box-shadow alpha">
 	<h2 class="box-header">Info:</h2>
 	<div class="info">
-		<p>By <?=$name?>, <? $p = explode(',', timespan($created, time())); echo $p[0]?> ago, written in <?=$lang?>.</p>
+		<?php echo '<p>By ' . $name . ', ';
+			$p = explode(',', timespan($created, time()));
+			echo $p[0] . ' ago, written in ' . $lang . '.';
+		if($toexpire==1) {
+			$p = explode(',', timespan(time(), $expire));
+			echo ' This post will be deleted in ' . $p[0] . '</p>';
+		} else {
+			echo ' This post will never expire.</p>';
+		}
+		?>
 		<?php if(isset($inreply)){?><p>This paste is a reply to <a href="<?php echo str_replace("/view/","/",$inreply['url'])?>"><?php echo $inreply['title']; ?></a> by <?php echo $inreply['name']; ?></p><?php }?>
-		<p>URL <a href="<?=str_replace("/view/","/",$url)?>"><?=str_replace("/view/","/",$url)?></a></p>
+		<p>URL: <a href="<?=str_replace("/view/","/",$url)?>"><?=str_replace("/view/","/",$url)?></a></p>
 	</div>
 </div>
 
@@ -78,18 +87,29 @@
 
 <?}?>
 
-<div class="grid_16 box box-shadow alpha">
+<div class="grid_16 box box-shadow alpha" <?php
+	if($lang_code == "image") {
+		echo 'style = "text-align: center;"';
+	}
+?>>
 	<div class="box-header header-tabs">
 	<ul style="float: right;">
 		<li><a href="<?=site_url("view/simple/".$pid)?>">Simple</a></li>
 		<li><a href="<?=site_url("view/raw/".$pid)?>">Raw</a></li>
 		<li><a href="<?=site_url("view/download/".$pid)?>">Download</a></li>
-<!--		<li><a href="<?=site_url("view/options")?>">Change Viewing Options</a></li>-->
 	</ul>
 	</div>
-	<div class="text_formatted">
-		<?=$paste?>
-	</div>
+		<?php
+		 if($lang_code=='image') {
+		 	echo '<div style="margin: 0px auto;">';
+		 	echo '<img src=\'' . $raw . '\' alt=\'' . $paste . '\'/>';
+		 	echo '</div>';
+		 } else {
+			echo '<div class="text_formatted">';
+		 	echo $paste;
+			echo '</div>';
+		 }
+		?>
 </div>
 
 <? $this->load->view('defaults/paste_form', $reply_form); ?>

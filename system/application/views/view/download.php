@@ -1,7 +1,12 @@
 <?php 
 
-header('Content-type: text/plain');
-header('Content-disposition: attachment');
-echo html_entity_decode($raw); 
+$add = "";
+if($lang_code == "image") {
+   $add = ', filename="' . $paste . '"';
+}
+
+header('Content-disposition: attachment' . $add);
+
+require 'raw.php';
 
 ?>

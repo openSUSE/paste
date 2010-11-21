@@ -62,7 +62,7 @@ class Pastes extends Model
 		$data['raw'] = htmlspecialchars($this->input->post('code'));
 		$data['lang'] = htmlspecialchars($this->input->post('lang'));
 		$data['replyto'] = $this->input->post('reply');
-		
+
 		if($this->input->post('name'))
 		{
 			$data['name'] = htmlspecialchars($this->input->post('name'));
@@ -117,17 +117,39 @@ class Pastes extends Model
 		
 		} while($n == 0);
 		
+		if($data['lang']=='image') {
+			$path                    = '/images/';
+			$config['upload_path']   = '.' . $path;
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$config['max_size']	 = '500';
+			$path_part               = pathinfo($_FILES['file']['name']);
+			$config['file_name']     = $data['pid'] . '.' . $path_part['extension'];
+			$data['raw']             = $path . $config['file_name'];
+		
+			$this->load->library('upload', $config);
+			if(!$this->upload->do_upload("file")) {
+				show_error("Uploading failed!!!</br>Only gif/jpg/png smaller then 500k are allowed...");
+			}
+			$filedata = $this->upload->data();
+			$data['paste']           = $path_part['basename'];
+			if($filedata['file_name'] != $data['pid'] . '.' . $path_part['extension']) {
+				rename('.' . $path .$filedata['file_name'],
+				       '.' . $data['raw']);
+			}
+		} else {
+			if($_FILES['file']) {
+				unlink($_FILES['file']['tmp_name']);
+			}
+		}
 
 		$format = 'Y-m-d H:i:s';
-		if($this->input->post('expire')==0) {
+		if(($this->input->post('expire')==0) && ($data['lang']!='image')) {
 			$data['toexpire'] = 0;
 		} else {
 			$data['toexpire'] = 1;
 		}
 		switch($this->input->post('expire'))
 		{
-			case '0':
-				$data['expire'] = 0;
 			case '60':
 				$data['expire'] = mktime((date("H") + 1), date("i"), date("s"), date("m"), date("d"), date("Y"));
 				break;
@@ -162,8 +184,12 @@ class Pastes extends Model
 				$data['expire'] = mktime(date("H"),(date("i")+30), date("s"), date("m"), date("d"), date("Y"));
 				break;
 		}
-		
-		$data['paste'] = $this->process->syntax($this->input->post('code'), $this->input->post('lang'));
+		if($data['lang'] != 'image') {
+			$data['paste'] = $this->process->syntax($this->input->post('code'), $this->input->post('lang'));
+		} else {
+			$data['expire'] = min($data['expire'], mktime(date("H"), date("i"), date("s"), date("m"), date("d"), (date("Y")+1)));
+
+		}
 		$data['ip'] = $_SERVER["REMOTE_ADDR"];
 		$this->db->insert('pastes', $data);
 
@@ -228,12 +254,14 @@ class Pastes extends Model
 		
 		foreach ($query->result_array() as $row)
 		{
-		    $data['title'] = $row['title'];
+			$data['title'] = $row['title'];
 			$data['pid'] = $row['pid'];
 			$data['name'] = $row['name'];
 			$data['lang_code'] = $row['lang'];
 			$data['lang'] = $this->languages->code_to_description($row['lang']);
 			$data['paste'] = $row['paste'];
+			$data['expire'] = $row['expire'];
+			$data['toexpire'] = $row['toexpire'];
 			$data['created'] = $row['created'];
 			$data['url'] = site_url('view/'.$row['pid']);
 			$data['raw'] = $row['raw'];
@@ -263,21 +291,6 @@ class Pastes extends Model
 
 		$data['scripts'] = array('jquery.js');
 
-		if($this->db_session->flashdata('acopy') == 'true')
-		{
-			$url = $data['url'];
-			
-			$data['status_message'] = 'URL copied to clipboard';
-			$data['scripts'] = array('jquery.js', 'jquery.clipboard.js', 'jquery.timers.js');
-			$data['insert'] = '
-			<script type="text/javascript" charset="utf-8">
-				$.clipboardReady(function(){
-					$.clipboard("'.$url.'");
-					return false;
-				}, { swfpath: "'.base_url().'static/flash/jquery.clipboard.swf"} );
-			</script>';
-		}
-		
 		if($replies)
 		{
 			$this->db->select('title, name, created, pid');
@@ -371,6 +384,9 @@ class Pastes extends Model
 			$stamp = $row['expire'];
 			if($now > $stamp)
 			{
+				if($row['lang']=='image') {
+					unlink($row['raw']);
+				}
 				$this->db->where('id', $row['id']);
 				$this->db->delete('pastes');
 			}

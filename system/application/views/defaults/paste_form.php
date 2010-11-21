@@ -7,7 +7,7 @@
 			<h2 class="box-header"><?php echo $page['instructions']; ?></h2>
 		<?php } ?>
 		
-	<form name="paste-form" action="<?=base_url()?>" method="post">
+	<form name="paste-form" enctype="multipart/form-data" action="<?=base_url()?>" method="post">
 		<div class="item_group">
 			<div class="item">
 				<label for="name">Author
@@ -25,13 +25,28 @@
 				
 				<input value="<?php if(isset($title_set)){ echo $title_set; }?>" type="text" id="title" name="title" tabindex="2"/>
 			</div>
-																		
+			<?php if(strncmp("img",$_SERVER['SERVER_NAME'],3)==0) $lang_set='image';
+			if(($reply) && ($lang_set=='image')) {
+				$lang_set  = 'text';
+				$paste_set = '';
+			}
+			if(!($expire_set)) {
+				$expire_set = 10080;
+			}
+			?>
 			<div class="item" style="float: right;">
 				<label for="lang">Language
 					<span class="instruction">What language is your paste written in?</span>
 				</label>
 				
-				<?php $lang_extra = 'id="lang" class="select" tabindex="3"'; echo form_dropdown('lang', $languages, $lang_set, $lang_extra); ?>
+				<?php $lang_extra = 'id="lang" class="select" tabindex="3" onchange=\'
+				if(this.options[this.selectedIndex].value=="image") {
+					document.getElementById("text-paste").style.display = "none";
+					document.getElementById("file-paste").style.display = "";
+				} else {
+					document.getElementById("text-paste").style.display = "";
+					document.getElementById("file-paste").style.display = "none";
+				} \''; echo form_dropdown('lang', $languages, $lang_set, $lang_extra); ?>
 			</div>								
 		</div>							
 		
@@ -39,23 +54,23 @@
 			<label for="paste">Your paste
 				<span class="instruction">Paste your paste here</span>
 			</label>
-			
+		
+			<?php if(strncmp("img",$_SERVER['SERVER_NAME'],3)==0) {
+				$filestyle="";
+				$textstyle='style="display: none;"';
+			} else{
+				$textstyle="";
+				$filestyle='style="display: none;"';
+			} ?>
+			<div id="text-paste" <?php echo $textstyle ?>>
 			<textarea name="code" cols="40" rows="20" tabindex="4"><?php if(isset($paste_set)){ echo $paste_set; }?></textarea>
+			</div>
+			<div id="file-paste" <?php echo $filestyle ?>>
+			<input type="file" size="90" style="width: 720px;" name="file"/>
+			</div>
 		</div>																											
 		
 		<div class="item_group">
-
-<!--			<div class="item">
-				<label for="remember">Remember You
-					<span class="instruction">Remember your settings for next time?</span>
-				</label>
-				<div class="text_beside">
-					<?php
-						$set = array('name' => 'remember', 'id' => 'remember', 'tabindex' => '9', 'value' => '1', 'checked' => $remember_set);
-						echo form_checkbox($set);
-					?>
-				</div>
-			</div>-->
 
 			<div class="item">
 				<label for="private">Private
@@ -89,7 +104,7 @@
 									"1814400" => "3 Years",
 									"0" => "Never"
 								);
-				echo form_dropdown('expire', $options, 10080, $expire_extra); ?>
+				echo form_dropdown('expire', $options, $expire_set, $expire_extra); ?>
 			</div>
 		   
 			<div class="item" style="float: right; margin-right: 21px;"><button style="float: right; width: 115px;" type="submit" value="submit" name="submit">Create</button></div>

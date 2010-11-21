@@ -67,7 +67,6 @@ class Main extends Controller
 			
 			$data['name_set'] = $this->db_session->userdata('name');
 			$data['expire_set'] = $this->db_session->userdata('expire');
-			$data['acopy_set'] = $this->db_session->userdata('acopy');
 			$data['private_set'] = $this->db_session->userdata('private');			
 			$data['remember_set'] = $this->db_session->userdata('remember');
 			$data['paste_set'] = $paste;
@@ -87,7 +86,6 @@ class Main extends Controller
 		{
 			$data['name_set'] = $this->input->post('name');
 			$data['expire_set'] = $this->input->post('expire');
-			$data['acopy_set'] = $this->input->post('acopy');
 			$data['private_set'] = $this->input->post('private');			
 			$data['remember_set'] = $this->input->post('remember');
 			$data['paste_set'] = $this->input->post('paste');
@@ -130,10 +128,8 @@ class Main extends Controller
 			$this->load->model('pastes');
 			$this->load->library('validation');
 		
-			$rules['code'] = 'required';
 			$rules['lang'] = 'min_length[1]|required|callback__valid_lang';
 
-			$fields['code'] = 'Main Paste';
 			$fields['lang'] = 'Language';
 			
 			$this->validation->set_rules($rules);
@@ -154,7 +150,6 @@ class Main extends Controller
 							'name' => $this->input->post('name'),
 							'lang' => $this->input->post('lang'),
 							'expire' => $this->input->post('expire'),
-							'acopy' => $this->input->post('acopy'),
 							'private' => $this->input->post('private'),
 							'remember' => $this->input->post('remember')
 						);
@@ -167,7 +162,6 @@ class Main extends Controller
 							'name' => '',
 							'lang' => 'text',
 							'expire' => '60',
-							'acopy' => '0',
 							'private' => '0',
 							'remember' => '0'
 						);
@@ -289,7 +283,6 @@ class Main extends Controller
 			
 			if($this->db_session->userdata('view_simple'))
 			{
-				$this->db_session->keep_flashdata('acopy');
 				redirect('view/simple/'.$this->uri->segment(2));
 			}
 			

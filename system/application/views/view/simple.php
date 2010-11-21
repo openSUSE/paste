@@ -18,11 +18,19 @@
 				<a href="<?=site_url("view/".$pid)?>">Go Back</a>
 			<?php } else { ?>
 				<a href="<?=base_url()?>">Go Home</a>
-			<?php }?> 
-			&mdash; <a href="<?=site_url("view/options")?>">Change Paste Viewing Options</a>
-			<pre>
-<?=$raw?>
-			</pre>
+			<?php }?>
+
+<?php
+		 if($lang_code=='image') {
+		 	echo '<p>';
+		 	echo '<img src=\'' . $raw . '\' alt=\'' . $paste . '\'/>';
+		 	echo '</p>';
+		 } else {
+			echo '<pre>';
+		 	echo $raw;
+			echo '</pre>';
+		 }
+?>
 			<?php if(!$this->db_session->userdata("view_raw")){?><a href="<?=site_url("view/".$pid)?>">Go Back</a><?php } else { ?><a href="<?=base_url()?>">Go Home</a><?php }?>		
 		</div>
 	</body>
