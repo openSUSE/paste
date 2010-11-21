@@ -34,7 +34,7 @@
 # You shouldn't try to overwite this.
 # Use first argument if you need input from file.
                    INPUT="<-"
-
+                   TYPE="code"
 # Read configuration file
 
 [ -r ~/.susepaste ] && . ~/.susepaste
@@ -44,12 +44,17 @@
 if [ -r "$1" ]; then
 	INPUT="<$1"
 	[ "$TITLE" ] || TITLE="`basename $1`"
+	if [ "`ls "$1" | egrep -i '(png|jpg|gif|jpeg)$'`" ]; then
+		SYNTAX="image"
+		INPUT="@$1"
+		TYPE="file"
+	fi
 fi
 
 # Real pasting and getting back the URL of the paste
 
 URL="`
-curl -v -F "code=$INPUT" -F "title=$TITLE"  -F "expire=$EXPIRE"   \
+curl -v -F "$TYPE=$INPUT" -F "title=$TITLE"  -F "expire=$EXPIRE"   \
         -F "name=$NICK"  -F "submit=submit" -F "lang=$SYNTAX"     \
         http://susepaste.org 2>&1 | sed -n 's|<\ Location:\ ||p' `"
 
