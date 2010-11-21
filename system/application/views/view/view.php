@@ -24,8 +24,12 @@
 			$p = explode(',', timespan($created, time()));
 			echo $p[0] . ' ago, written in ' . $lang . '.';
 		if($toexpire==1) {
-			$p = explode(',', timespan(time(), $expire));
-			echo ' This post will be deleted in ' . $p[0] . '</p>';
+			if($expire > time()) {
+				$p = explode(',', timespan(time(), $expire));
+				echo ' This post will expire in ' . $p[0] . '</p>';
+			} else {
+				echo ' This post is expired and will be deleted soon.</p>';
+			}
 		} else {
 			echo ' This post will never expire.</p>';
 		}

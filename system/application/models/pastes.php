@@ -385,7 +385,7 @@ class Pastes extends Model
 			if($now > $stamp)
 			{
 				if($row['lang']=='image') {
-					unlink($row['raw']);
+					unlink('.' . $row['raw']);
 				}
 				$this->db->where('id', $row['id']);
 				$this->db->delete('pastes');
