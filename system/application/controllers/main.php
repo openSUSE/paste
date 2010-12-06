@@ -118,9 +118,8 @@ class Main extends Controller
 		}
 		else
 		{
-			$match_int = count(preg_split('/http:/i', $this->input->post('code')));
-			if(($match_int != FALSE) &&
-				(((($match_int-2) * 200 ) / strlen($this->input->post('code')))>1)) {
+			$match_int = count(preg_split('/http:\/\//i', $this->input->post('code')));
+			if(((pow($match_int-1,2) * 10 ) / strlen($this->input->post('code')))>1) {
 					show_error("You are spammer!!!");
 					return;
 			}

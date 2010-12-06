@@ -121,14 +121,22 @@ class Pastes extends Model
 			$path                    = '/images/';
 			$config['upload_path']   = '.' . $path;
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
-			$config['max_size']	 = '500';
+			$config['max_size']      = '512';
+			if($this->input->post('expire')>10)
+			$config['max_size']	 = '5120';
+			if($this->input->post('expire')>1440)
+			$config['max_size']	 = '2048';
+			if($this->input->post('expire')>10080)
+			$config['max_size']	 = '1024';
+			if( ($this->input->post('expire')>604800) || ($this->input->post('expire')==0) )
+			$config['max_size']	 = '512';
 			$path_part               = pathinfo($_FILES['file']['name']);
 			$config['file_name']     = $data['pid'] . '.' . $path_part['extension'];
 			$data['raw']             = $path . $config['file_name'];
 		
 			$this->load->library('upload', $config);
 			if(!$this->upload->do_upload("file")) {
-				show_error("Uploading failed!!!</br>Only gif/jpg/png smaller then 500k are allowed...");
+				show_error("Uploading failed!!!</br>Only " . $config['allowed_types'] . " files smaller then " . $config['max_size'] . "k are allowed for this time interval. Allowed file size depends on expiration time.");
 			}
 			$filedata = $this->upload->data();
 			$data['paste']           = $path_part['basename'];
@@ -143,7 +151,7 @@ class Pastes extends Model
 		}
 
 		$format = 'Y-m-d H:i:s';
-		if(($this->input->post('expire')==0) && ($data['lang']!='image')) {
+		if(($this->input->post('expire')==0)) {
 			$data['toexpire'] = 0;
 		} else {
 			$data['toexpire'] = 1;
@@ -181,14 +189,11 @@ class Pastes extends Model
 				$data['expire'] = mktime(date("H"), date("i"), date("s"), date("m"), date("d"), (date("Y")+3));
 				break;
 			default:
-				$data['expire'] = mktime(date("H"),(date("i")+30), date("s"), date("m"), date("d"), date("Y"));
+				$data['expire'] = mktime(date("H"), date("i"), date("s"), date("m"), (date("d")+7), date("Y"));
 				break;
 		}
 		if($data['lang'] != 'image') {
 			$data['paste'] = $this->process->syntax($this->input->post('code'), $this->input->post('lang'));
-		} else {
-			$data['expire'] = min($data['expire'], mktime(date("H"), date("i"), date("s"), date("m"), date("d"), (date("Y")+1)));
-
 		}
 		$data['ip'] = $_SERVER["REMOTE_ADDR"];
 		$this->db->insert('pastes', $data);

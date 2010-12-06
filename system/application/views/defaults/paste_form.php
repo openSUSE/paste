@@ -25,7 +25,12 @@
 				
 				<input value="<?php if(isset($title_set)){ echo $title_set; }?>" type="text" id="title" name="title" tabindex="2"/>
 			</div>
-			<?php if(strncmp("img",$_SERVER['SERVER_NAME'],3)==0) $lang_set='image';
+			<?php
+			if(strncmp("img",$_SERVER['SERVER_NAME'],3)==0) {
+				$lang_set='image';
+				if(!($expire_set))
+					$expire_set = 60;
+			}
 			if(($reply) && ($lang_set=='image')) {
 				$lang_set  = 'text';
 				$paste_set = '';
