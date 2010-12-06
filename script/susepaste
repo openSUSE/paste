@@ -21,35 +21,81 @@
  #                                                                            #
  ##############################################################################
 
-# Default values
+# By default paste code from stdin
 
-# Nickname displayed as an author
-[ "$NICK"     ] || NICK=""
-# Title of your paste
-[ "$TITLE"    ] || TITLE=""
-# Syntax highlighting (for possible values check the documentation)
-[ "$SYNTAX"   ] || SYNTAX="text"
-# Time to live for your paste in minutes (for possible values check the documentation)
-[ "$EXPIRE"   ] || EXPIRE=30
-# You shouldn't try to overwite this.
-# Use first argument if you need input from file.
-                   INPUT="<-"
-                   TYPE="code"
+INPUT="<-"
+TYPE="code"
+
 # Read configuration file
 
 [ -r ~/.susepaste ] && . ~/.susepaste
+
+# Process the command line parameters
+
+while [ "$2" ]; do
+	if [ "x$1" = "x-t" ]; then
+		TITLE="$2"
+		shift 2
+	fi
+	if [ "x$1" = "x-n" ]; then
+		NICK="$2"
+		shift 2
+	fi
+	if [ "x$1" = "x-f" ]; then
+		SYNTAX="$2"
+		if [ "$SYNTAX" = "image" ]; then
+			TYPE="file"
+		else
+			TYPE="code"
+		fi
+		shift 2
+	fi
+	if [ "x$1" = "x-e" ]; then
+		EXPIRE="$2"
+		shift 2
+	fi
+	if [ "x$1" = "x-h" ]; then
+		echo "openSUSE Paste script"
+		echo ""
+		echo " usage:"
+		echo "   susepaste [-f format] [-n nick] [-t title] [-e expire] [file]"
+		echo ""
+		exit 0
+	fi
+done
 
 # Do we want to use stdin or paste content of the file?
 
 if [ -r "$1" ]; then
 	INPUT="<$1"
 	[ "$TITLE" ] || TITLE="`basename $1`"
-	if [ "`ls "$1" | egrep -i '(png|jpg|gif|jpeg)$'`" ]; then
-		SYNTAX="image"
+	TMP=""
+	for i in /usr/share/susepaste/lang-mappings.sed \
+		~/.susepaste_lang_mappings.sed; do
+		[ -r "$i" ] && TMP="`LANG=C file -iLb "$1" | sed -nf "$i"`"
+	done
+	if [ "$TMP" ] && [ -z "$SYNTAX" ]; then
+		SYNTAX="$TMP"
+	fi
+	if [ "$SYNTAX" = "image" ]; then
 		INPUT="@$1"
 		TYPE="file"
+	else
+		TYPE="code"
 	fi
 fi
+
+# Defaults if nothing was specified
+
+# Nickname displayed as an author
+[ "$NICK"     ] || NICK="`whoami`"
+# Title of your paste
+[ "$TITLE"    ] || TITLE="`whoami`'s paste"
+# Syntax highlighting (for possible values check the documentation)
+[ "$SYNTAX"   ] || SYNTAX="text"
+# Time to live for your paste in minutes (for possible values check the documentation)
+[ "$EXPIRE"   ] || EXPIRE=60
+
 
 # Real pasting and getting back the URL of the paste
 
