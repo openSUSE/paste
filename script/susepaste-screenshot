@@ -89,6 +89,10 @@ if expr "$URL" : "^http://susepaste.org/[0-9a-f]\+" > /dev/null; then
 	echo "Pasted as:"
 	echo "   http://susepaste.org/$ID"
 	echo "   http://paste.opensuse.org/$ID"
+	if [ -x /usr/bin/xclip ]; then
+		echo "http://susepaste.org/$ID" | xclip -selection XA_CLIPBOARD
+		echo "Link is also in your clipboard."
+	fi
 else
 	echo "Paste failed :-("
 fi | xmessage -file -
