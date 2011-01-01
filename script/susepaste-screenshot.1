@@ -1,0 +1,72 @@
+.TH SUSEPASTE-SCREENSHOT "1" "January 2011" "SUSEpaste 0.4" "User Commands"
+.SH NAME
+susepaste-screenshot \- paste screenshot on openSUSE Paste
+.SH SYNOPSIS
+.B susepaste-screenshot
+[\fIoptions\fR] [\fIFILE\fR]
+.SH DESCRIPTION
+.PP
+Paste screenshot of selected window to the openSUSE pastebin site, namely
+http://susepaste.org and http://paste.opensuse.org These links are
+interchangeable, both sites are the same server, so you can use either one of
+them. After taking screenshot, URL will be copied to the clipboard and
+displayed in new window.
+.PP
+Options can be changed in ~/.susepaste configuration file as variables or
+specified as arguments.
+.SH OPTIONS
+.TP
+--all
+takes screenshot of whole desktop instean
+.TP
+-n \fBNICK\fR
+nickname of the author of the paste
+.TP
+-t \fBTITLE\fR
+name of the paste
+.TP
+-e \fBEXPIRE\fR
+for how log will be paste stored on the server. Default is 30 minutes,
+possible values are:
+     \fI30\fR            30 Minutes
+     \fI60\fR             1 Hour
+     \fI360\fR            6 Hours
+     \fI720\fR           12 Hours
+     \fI1440\fR           1 Day
+     \fI10080\fR          1 Week
+     \fI40320\fR          1 Month
+     \fI151200\fR         3 Months
+     \fI604800\fR         1 Year
+     \fI1209600\fR        2 Years
+     \fI1814400\fR        3 Years
+     \fI0\fR                Never
+
+.SH EXAMPLES
+
+How to create screenshot of window:
+
+     \fBsusepaste-screenshot -t "Error"\fR
+
+How to create screenshot of whole desktop:
+
+     \fBsusepaste-screenshot --all -t "My super cool desktop"
+
+.SH COPYRIGHT
+Copyright (C) 2011 by Michal Hrusecky <Michal@Hrusecky.net>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+.SH AUTHORS
+Michal Hrusecky <Michal@Hrusecky.net>
+
