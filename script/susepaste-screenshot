@@ -50,7 +50,7 @@ while [ "$2" ]; do
 		echo "openSUSE Paste screenshot script"
 		echo ""
 		echo " usage:"
-		echo "   susepaste-snapshot [--all] [-n nick] [-t title] [-e expire] [file]"
+		echo "   susepaste-screenshot [--all] [-n nick] [-t title] [-e expire] [file]"
 		echo ""
 		exit 0
 	fi
@@ -85,10 +85,10 @@ curl -v -F "file=@$TMP" -F "title=$TITLE"  -F "expire=$EXPIRE"     \
 # Check the results and inform the user
 
 if expr "$URL" : "^http://susepaste.org/[0-9a-f]\+" > /dev/null; then
-	ID="`echo "$URL" | sed 's|^http://susepaste.org/||'`"
+	ID="`echo "$URL" | sed 's|^http://susepaste.org/\([0-9a-f]\+\)[^0-9a-f]*|\1|'`"
 	echo "Pasted as:"
 	echo "   http://susepaste.org/$ID"
 	echo "   http://paste.opensuse.org/$ID"
 else
 	echo "Paste failed :-("
-fi
+fi | xmessage -file -
