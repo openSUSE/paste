@@ -83,3 +83,25 @@ textarea {
 #header ul#local-navigation li a:focus {
     color: #690;
 }
+
+.header-tabs li {
+    padding-left: 5px;
+}
+
+.header-tabs li:hover {
+    color: #690;
+    cursor: pointer;
+}
+
+.header-tabs li.selected {
+    color: #000;
+    font-weight: bold;
+    background: none;
+}
+
+.box-header h2 {
+    display: inline;
+    clear: none;
+    font-size: 108%;
+}
+

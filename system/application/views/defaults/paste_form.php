@@ -1,12 +1,44 @@
+<script type="text/javascript">
+function settype(type)
+{
+	if(type == "auto") {
+		type = document.getElementById("lang").value;
+	}
+	if(type == "image") {
+		document.getElementById("text-paste").style.display = "none";
+		document.getElementById("file-paste").style.display = "";
+		document.getElementById("code-selector").setAttribute("class", "");
+		document.getElementById("image-selector").setAttribute("class", "selected");
+	} else {
+		document.getElementById("text-paste").style.display = "";
+		document.getElementById("file-paste").style.display = "none";
+		document.getElementById("code-selector").setAttribute("class", "selected");
+		document.getElementById("image-selector").setAttribute("class", "");
+	}
+	if(document.getElementById("lang").value != type) {
+		document.getElementById("lang").value = type;
+	}
+}
+
+window.onload=function() {
+	settype("auto");
+}
+
+</script>
 
 <?php if(isset($this->validation->error_string)){ echo $this->validation->error_string; }?>
 <div class="grid_16 box box-shadow alpha clear-both navigation">
+	<div class="box-header"><h2>
 		<?php if(!isset($page['instructions'])){ ?>
-			<h2 class="box-header">Here you can create your paste:</h2>
+			Here you can create your paste:
 		<?php } else { ?>
-			<h2 class="box-header"><?php echo $page['instructions']; ?></h2>
-		<?php } ?>
-		
+			<?php echo $page['instructions']; ?>
+		<?php } ?></h4>
+	<div class="header-tabs" style="float: right;"><ul>
+		<li id="image-selector" onClick="settype('image');">Image</li>
+		<li id="code-selector" onClick="settype('text');">Code</li>
+	</ul></div>
+	</div>
 	<form name="paste-form" enctype="multipart/form-data" action="<?=base_url()?>" method="post">
 		<div class="item_group">
 			<div class="item">
@@ -25,33 +57,14 @@
 				
 				<input value="<?php if(isset($title_set)){ echo $title_set; }?>" type="text" id="title" name="title" tabindex="2"/>
 			</div>
-			<?php
-			if(strncmp("img",$_SERVER['SERVER_NAME'],3)==0) {
-				$lang_set='image';
-				if(!($expire_set))
-					$expire_set = 60;
-			}
-			if(($reply) && ($lang_set=='image')) {
-				$lang_set  = 'text';
-				$paste_set = '';
-			}
-			if(!($expire_set)) {
-				$expire_set = 10080;
-			}
-			?>
 			<div class="item" style="float: right;">
 				<label for="lang">Language
 					<span class="instruction">What language is your paste written in?</span>
 				</label>
 				
-				<?php $lang_extra = 'id="lang" class="select" tabindex="3" onchange=\'
-				if(this.options[this.selectedIndex].value=="image") {
-					document.getElementById("text-paste").style.display = "none";
-					document.getElementById("file-paste").style.display = "";
-				} else {
-					document.getElementById("text-paste").style.display = "";
-					document.getElementById("file-paste").style.display = "none";
-				} \''; echo form_dropdown('lang', $languages, $lang_set, $lang_extra); ?>
+				<?php 
+				$lang_extra = 'id="lang" class="select" tabindex="3" onchange=\'settype()\'';
+				echo form_dropdown('lang', $languages, $lang_set, $lang_extra); ?>
 			</div>								
 		</div>							
 		
@@ -60,17 +73,10 @@
 				<span class="instruction">Paste your paste here</span>
 			</label>
 		
-			<?php if(strncmp("img",$_SERVER['SERVER_NAME'],3)==0) {
-				$filestyle="";
-				$textstyle='style="display: none;"';
-			} else{
-				$textstyle="";
-				$filestyle='style="display: none;"';
-			} ?>
-			<div id="text-paste" <?php echo $textstyle ?>>
+			<div id="text-paste">
 			<textarea name="code" cols="40" rows="20" tabindex="4"><?php if(isset($paste_set)){ echo $paste_set; }?></textarea>
 			</div>
-			<div id="file-paste" <?php echo $filestyle ?>>
+			<div id="file-paste">
 			<input type="file" size="90" style="width: 720px;" name="file"/>
 			</div>
 		</div>																											
@@ -119,16 +125,5 @@
 		<?php if($reply){?>
 		<input type="hidden" value="<?php echo $reply; ?>" name="reply" />
 		<?php }?>
-		<div id="spammer">
-		<input type="checkbox" value="1" name="spammer" id="spammer-check" checked="true" />
-		I'm a spammer
-		<script language="JavaScript">
-				window.onload=function() {
-					document.getElementById('spammer-check').checked = false;
-					document.getElementById('spammer').style.display = 'none';
-				}
-		</script>
-		</div>
-
 	</form>
 </div>

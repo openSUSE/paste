@@ -50,7 +50,7 @@ class Main extends Controller
 	* @see view()
 	*/	
 	
-	function _form_prep($lang='text', $title = '', $paste='', $reply=false)
+	function _form_prep($lang='auto', $title = '', $paste='', $reply=false)
 	{
 		$this->load->model('languages');
 		$this->load->helper("form");
@@ -58,6 +58,14 @@ class Main extends Controller
 		$data['languages'] = $this->languages->get_languages();		
 		$data['scripts'] = array('jquery.js', 'jquery.timers.js');
 		
+		if($lang == 'auto') {
+			if(strncmp("img",$_SERVER['SERVER_NAME'],3)==0) {
+				$lang = "image";
+			} else {
+				$lang = "text";
+			}
+		}
+
 		if(!$this->input->post('submit'))
 		{
 			$data['paste_set'] = $paste;
