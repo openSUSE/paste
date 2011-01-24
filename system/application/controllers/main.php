@@ -113,9 +113,6 @@ class Main extends Controller
 			$data = $this->_form_prep();
 			$this->load->view('home', $data);
 		}
-		else if($_POST['spammer']==1) {
-			show_error("You are spammer!!!");
-		}
 		else
 		{
 			$match_int = count(preg_split('/http:\/\//i', $this->input->post('code')));

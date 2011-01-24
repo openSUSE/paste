@@ -172,7 +172,7 @@ $config['function_trigger'] = 'm';
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 1;
 
 /*
 |--------------------------------------------------------------------------
@@ -230,12 +230,12 @@ $config['encryption_key'] = "";
 |
 */
 $config['sess_cookie_name']		= 'ci_session';
-$config['sess_expiration']		= 0;
+$config['sess_expiration']		= 604800;
 $config['sess_encrypt_cookie']	= FALSE;
-$config['sess_use_database']	= FALSE;
+$config['sess_use_database']	= TRUE;
 $config['sess_table_name']		= 'ci_sessions';
-$config['sess_match_ip']		= TRUE;
-$config['sess_match_useragent']	= TRUE;
+$config['sess_match_ip']		= FALSE;
+$config['sess_match_useragent']	= FALSE;
 
 /*
 |--------------------------------------------------------------------------
@@ -305,7 +305,7 @@ $config['time_reference'] = 'local';
 | in your view files.  Options are TRUE or FALSE (boolean)
 |
 */
-$config['rewrite_short_tags'] = FALSE;
+$config['rewrite_short_tags'] = TRUE;
 
 
 ?>

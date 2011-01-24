@@ -1,5 +1,4 @@
 <?php
-
 /*
 |---------------------------------------------------------------
 | PHP ERROR REPORTING LEVEL
@@ -10,7 +9,7 @@
 | For more info visit:  http://www.php.net/error_reporting
 |
 */
-	error_reporting(E_ERROR);
+	error_reporting(E_ERROR | E_PARSE);
 
 /*
 |---------------------------------------------------------------
@@ -35,14 +34,13 @@
 | folder then the default one you can set its name here. The folder 
 | can also be renamed or relocated anywhere on your server.
 | For more info please see the user guide:
-| http://www.codeigniter.com/user_guide/general/managing_apps.html
+| http://codeigniter.com/user_guide/general/managing_apps.html
 |
 |
 | NO TRAILING SLASH!
 |
 */
 	$application_folder = "application";
-
 
 /*
 |===============================================================
@@ -81,15 +79,15 @@ else
 |---------------------------------------------------------------
 |
 | EXT		- The file extension.  Typically ".php"
+| SELF		- The name of THIS file (typically "index.php")
 | FCPATH	- The full server path to THIS file
-| SELF		- The name of THIS file (typically "index.php)
 | BASEPATH	- The full server path to the "system" folder
 | APPPATH	- The full server path to the "application" folder
 |
 */
-define('EXT', '.'.pathinfo(__FILE__, PATHINFO_EXTENSION));
-define('FCPATH', __FILE__);
+define('EXT', '.php');
 define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
+define('FCPATH', str_replace(SELF, '', __FILE__));
 define('BASEPATH', $system_folder.'/');
 
 if (is_dir($application_folder))
@@ -108,21 +106,6 @@ else
 
 /*
 |---------------------------------------------------------------
-| DEFINE E_STRICT
-|---------------------------------------------------------------
-|
-| Some older versions of PHP don't support the E_STRICT constant
-| so we need to explicitly define it otherwise the Exception class 
-| will generate errors.
-|
-*/
-if ( ! defined('E_STRICT'))
-{
-	define('E_STRICT', 2048);
-}
-
-/*
-|---------------------------------------------------------------
 | LOAD THE FRONT CONTROLLER
 |---------------------------------------------------------------
 |
@@ -130,4 +113,6 @@ if ( ! defined('E_STRICT'))
 |
 */
 require_once BASEPATH.'codeigniter/CodeIgniter'.EXT;
-?>
+
+/* End of file index.php */
+/* Location: ./index.php */
