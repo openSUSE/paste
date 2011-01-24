@@ -60,27 +60,10 @@ class Main extends Controller
 		
 		if(!$this->input->post('submit'))
 		{
-			if($this->db_session->flashdata('settings_changed'))
-			{
-				$data['status_message'] = 'Settings successfully changed';
-			}
-			
-			$data['name_set'] = $this->db_session->userdata('name');
-			$data['expire_set'] = $this->db_session->userdata('expire');
-			$data['private_set'] = $this->db_session->userdata('private');			
-			$data['remember_set'] = $this->db_session->userdata('remember');
 			$data['paste_set'] = $paste;
 			$data['title_set'] = $title;
 			$data['reply'] = $reply;
-
-			if($this->db_session->userdata('lang') == false)
-			{
-				$data['lang_set'] = $lang;
-			}
-			elseif($this->db_session->userdata('lang'))
-			{
-				$data['lang_set'] = $this->db_session->userdata('lang');
-			}
+			$data['lang_set'] = $lang;
 		}
 		else
 		{
@@ -140,30 +123,6 @@ class Main extends Controller
 			}
 			else
 			{
-				if($this->input->post('remember') and $this->input->post('reply') == false )
-				{
-					$user_data = array(
-							'name' => $this->input->post('name'),
-							'lang' => $this->input->post('lang'),
-							'expire' => $this->input->post('expire'),
-							'private' => $this->input->post('private'),
-							'remember' => $this->input->post('remember')
-						);
-					$this->db_session->set_userdata($user_data);
-				}
-				
-				if($this->input->post('remember') == false and $this->db_session->userdata("remember") == 1)
-				{
-					$user_data = array(
-							'name' => '',
-							'lang' => 'text',
-							'expire' => '60',
-							'private' => '0',
-							'remember' => '0'
-						);
-					$this->db_session->unset_userdata($user_data);
-				}
-				
 				redirect($this->pastes->createPaste());
 			}
 		}
@@ -276,23 +235,10 @@ class Main extends Controller
 				
 		if($check)
 		{
-			
-			if($this->db_session->userdata('view_simple'))
-			{
-				redirect('view/simple/'.$this->uri->segment(2));
-			}
-			
 			$data = $this->pastes->getPaste(2, true);
 			$data['reply_form'] = $this->_form_prep($data['lang_code'], "RE: ".$data['title'], $data['raw'], $data['pid']);
 			
-			if($this->db_session->userdata('full_width'))
-			{
-				$data['full_width'] = true;
-			}
-			else
-			{
-				$data['full_width'] = false;
-			}
+			$data['full_width'] = false;
 			
 			$this->load->view('view/view', $data);
 		}
@@ -314,16 +260,8 @@ class Main extends Controller
 	function _view_options_prep()
 	{
 		$this->load->helper('form');
-		if($this->db_session->userdata('remember_view') > 0)
-		{
-			$data['full_width_set'] = $this->db_session->userdata('full_width');
-			$data['view_simple_set'] = $this->db_session->userdata('view_simple');
-		}
-		else
-		{
-			$data['full_width_set'] = false;
-			$data['view_simple_set'] = false;
-		}
+		$data['full_width_set'] = false;
+		$data['view_simple_set'] = false;
 		return $data;
 	}
 	
@@ -363,8 +301,6 @@ class Main extends Controller
 					'view_simple' => $this->input->post('view_simple'),
 					'remember_view' => true
 					);
-				$this->db_session->set_userdata($user_data);
-				$this->db_session->set_flashdata('settings_changed', 'true');
 				redirect();
 			}
 		}

@@ -14,11 +14,7 @@
 			}?>
 			
 			<h1><?=$title?></h1>
-			<?php if(!$this->db_session->userdata("view_raw")){?>
-				<a href="<?=site_url("view/".$pid)?>">Go Back</a>
-			<?php } else { ?>
-				<a href="<?=base_url()?>">Go Home</a>
-			<?php }?>
+			<a href="<?=site_url("view/".$pid)?>">Go Back</a>
 
 <?php
 		 if($lang_code=='image') {
@@ -31,7 +27,7 @@
 			echo '</pre>';
 		 }
 ?>
-			<?php if(!$this->db_session->userdata("view_raw")){?><a href="<?=site_url("view/".$pid)?>">Go Back</a><?php } else { ?><a href="<?=base_url()?>">Go Home</a><?php }?>		
+			<a href="<?=site_url("view/".$pid)?>">Go Back</a>
 		</div>
 	</body>
 </html>
