@@ -52,6 +52,7 @@ $route['view/options'] = 'main/view_options';
 $route['view/:any'] = 'main/view';
 $route['lists'] = 'main/lists';
 $route['lists/:num'] = 'main/lists/$1';
-$route['about'] = 'main/about';
+$route['login'] = 'main/login';
+$route['logout'] = 'main/logout';
 
 ?>

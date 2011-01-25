@@ -2,6 +2,7 @@
  	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <? if(!isset($page_title)) $page_title=$this->config->item('site_name');
+if(!isset($error_page)) $error_page=FALSE;
 if (!function_exists('site_url')) {
 	function site_url($arg) {
 		return $config['site_url'].'/'.$arg;
@@ -20,7 +21,7 @@ if (!function_exists('site_url')) {
 		<script type="text/javascript" src="<?=site_url()?>static/themes/bento/js/script.js"></script> 
 		<script type="text/javascript" src="<?=site_url()?>static/themes/bento/js/l10n/global-navigation-data-en_US.js"></script> 
 		<script type="text/javascript" src="<?=site_url()?>static/themes/bento/js/global-navigation.js"></script> 
- 
+		<script type="text/javascript" src="<?=site_url()?>static/themes/bento/js/script.js"></script> 
 		<link rel="icon" type="image/png" href="<?=site_url()?>static/themes/bento/images/favicon.png" />
 	</head>
 	<body>
@@ -44,7 +45,7 @@ if (!function_exists('site_url')) {
   <!-- End: Header -->
 
 		<div id="subheader" class="container_16">
-			<div id="breadcrump" class="grid_12 alpha">
+			<div id="breadcrump" class="grid_10 alpha">
 				<a href="<?=site_url()?>" title=""><img src="<?=site_url()?>static/themes/bento/images/home_grey.png" width="16" height="16"/>openSUSE Paste</a> &gt;
 				<?php 
 					if(isset($title))	{ 
@@ -61,10 +62,27 @@ if (!function_exists('site_url')) {
 						?> Create a new paste <?
 					}?>
 			</div>
+			<div class="grid_6 omega" style="text-align: right;">
+			<?php if(!$error) { ?>
+			<?php if($this->session->userdata('nick')==FALSE) { ?>
+				<a href="/user/login" id="login-trigger">Login</a>
+				<div id="login-form">
+				<form action="<?=site_url("login")?>" method="post" enctype="application/x-www-form-urlencoded" id="login_form">
+				<p><label class="inlined" for="openid">OpenID</label><input type="text" class="inline-text" name="openid" value="" id="openid" /></p>
+				<p><input value="Login" type="submit"/></p>
+				<p class="slim-footer"><a id="close-login" href="#">Cancel</a></p>
+				</form>
+				</div>
+			<?php } else { ?>
+				<?= $this->session->userdata('nick') ?>
+				<a href="/logout">Logout</a>
+			<?php }} ?>
+			</div>
 		</div>
 
 		<div id="content" class="container_16 content-wrapper">
-			<?php if(isset($status_message)){?><script type="text/javascript" charset="utf-8">
+			<?php if(isset($status_message)) {?>
+			<script type="text/javascript" charset="utf-8">
 				$(document).ready(function(){
 					$(".change").oneTime(3000, function() {
 						$(this).fadeOut(2000);

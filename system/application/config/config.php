@@ -229,11 +229,12 @@ $config['encryption_key'] = "";
 |  by default sessions last 7200 seconds (two hours).  Set to zero for no expiration.
 |
 */
-$config['sess_cookie_name']		= 'ci_session';
+$config['sess_cookie_name']		= 'paste_session';
 $config['sess_expiration']		= 604800;
 $config['sess_encrypt_cookie']	= FALSE;
-$config['sess_use_database']	= TRUE;
+$config['sess_use_database']	= FALSE;
 $config['sess_table_name']		= 'ci_sessions';
+$config['sess_time_to_update']		= 604800;
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= FALSE;
 
@@ -247,8 +248,8 @@ $config['sess_match_useragent']	= FALSE;
 | 'cookie_path'   =  Typically will be a forward slash
 |
 */
-$config['cookie_prefix']	= "susepaste.org";
-$config['cookie_domain']	= "susepaste.org";
+$config['cookie_prefix']	= "cookie";
+$config['cookie_domain']	= ".susepaste.org";
 $config['cookie_path']		= "/";
 
 /*

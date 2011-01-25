@@ -34,6 +34,8 @@ class Main extends Controller
 	{
 		parent::__construct();
 		$this->load->model('languages');
+		$this->lang->load('openid', 'english');
+		$this->load->helper('url');
 	}
 	
 	
@@ -65,6 +67,11 @@ class Main extends Controller
 				$lang = "text";
 			}
 		}
+		
+		$nick = $this->session->userdata('nick');
+		if($nick != FALSE) {
+			$data['name_set'] = $nick;
+		}
 
 		if(!$this->input->post('submit'))
 		{
@@ -77,8 +84,7 @@ class Main extends Controller
 		{
 			$data['name_set'] = $this->input->post('name');
 			$data['expire_set'] = $this->input->post('expire');
-			$data['private_set'] = $this->input->post('private');			
-			$data['remember_set'] = $this->input->post('remember');
+			$data['private_set'] = $this->input->post('private');
 			$data['paste_set'] = $this->input->post('paste');
 			$data['title_set'] = $this->input->post('title');
 			$data['reply'] = $this->input->post('reply');
@@ -107,7 +113,9 @@ class Main extends Controller
 		else
 		{
 			$match_int = count(preg_split('/http:\/\//i', $this->input->post('code')));
-			if(((pow($match_int-1,2) * 10 ) / strlen($this->input->post('code')))>1) {
+			if((((pow($match_int-1,2) * 10 ) / strlen($this->input->post('code')))>1) &&
+			   ($this->session->userdata('login')==FALSE))
+			{
 					show_error("You are spammer!!!");
 					return;
 			}
@@ -185,7 +193,43 @@ class Main extends Controller
 		}
 	}
 
+	function login() {
+		$this->openid->set_trust_root(base_url());
+		$this->openid->set_request_to(site_url('main/finish_auth'));
+		$this->openid->set_args(null);
+		$this->openid->set_sreg(true, array('nickname'), array(), base_url());
+		$this->openid->set_pape(true, array());
+		$this->openid->authenticate($_POST['openid']);
+	}
+	function logout() {
+		$this->session->sess_destroy();
+		redirect($this->index);
+	}
+
+	function finish_auth() {
+		$this->openid->set_request_to(site_url('main/finish_auth'));
+		$response = $this->openid->getResponse();
+		if (($response->status == Auth_OpenID_SUCCESS) && 
+		    (($login = strlen($response->getDisplayIdentifier()))<160))
+		{
+			$sreg_resp = Auth_OpenID_SRegResponse::fromSuccessResponse($response);
+			$sreg = $sreg_resp->contents();
+			$nick = $sreg['nickname'];
+			$this->session->set_userdata(array(
+				'login' => $login,
+				'nick'  => $nick ));
+			redirect($this->index);
+	        }
+		else
+		{
+			show_error("<h3>Login failed!!!</h3>" . $response->message);
+		}
+	}
 	
+	function test() {
+		echo $this->session->userdata('nick');
+	}
+
 	/** 
 	* Controller method to download pastes.
 	*
@@ -225,7 +269,14 @@ class Main extends Controller
 		$data = $this->pastes->getLists();
 		$this->load->view('list', $data);
 	}
-	
+
+	function my_list()
+	{
+		$this->load->model('pastes');
+		$data = $this->pastes->getMyLists();
+		$this->load->view('list', $data);
+	}
+
 		
 	/** 
 	* Controller method to show a paste.
@@ -336,20 +387,6 @@ class Main extends Controller
 			$this->pastes->cron(); 
 			return 0;
 		}
-	}
-	
-	
-	/** 
-	* Controller method to load about view.
-	*
-	* @return void
-	* @access public
-	*
-	*/
-		
-	function about()
-	{
-		$this->load->view('about');
 	}
 	
 	

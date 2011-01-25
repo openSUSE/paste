@@ -196,6 +196,10 @@ class Pastes extends Model
 			$data['paste'] = $this->process->syntax($this->input->post('code'), $this->input->post('lang'));
 		}
 		$data['ip'] = $_SERVER["REMOTE_ADDR"];
+		$data['login'] = $this->session->userdata('login');
+		if($data['login'] == FALSE) {
+			$data['login'] = 0;
+		}
 		$this->db->insert('pastes', $data);
 
 		return $data['pid'];
@@ -325,7 +329,54 @@ class Pastes extends Model
 		
 		return $data;
 	}
-	
+
+	/** 
+	* Gets a list of users x most recent pastes according to the amount set in the stikked config file.
+	*
+	* @param string $root Url root needed for pagination
+	* @param int $seg Segment which determines the page we're on for pagination.
+	* @return array
+	* @access public
+	*/
+
+	function getMyLists($root='lists/', $seg=2) {
+		if(($login=$this->session->userdata('login'))==FALSE)
+			return $this->getLists($root, $seg);
+		$this->load->library('pagination');
+		$amount = $this->config->item('per_page');
+		
+		if(! $this->uri->segment(2))
+		{
+			$page = 0;
+		}
+		else
+		{
+			$page = $this->uri->segment(2);
+		}
+		
+		$this->db->where('login', $login);
+		$this->db->orderby('created', 'desc');
+		$query = $this->db->get('pastes');
+		$num = $query->num_rows();
+		$this->db->where('login', $login);
+		$this->db->orderby('created', 'desc');
+		$query = $this->db->get('pastes', $amount, $page);
+		$data['pastes'] = $query->result_array();
+		
+		$config['base_url'] = site_url($root);
+		$config['total_rows'] = $num;
+		$config['per_page'] = $amount; 
+		$config['full_tag_open'] = '<div class="pages">';
+		$config['full_tag_close'] = '</div>';
+		$config['uri_segment'] = $seg;
+		
+		$this->pagination->initialize($config);
+			
+		$data['pages'] = $this->pagination->create_links();	
+		
+		return $data;
+
+	}
 	
 	/** 
 	* Gets a list of x most recent pastes according to the amount set in the stikked config file.

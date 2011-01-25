@@ -3,7 +3,7 @@
 	include("system/application/config/stikked.php");
 ?>
 
-<?php $page_title = $heading; $title = "Error"; ?>
+<?php $page_title = $heading; $title = "Error"; $error=TRUE; ?>
 
 <?php require_once("system/application/views/defaults/header.php");?>
 

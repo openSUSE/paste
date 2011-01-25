@@ -237,6 +237,7 @@ CREATE TABLE IF NOT EXISTS `pastes` (
   `id` int(10) NOT NULL auto_increment,
   `pid` varchar(8) character set utf8 collate utf8_unicode_ci NOT NULL,
   `ip` varchar(50) character set ascii default '0',
+  `login` varchar(160) character set ascii default '0',
   `title` varchar(32) character set utf8 collate utf8_unicode_ci NOT NULL,
   `name` varchar(32) character set utf8 collate utf8_unicode_ci NOT NULL,
   `lang` varchar(32) character set utf8 collate utf8_unicode_ci NOT NULL,
