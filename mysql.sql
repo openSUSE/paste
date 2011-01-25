@@ -250,3 +250,11 @@ CREATE TABLE IF NOT EXISTS `pastes` (
   `replyto` varchar(8) character set utf8 collate utf8_unicode_ci NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=154 ;
+
+
+CREATE TABLE IF NOT EXISTS `keys` (
+`login` VARCHAR( 160 ) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL ,
+`key` VARCHAR( 512 ) CHARACTER SET ascii COLLATE ascii_bin NOT NULL ,
+`expire` int(10) NOT NULL DEFAULT '0' ,
+PRIMARY KEY ( `key` )
+) ENGINE = MYISAM CHARACTER SET ascii COLLATE ascii_bin;

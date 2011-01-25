@@ -34,10 +34,10 @@ class Main extends Controller
 	{
 		parent::__construct();
 		$this->load->model('languages');
+		$this->load->model('keys');
 		$this->lang->load('openid', 'english');
 		$this->load->helper('url');
 	}
-	
 	
 	/** 
 	* Sets all the fields in a paste form, depending on whether the form is being repopulated or items need to be loaded from session data.
@@ -52,6 +52,12 @@ class Main extends Controller
 	* @see view()
 	*/	
 	
+	function _user_prep($data = array()) {
+		$data['oid_nick']  = $this->session->userdata('nick');
+		$data['oid_login'] = $this->session->userdata('login');
+		return $data;
+	}
+
 	function _form_prep($lang='auto', $title = '', $paste='', $reply=false)
 	{
 		$this->load->model('languages');
@@ -90,9 +96,8 @@ class Main extends Controller
 			$data['reply'] = $this->input->post('reply');
 			$data['lang_set'] = $this->input->post('lang');
 		}
-		return $data;
+		return $this->_user_prep($data);
 	}
-	
 	
 	/** 
 	* Controller method to load front page.
@@ -161,7 +166,7 @@ class Main extends Controller
 		{
 		
 			$data = $this->pastes->getPaste(3);
-			$this->load->view('view/raw', $data);
+			$this->load->view('view/raw', $this->_user_prep($data));
 		}
 		else
 		{
@@ -185,7 +190,7 @@ class Main extends Controller
 		{
 		
 			$data = $this->pastes->getPaste(3);
-			$this->load->view('view/simple', $data);
+			$this->load->view('view/simple', $this->_user_prep($data));
 		}
 		else
 		{
@@ -210,7 +215,7 @@ class Main extends Controller
 		$this->openid->set_request_to(site_url('main/finish_auth'));
 		$response = $this->openid->getResponse();
 		if (($response->status == Auth_OpenID_SUCCESS) && 
-		    (($login = strlen($response->getDisplayIdentifier()))<160))
+		    ((strlen($login = $response->getDisplayIdentifier()))<160))
 		{
 			$sreg_resp = Auth_OpenID_SRegResponse::fromSuccessResponse($response);
 			$sreg = $sreg_resp->contents();
@@ -218,18 +223,15 @@ class Main extends Controller
 			$this->session->set_userdata(array(
 				'login' => $login,
 				'nick'  => $nick ));
+			$this->keys->add_me();
 			redirect($this->index);
-	        }
+		}
 		else
 		{
 			show_error("<h3>Login failed!!!</h3>" . $response->message);
 		}
 	}
 	
-	function test() {
-		echo $this->session->userdata('nick');
-	}
-
 	/** 
 	* Controller method to download pastes.
 	*
@@ -245,7 +247,7 @@ class Main extends Controller
 		if($check)
 		{
 			$data = $this->pastes->getPaste(3);
-			$this->load->view('view/download', $data);
+			$this->load->view('view/download', $this->_user_prep($data));
 		}
 		else
 		{
@@ -267,14 +269,14 @@ class Main extends Controller
 	{
 		$this->load->model('pastes');
 		$data = $this->pastes->getLists();
-		$this->load->view('list', $data);
+		$this->load->view('list', $this->_user_prep($data));
 	}
 
 	function my_list()
 	{
 		$this->load->model('pastes');
 		$data = $this->pastes->getMyLists();
-		$this->load->view('list', $data);
+		$this->load->view('list', $this->_user_prep($data));
 	}
 
 		
@@ -299,7 +301,7 @@ class Main extends Controller
 			
 			$data['full_width'] = false;
 			
-			$this->load->view('view/view', $data);
+			$this->load->view('view/view', $this->_user_prep($data));
 		}
 		else
 		{
@@ -338,7 +340,7 @@ class Main extends Controller
 		if(!isset($_POST['submit']))
 		{
 			$data = $this->_view_options_prep();
-			$this->load->view('view/view_options', $data);
+			$this->load->view('view/view_options', $this->_user_prep($data));
 		}
 		else
 		{
@@ -385,6 +387,7 @@ class Main extends Controller
 		else
 		{
 			$this->pastes->cron(); 
+			$this->keys->cron(); 
 			return 0;
 		}
 	}

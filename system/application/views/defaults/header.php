@@ -2,7 +2,6 @@
  	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <? if(!isset($page_title)) $page_title=$this->config->item('site_name');
-if(!isset($error_page)) $error_page=FALSE;
 if (!function_exists('site_url')) {
 	function site_url($arg) {
 		return $config['site_url'].'/'.$arg;
@@ -63,8 +62,7 @@ if (!function_exists('site_url')) {
 					}?>
 			</div>
 			<div class="grid_6 omega" style="text-align: right;">
-			<?php if(!$error) { ?>
-			<?php if($this->session->userdata('nick')==FALSE) { ?>
+			<?php if((!isset($oid_login)) || ($oid_nick == FALSE)) { ?>
 				<a href="/user/login" id="login-trigger">Login</a>
 				<div id="login-form">
 				<form action="<?=site_url("login")?>" method="post" enctype="application/x-www-form-urlencoded" id="login_form">
@@ -74,9 +72,9 @@ if (!function_exists('site_url')) {
 				</form>
 				</div>
 			<?php } else { ?>
-				<?= $this->session->userdata('nick') ?>
+				<?= $oid_nick ?>
 				<a href="/logout">Logout</a>
-			<?php }} ?>
+			<?php } ?>
 			</div>
 		</div>
 

@@ -200,6 +200,8 @@ class Pastes extends Model
 		if($data['login'] == FALSE) {
 			$data['login'] = 0;
 		}
+		if(($data['login'] != 0) && (!($this->keys->verify())))
+			show_error("Invalid login!!!");
 		$this->db->insert('pastes', $data);
 
 		return $data['pid'];
@@ -340,7 +342,8 @@ class Pastes extends Model
 	*/
 
 	function getMyLists($root='lists/', $seg=2) {
-		if(($login=$this->session->userdata('login'))==FALSE)
+		if((!($this->keys->verify())) ||
+		   (($login=$this->session->userdata('login'))==FALSE))
 			return $this->getLists($root, $seg);
 		$this->load->library('pagination');
 		$amount = $this->config->item('per_page');
