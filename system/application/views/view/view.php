@@ -100,6 +100,9 @@
 	<ul style="float: right;">
 		<li><a href="<?=site_url("view/simple/".$pid)?>">Simple</a></li>
 		<li><a href="<?=site_url("view/raw/".$pid)?>">Raw</a></li>
+		<?php if(isset($oid_login) && ($oid_login == $owner)) { ?>
+		<li class="danger"><a href="<?=site_url("delete/".$pid)?>">Delete</a></li>
+		<?php } ?>
 		<li><a href="<?=site_url("view/download/".$pid)?>">Download</a></li>
 	</ul>
 	</div>

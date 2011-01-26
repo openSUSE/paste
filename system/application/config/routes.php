@@ -48,10 +48,12 @@ $route['cron/:any'] = "main/cron";
 $route['view/raw/:any'] = 'main/raw/';
 $route['view/simple/:any'] = 'main/simple/';
 $route['view/download/:any'] = 'main/download/';
-$route['view/options'] = 'main/view_options';
 $route['view/:any'] = 'main/view';
+$route['delete/:any'] = 'main/deletePaste';
 $route['lists'] = 'main/lists';
 $route['lists/:num'] = 'main/lists/$1';
+$route['my_list'] = 'main/my_list';
+$route['my_list/:num'] = 'main/my_list/$1';
 $route['login'] = 'main/login';
 $route['logout'] = 'main/logout';
 

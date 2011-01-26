@@ -28,7 +28,7 @@ window.onload=function() {
 
 <?php if(isset($this->validation->error_string)){ echo $this->validation->error_string; }?>
 <div class="grid_16 box box-shadow alpha clear-both navigation">
-	<div class="box-header"><h2>
+	<div class="box-header" style="margin-top: 0px;"><h2>
 		<?php if(!isset($page['instructions'])){ ?>
 			Here you can create your paste:
 		<?php } else { ?>

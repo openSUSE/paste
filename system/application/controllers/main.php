@@ -198,6 +198,12 @@ class Main extends Controller
 		}
 	}
 
+	function deletePaste() {
+		$this->load->model('pastes');
+		$this->pastes->deletePaste($this->uri->segment(2));
+		redirect($this->my_list());
+	}
+
 	function login() {
 		$this->openid->set_trust_root(base_url());
 		$this->openid->set_request_to(site_url('main/finish_auth'));

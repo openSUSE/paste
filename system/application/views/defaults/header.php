@@ -21,6 +21,7 @@ if (!function_exists('site_url')) {
 		<script type="text/javascript" src="<?=site_url()?>static/themes/bento/js/l10n/global-navigation-data-en_US.js"></script> 
 		<script type="text/javascript" src="<?=site_url()?>static/themes/bento/js/global-navigation.js"></script> 
 		<script type="text/javascript" src="<?=site_url()?>static/themes/bento/js/script.js"></script> 
+		<script type="text/javascript" src="<?=site_url()?>static/js/dropdown.js"></script>
 		<link rel="icon" type="image/png" href="<?=site_url()?>static/themes/bento/images/favicon.png" />
 	</head>
 	<body>
@@ -61,7 +62,7 @@ if (!function_exists('site_url')) {
 						?> Create a new paste <?
 					}?>
 			</div>
-			<div class="grid_6 omega" style="text-align: right;">
+			<div class="grid_6 omega" style="text-align: right; font-size: 0.9em">
 			<?php if((!isset($oid_login)) || ($oid_nick == FALSE)) { ?>
 				<a href="/user/login" id="login-trigger">Login</a>
 				<div id="login-form">
@@ -73,6 +74,9 @@ if (!function_exists('site_url')) {
 				</div>
 			<?php } else { ?>
 				<?= $oid_nick ?>
+				|
+				<a href="/my_list">My Pastes</a>
+				|
 				<a href="/logout">Logout</a>
 			<?php } ?>
 			</div>

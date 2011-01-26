@@ -196,6 +196,7 @@ class Pastes extends Model
 			$data['paste'] = $this->process->syntax($this->input->post('code'), $this->input->post('lang'));
 		}
 		$data['ip'] = $_SERVER["REMOTE_ADDR"];
+		$this->keys->verify();
 		$data['login'] = $this->session->userdata('login');
 		if($data['login'] == FALSE) {
 			$data['login'] = 0;
@@ -238,7 +239,6 @@ class Pastes extends Model
 		}
 	}
 	
-	
 	/** 
 	* Gets a specific paste from the database and all its related meta-data
 	*
@@ -247,7 +247,7 @@ class Pastes extends Model
 	* @return array
 	* @access public
 	*/
-	
+
 	function getPaste($seg=2, $replies=false)
 	{	
 		if($this->uri->segment($seg) == '')
@@ -271,6 +271,7 @@ class Pastes extends Model
 			$data['lang_code'] = $row['lang'];
 			$data['lang'] = $this->languages->code_to_description($row['lang']);
 			$data['paste'] = $row['paste'];
+			$data['owner'] = $row['login'];
 			$data['expire'] = $row['expire'];
 			$data['toexpire'] = $row['toexpire'];
 			$data['created'] = $row['created'];
@@ -453,6 +454,27 @@ class Pastes extends Model
 
 		return;
 	}
+
+	function deletePaste($id = 0) {
+		if(!$this->keys->verify())
+			show_error("You have to be logged in to delete something!");
+		$this->db->where('pid', $id);
+		$query = $this->db->get('pastes');
+		if($query->num_rows() != 1)
+			show_error("No paste with ID " . $id . " !");
+		foreach($query->result_array() as $row)
+		{
+			if($row['login']!=$this->session->userdata('login'))
+				show_error("This paste doesn't belong to you!");
+			if($row['lang']=='image') {
+				unlink('.' . $row['raw']);
+			}
+			$this->db->where('id', $row['id']);
+			$this->db->delete('pastes');
+		}
+		return true;
+	}
+	
 }
 
 ?>

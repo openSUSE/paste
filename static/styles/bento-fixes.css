@@ -105,3 +105,6 @@ textarea {
     font-size: 108%;
 }
 
+.header-tabs li.danger a {
+      color: #cc0000;
+}
