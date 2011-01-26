@@ -18,7 +18,9 @@
 }?>
 
 <div class="grid_16 box box-shadow alpha">
-	<h2 class="box-header">Info:</h2>
+	<div class="box-header">
+	<h2>Info:</h2>
+	</div>
 	<div class="info">
 		<?php echo '<p>By ' . $name . ', ';
 			$p = explode(',', timespan($created, time()));

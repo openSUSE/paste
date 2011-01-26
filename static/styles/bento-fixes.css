@@ -99,7 +99,13 @@ textarea {
     background: none;
 }
 
+.ui-oo-content-wrapper .ui-oo-box-shadow.navigation > *, .content-wrapper .box.navigation > * {
+    margin: 0 15px 1em;
+}
+
 .box-header h2 {
+    padding-top: 0px;
+    margin-top: 0px;
     display: inline;
     clear: none;
     font-size: 108%;

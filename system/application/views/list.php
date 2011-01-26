@@ -1,12 +1,7 @@
 <?php $this->load->view('defaults/header');?>
 
 <div class="grid_16 box box-shadow alpha omega navigation">
-<h2 class="box-header">List of recent pastes:</h2>
-<!--<div class="box-header header-tabs">
-<ul style="float: right;">
-	<li><a href="<?php echo site_url("view/options")?>">Change paste viewing options</a></li> 
-</ul>
-</div> -->
+<div class="box-header"><h2>List of recent pastes:</h2></div>
 
 <div class="grid_15 alpha omega">
 		<?php 
