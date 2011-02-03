@@ -256,5 +256,7 @@ CREATE TABLE IF NOT EXISTS `keys` (
 `login` VARCHAR( 160 ) CHARACTER SET ascii COLLATE ascii_general_ci NOT NULL ,
 `key` VARCHAR( 512 ) CHARACTER SET ascii COLLATE ascii_bin NOT NULL ,
 `expire` int(10) NOT NULL DEFAULT '0' ,
+`created` int(10) NOT NULL DEFAULT '0' ,
+`title` varchar(160),
 PRIMARY KEY ( `key` )
 ) ENGINE = MYISAM CHARACTER SET ascii COLLATE ascii_bin;

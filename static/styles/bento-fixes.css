@@ -114,3 +114,7 @@ textarea {
 .header-tabs li.danger a {
       color: #cc0000;
 }
+
+td.danger a {
+      color: #cc0000;
+}

@@ -125,5 +125,6 @@ window.onload=function() {
 		<?php if($reply){?>
 		<input type="hidden" value="<?php echo $reply; ?>" name="reply" />
 		<?php }?>
+		<input type="hidden" name="api_key" />
 	</form>
 </div>

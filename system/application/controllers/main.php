@@ -53,6 +53,7 @@ class Main extends Controller
 	*/	
 	
 	function _user_prep($data = array()) {
+		$this->keys->verify();
 		$data['oid_nick']  = $this->session->userdata('nick');
 		$data['oid_login'] = $this->session->userdata('login');
 		return $data;
@@ -117,6 +118,7 @@ class Main extends Controller
 		}
 		else
 		{
+			$this->keys->verify();
 			$match_int = count(preg_split('/http:\/\//i', $this->input->post('code')));
 			if((((pow($match_int-1,2) * 10 ) / strlen($this->input->post('code')))>1) &&
 			   ($this->session->userdata('login')==FALSE))
@@ -198,10 +200,35 @@ class Main extends Controller
 		}
 	}
 
+	function delete_key() {
+		if(!$this->keys->verify())
+			redirect();
+		$this->keys->delete_key($this->uri->segment(3));
+		redirect('main/my_keys');
+	}
+
+	function create_key()
+	{
+		if(!$this->keys->verify())
+			redirect();
+		$this->keys->gen_key($_POST['ttl'], $_POST['title']);
+		redirect('main/my_keys');
+	}
+
+
+	function my_keys() {
+		if(!$this->keys->verify())
+			redirect();
+		$data['keys'] = $this->keys->get_keys();
+		$this->load->view('key_list', $this->_user_prep($data));
+	}
+
 	function deletePaste() {
+		if(!$this->keys->verify())
+			redirect();
 		$this->load->model('pastes');
 		$this->pastes->deletePaste($this->uri->segment(2));
-		redirect($this->my_list());
+		redirect('main/my_list');
 	}
 
 	function login() {
@@ -214,7 +241,7 @@ class Main extends Controller
 	}
 	function logout() {
 		$this->session->sess_destroy();
-		redirect($this->index);
+		redirect();
 	}
 
 	function finish_auth() {
@@ -230,10 +257,11 @@ class Main extends Controller
 				'login' => $login,
 				'nick'  => $nick ));
 			$this->keys->add_me();
-			redirect($this->index);
+			redirect();
 		}
 		else
 		{
+			$this->session->sess_destroy();
 			show_error("<h3>Login failed!!!</h3>" . $response->message);
 		}
 	}
@@ -280,10 +308,12 @@ class Main extends Controller
 
 	function my_list()
 	{
+		$this->keys->verify();
 		$this->load->model('pastes');
 		$data = $this->pastes->getMyLists();
 		$this->load->view('list', $this->_user_prep($data));
 	}
+
 
 		
 	/** 

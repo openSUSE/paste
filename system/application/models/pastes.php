@@ -201,8 +201,6 @@ class Pastes extends Model
 		if($data['login'] == FALSE) {
 			$data['login'] = 0;
 		}
-		if(($data['login'] != 0) && (!($this->keys->verify())))
-			show_error("Invalid login!!!");
 		$this->db->insert('pastes', $data);
 
 		return $data['pid'];

@@ -77,6 +77,8 @@ if (!function_exists('site_url')) {
 				|
 				<a href="/my_list">My Pastes</a>
 				|
+				<a href="/my_keys">My Keys</a>
+				|
 				<a href="/logout">Logout</a>
 			<?php } ?>
 			</div>

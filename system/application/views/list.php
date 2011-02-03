@@ -38,7 +38,7 @@
 				</tbody>
 			</table> 
 		<?} else { ?>
-			<p>There have been no pastes :(</p>
+			<p>There are no pastes :(</p>
 		<? }?>
 </div>
 </div>

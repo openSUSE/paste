@@ -2,16 +2,19 @@
 
 class Keys extends Model {
    function add_me() {
+      $this->load->library('user_agent');
       $data = array();
-      $data['login']  = $this->session->userdata('login');
-      $data['key']    = 'SESS:' . $this->session->userdata('session_id');
-      $data['expire'] = now()+$this->config->item('sess_expiration');
+      $data['login']   = $this->session->userdata('login');
+      $data['key']     = 'SESS:' . $this->session->userdata('session_id');
+      $data['expire']  = now()+$this->config->item('sess_expiration');
+      $data['created'] = now();
+      $data['title']   = "Session from " . $this->agent->agent_string();
       $this->db->where('key',$data['key']);
 		$this->db->delete('keys');
       $this->db->insert('keys', $data);
    }
 
-   function rand_str($length = 32, $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890')
+   function _rand_str($length = 32, $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890')
    {
     // Length of character list
     $chars_length = (strlen($chars) - 1);
@@ -20,10 +23,10 @@ class Keys extends Model {
     $string = $chars{rand(0, $chars_length)};
    
     // Generate random string
-    for ($i = 1; $i < $length; $i = strlen($string))
+    for ($i = 1; $i < $length; $i++)
     {
         // Grab a random character from our list
-        $r = $chars{rand(0, $chars_length)};
+        $string = $string . $chars{rand(0, $chars_length)};
     }
    
     // Return the string
@@ -36,31 +39,56 @@ class Keys extends Model {
       if($key == NULL) {
          $key = 'SESS:' . $this->session->userdata('session_id');
       }
+      if(isset($_POST['api_key'])) {
+      	$this->db->where('key','KEY:' . $_POST['api_key']);
+      	$query = $this->db->get('keys');
+	if($query->num_rows() > 0) {
+	   foreach($query->result_array() as $row) {
+           	$this->session->set_userdata('login', $row['login']);
+	   }
+	   return true;
+	} else {
+           $this->session->set_userdata('login', FALSE);
+	   return false;
+	}
+      }
       $this->db->where('login',$login);
       $this->db->where('key',$key);
       $query = $this->db->get('keys');
-      if($query->num_rows() > 0)
+      if($query->num_rows() > 0) {
          return true;
+      }
       $this->session->sess_destroy();
       return false;
    }
-   function gen_key($ttl) {
-      if(verify()) {
+   function gen_key($ttl, $title="") {
+      if($this->verify()) {
          $data = array();
-         $data['login'] = $login = $this->session->userdata('login');
+         $data['login'] = $this->session->userdata('login');
          do {
-            $data['key'] = 'KEY:' . rand_str();
+            $data['key'] = 'KEY:' . $this->_rand_str();
             $this->db->where('key',$data['key']);
             $query = $this->db->get('keys');
          } while($query->num_rows() > 0);
          $data['expire'] = now() + $ttl;
+         $data['created'] = now();
+         $data['title'] = $title;
          $this->db->insert('keys', $data);
       } else {
          return false;
       }
    }
+   function delete_key($key) {
+      if($this->verify()) {
+         $this->db->where('key',$key);
+         $this->db->delete('keys');
+      } else {
+         return false;
+      }
+   }
    function get_keys() {
-      if(verify()) {
+      if($this->verify()) {
+      	 $login = $this->session->userdata('login');
          $this->db->where('login',$login);
          $query = $this->db->get('keys');
          return $query->result_array();
