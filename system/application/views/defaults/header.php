@@ -56,8 +56,14 @@ if (!function_exists('site_url')) {
 						if(isset($url)) {
 							?></a><?
 						}
-					} else if(isset($pastes)) {
-						?><a href="<?=site_url("lists")?>">Recent Pastes</a><?
+					} else 	if(isset($page_title) && ($_SERVER['REQUEST_URI'] != '/'))	{ 
+						?>
+						<a href="<?php
+						if(isset($url)) { 
+							echo $url;
+						} else {
+							echo $_SERVER['REQUEST_URI'];
+						}?>"><?=$page_title?></a><?php
 					} else {
 						?> Create a new paste <?
 					}?>
@@ -73,11 +79,19 @@ if (!function_exists('site_url')) {
 				</form>
 				</div>
 			<?php } else { ?>
-				<?= $oid_nick ?>
+				<b><?= $oid_nick ?></b>
+				<?php function selected_title($link, $title, $compare) {
+					if($compare == $title) {
+						return $title;
+					} else {
+						return '<a href="' . $link . '">' . $title . '</a>';
+					}
+				}
+				?> 
 				|
-				<a href="/my_list">My Pastes</a>
+				<?= selected_title("/my_list","My Pastes",$page_title) ?>
 				|
-				<a href="/my_keys">My Keys</a>
+				<?= selected_title("/my_keys","My Keys",$page_title) ?>
 				|
 				<a href="/logout">Logout</a>
 			<?php } ?>

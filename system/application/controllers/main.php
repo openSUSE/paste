@@ -53,9 +53,10 @@ class Main extends Controller
 	*/	
 	
 	function _user_prep($data = array()) {
-		$this->keys->verify();
-		$data['oid_nick']  = $this->session->userdata('nick');
-		$data['oid_login'] = $this->session->userdata('login');
+		if($this->keys->verify()) {
+			$data['oid_nick']  = $this->session->userdata('nick');
+			$data['oid_login'] = $this->session->userdata('login');
+		}
 		return $data;
 	}
 
@@ -220,6 +221,7 @@ class Main extends Controller
 		if(!$this->keys->verify())
 			redirect();
 		$data['keys'] = $this->keys->get_keys();
+		$data['page_title'] = "My Keys";
 		$this->load->view('key_list', $this->_user_prep($data));
 	}
 
@@ -303,6 +305,7 @@ class Main extends Controller
 	{
 		$this->load->model('pastes');
 		$data = $this->pastes->getLists();
+		$data['page_title'] = "Recent Pastes";
 		$this->load->view('list', $this->_user_prep($data));
 	}
 
@@ -311,6 +314,7 @@ class Main extends Controller
 		$this->keys->verify();
 		$this->load->model('pastes');
 		$data = $this->pastes->getMyLists();
+		$data['page_title'] = "My Pastes";
 		$this->load->view('list', $this->_user_prep($data));
 	}
 
