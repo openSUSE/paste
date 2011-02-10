@@ -63,7 +63,7 @@ window.onload=function() {
 				</label>
 				
 				<?php 
-				$lang_extra = 'id="lang" class="select" tabindex="3" onchange=\'settype()\'';
+				$lang_extra = 'id="lang" class="select" tabindex="3" onchange=\'settype("auto")\'';
 				echo form_dropdown('lang', $languages, $lang_set, $lang_extra); ?>
 			</div>								
 		</div>							

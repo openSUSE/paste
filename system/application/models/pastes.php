@@ -158,6 +158,9 @@ class Pastes extends Model
 		}
 		switch($this->input->post('expire'))
 		{
+			case '30':
+				$data['expire'] = mktime(date("H"), date("i") + 30, date("s"), date("m"), date("d"), date("Y"));
+				break;
 			case '60':
 				$data['expire'] = mktime((date("H") + 1), date("i"), date("s"), date("m"), date("d"), date("Y"));
 				break;
