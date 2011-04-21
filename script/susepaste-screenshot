@@ -22,6 +22,7 @@
  ##############################################################################
 
 WINDOW=select
+API_KEY=""
 
 # Read configuration file
 
@@ -29,32 +30,47 @@ WINDOW=select
 
 # Process the command line parameters
 
-while [ "$2" ]; do
-	if [ "x$1" = "x--all" ]; then
+while [ "$1" ]; do
+	case "x$1" in
+	"x--all")
 		WINDOW="root"
-		shift 2
-	fi
-	if [ "x$1" = "x-t" ]; then
+		shift 1
+		;;
+	"x-t")
 		TITLE="$2"
 		shift 2
-	fi
-	if [ "x$1" = "x-n" ]; then
+		;;
+	"x-k")
+		KEY="$2"
+		shift 2
+		;;
+	"x-n")
 		NICK="$2"
 		shift 2
-	fi
-	if [ "x$1" = "x-e" ]; then
+		;;
+	"x-e")
 		EXPIRE="$2"
 		shift 2
-	fi
-	if [ "x$1" = "x-h" ]; then
+		;;
+	*)
 		echo "openSUSE Paste screenshot script"
 		echo ""
 		echo " usage:"
 		echo "   susepaste-screenshot [--all] [-n nick] [-t title] [-e expire] [file]"
 		echo ""
 		exit 0
-	fi
+		;;
+	esac
 done
+
+# Key handling
+
+if [ "$KEY" ]; then
+	if [ "`expr substr "$KEY" 1 4`" = "KEY:" ]; then
+		KEY="`echo "$KEY" | sed 's|^KEY:||'`"
+	fi
+	API_KEY=" -F api_key=$KEY "
+fi
 
 # Defaults if nothing was specified
 
@@ -78,7 +94,8 @@ import -window $WINDOW -limit disk 500KiB -compress JPEG "$TMP" > /dev/null 2> /
 
 URL="`
 curl -v -F "file=@$TMP" -F "title=$TITLE"  -F "expire=$EXPIRE"     \
-        -F "name=$NICK"  -F "submit=submit" -F "lang=image"     \
+        -F "name=$NICK" -F "submit=submit" -F "lang=image"         \
+        $API_KEY                                                   \
         http://susepaste.org 2>&1 | sed -n 's|<\ Location:\ ||p' `"
 
 rm -f "$TMP"
@@ -87,13 +104,19 @@ rm -f "$TMP"
 
 if expr "$URL" : "^http://susepaste.org/[0-9a-f]\+" > /dev/null; then
 	ID="`echo "$URL" | sed 's|^http://susepaste.org/\([0-9a-f]\+\)[^0-9a-f]*|\1|'`"
-	echo "Pasted as:"
-	echo "   http://susepaste.org/$ID"
-	echo "   http://paste.opensuse.org/$ID"
+TEXT="Pasted as:
+   http://susepaste.org/$ID
+   http://paste.opensuse.org/$ID"
 	if [ -x /usr/bin/xclip ]; then
 		echo "http://susepaste.org/$ID" | xclip -selection XA_CLIPBOARD
-		echo "Link is also in your clipboard."
+		TEXT="$TEXT
+Link is also in your clipboard."
 	fi
 else
-	echo "Paste failed :-("
-fi | xmessage -file -
+	TEXT="Paste failed :-("
+fi
+if [ "`which zenity`" ]; then
+	zenity --info --title="openSUSE Paste" --text="$TEXT"
+else
+	echo "$TEXT" | xmessage -file -
+fi
