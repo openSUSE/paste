@@ -39,23 +39,26 @@ class Keys extends Model {
       if($key == NULL) {
          $key = 'SESS:' . $this->session->userdata('session_id');
       }
-      if(isset($_POST['api_key'])) {
+      if($_POST['api_key'] != "") {
       	$this->db->where('key','KEY:' . $_POST['api_key']);
       	$query = $this->db->get('keys');
-	if($query->num_rows() > 0) {
-	   foreach($query->result_array() as $row) {
-           	$this->session->set_userdata('login', $row['login']);
-	   }
-	   return true;
-	} else {
-           $this->session->set_userdata('login', FALSE);
-	   return false;
-	}
+        if($query->num_rows() > 0) {
+           foreach($query->result_array() as $row) {
+              $this->session->set_userdata('login', $row['login']);
+           }
+           return true;
+        } else {
+           $this->session->sess_destroy();
+           return false;
+        }
       }
       $this->db->where('login',$login);
       $this->db->where('key',$key);
       $query = $this->db->get('keys');
       if($query->num_rows() > 0) {
+         foreach($query->result_array() as $row) {
+           $this->session->set_userdata('login', $row['login']);
+         }
          return true;
       }
       $this->session->sess_destroy();

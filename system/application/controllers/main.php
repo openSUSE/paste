@@ -114,6 +114,7 @@ class Main extends Controller
 	{
 		if(!isset($_POST['submit']))
 		{
+			$this->keys->verify();
 			$data = $this->_form_prep();
 			$this->load->view('home', $data);
 		}
@@ -121,8 +122,8 @@ class Main extends Controller
 		{
 			$this->keys->verify();
 			$match_int = count(preg_split('/http:\/\//i', $this->input->post('code')));
-			if((((pow($match_int-1,2) * 10 ) / strlen($this->input->post('code')))>1) &&
-			   ($this->session->userdata('login')==FALSE))
+			if((((pow($match_int-1,2) * 20 ) / strlen($this->input->post('code')))>1) &&
+			   (!$this->keys->verify()))
 			{
 					show_error("You are spammer!!!");
 					return;
