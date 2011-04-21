@@ -586,37 +586,7 @@ class CI_Upload {
 			return FALSE;
 		}
 
-		// Images get some additional checks
-		$image_types = array('gif', 'jpg', 'jpeg', 'png', 'jpe');
-
-		if (in_array($ext, $image_types))
-		{
-			if (getimagesize($this->file_temp) === FALSE)
-			{
-				return FALSE;
-			}			
-		}
-
-		if ($ignore_mime === TRUE)
-		{
-			return TRUE;
-		}
-		
-		$mime = $this->mimes_types($ext);
-				
-		if (is_array($mime))
-		{
-			if (in_array($this->file_type, $mime, TRUE))
-			{
-				return TRUE;
-			}			
-		}
-		elseif ($mime == $this->file_type)
-		{
-				return TRUE;
-		}
-		
-		return FALSE;
+		return TRUE;
 	}
 	
 	// --------------------------------------------------------------------
