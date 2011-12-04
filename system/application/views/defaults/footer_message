@@ -2,13 +2,13 @@
   <div id="footer" class="container_16">
     <!-- TODO: add content -->
     <div id="footer-legal" class="border-top grid_16">
-<a href="http://wwww.i-tux.cz"><img style="margin: 5px; float: left; " src="/static/images/i-tux.png" alt="i-Tux hosting" height="50"/></a>
-<a href="http://wwww.i-tux.cz"><img style="margin: 5px; float: right;" src="/static/images/i-tux.png" alt="i-Tux hosting" height="50"/></a>
+<a href="http://www.virtio.cz"><img style="margin: 5px; float: left; " src="/static/images/virtio_cz.png" alt="Virtio.cz"/></a>
+<a href="http://www.virtio.cz"><img style="margin: 5px; float: right;" src="/static/images/virtio_cz.png" alt="Virtio.cz"/></a>
 <p>Based on open source software <a href="http://code.google.com/p/stikked/">Stikked</a>. Original note is 
 "<!-- Removing this breaches the license -->Created by <a href="http://benmcredmond.com">Ben McRedmond</a> and Powered By <a href="http://code.google.com/p/stikked/">Stikked</a><!-- Removing this breaches the license -->".</p>
 <p>Forked by <a href="http://michal.hrusecky.net">Michal Hrušecký</a> from <a href="http://wiki.opensuse.org/openSUSE:Boosters_team">openSUSE Boosters team</a>.</p>
 <p>Current info about this software can be found at <a href="https://www.ohloh.net/p/opensuse-paste">Ohloh</a></p>
 <script type="text/javascript" src="http://www.ohloh.net/p/485082/widgets/project_thin_badge.js"></script>
-<p>Hosting and bandwidth for this site is provided without any charge by <a href="http://www.i-tux.cz">i-Tux hosting</a>.</p>
+<p>Hosting and bandwidth for this site is provided free of charge by <a href="http://www.virtio.cz">Virtio.cz</a>.</p>
     </div>
   </div>
