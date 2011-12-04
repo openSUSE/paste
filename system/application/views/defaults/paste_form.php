@@ -99,7 +99,9 @@ window.onload=function() {
 				<label for="expire">Delete After
 					<span class="instruction">When should we delete your paste?</span>
 				</label>
-				<?php 
+				<?php
+					if(!isset($expire_set))
+						$expire_set = 10080;
 					$expire_extra = 'id="expire" class="select" tabindex="7"';
 					$options = array(
 									"30" => "30 Minutes",
