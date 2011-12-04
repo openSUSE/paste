@@ -37,6 +37,9 @@ class Main extends Controller
 		$this->load->model('keys');
 		$this->lang->load('openid', 'english');
 		$this->load->helper('url');
+
+		//converts query string into global GET array variable
+		parse_str($_SERVER['QUERY_STRING'],$_GET);
 	}
 	
 	/** 
@@ -87,6 +90,27 @@ class Main extends Controller
 			$data['title_set'] = $title;
 			$data['reply'] = $reply;
 			$data['lang_set'] = $lang;
+			// Parses GET-data for presets:
+			$get_title = base64_decode($this->input->get('title', TRUE));
+			$get_paste = base64_decode($this->input->get('paste', FALSE));
+			$get_name = base64_decode($this->input->get('name', TRUE));
+			$get_expire = $this->input->get('expire', TRUE);
+			$get_lang = $this->input->get('lang', TRUE);
+			$get_private = $this->input->get('private', TRUE);
+
+
+			if($get_title)
+				$data['title_set'] = $get_title;
+			if($get_paste)
+				$data['paste_set'] = $get_paste;
+			if($get_name)
+				$data['name_set'] = $get_name;
+			if($get_expire)
+				$data['expire_set'] = $get_expire;
+			if($get_lang)
+				$data['lang_set'] = $get_lang;
+			if($get_private)
+				$data['private_set'] = $get_private;
 		}
 		else
 		{
