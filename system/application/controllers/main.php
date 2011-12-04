@@ -105,10 +105,11 @@ class Main extends Controller
 				$data['paste_set'] = $get_paste;
 			if($get_name)
 				$data['name_set'] = $get_name;
-			if($get_expire)
+			if($get_expire) {
 				if($get_expire < 0)
 					$get_expire = 0;
 				$data['expire_set'] = $get_expire;
+			}
 			if($get_lang)
 				$data['lang_set'] = $get_lang;
 			if($get_private)
