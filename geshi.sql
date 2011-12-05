@@ -204,5 +204,4 @@ INSERT INTO `languages` (`code`, `description`) VALUES
 ('6502kickass', 'MOS 6502 (6510) Kick Assembler format'),
 ('6502tasm', 'MOS 6502 (6510) TASM/64TASS 1.46 Assembler format'),
 ('68000devpac', 'Motorola 68000 - HiSoft Devpac ST 2 Assembler format'),
-('none', 'none');
-DELETE FROM `languages` WHERE code='none' AND description='none';
+('image', 'Image file');

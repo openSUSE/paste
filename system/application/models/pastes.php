@@ -120,7 +120,7 @@ class Pastes extends Model
 		if($data['lang']=='image') {
 			$path                    = '/images/';
 			$config['upload_path']   = '.' . $path;
-			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg|svg';
 			$config['max_size']      = '512';
 			if($this->input->post('expire')>10)
 			$config['max_size']	 = '5120';

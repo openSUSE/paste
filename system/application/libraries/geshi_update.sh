@@ -7,5 +7,4 @@ echo 'CREATE TABLE IF NOT EXISTS `languages` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;'
 echo 'INSERT INTO `languages` (`code`, `description`) VALUES'
 for i in *.php; do echo "('"`echo $i | sed 's|\.php||'`"', `sed -n 's|.*LANG_NAME.[[:blank:]]\+=>[[:blank:]]\+\([^[:blank:]].*\),|\1|p' $i`),"; done
-echo "('none', 'none');"
-echo 'DELETE FROM `languages` WHERE'" code='none' AND description='none';"
+echo "('image', 'Image file');"
