@@ -1,0 +1,38 @@
+-------------------------------------------------------------------
+Thu Apr 21 16:04:27 CEST 2011 - mhrusecky@suse.cz
+
+- updated to version 0.5
+  - support for pasting with key
+  - fixed infinite loop on syntax error
+
+-------------------------------------------------------------------
+Mon Jan  3 00:10:02 CET 2011 - mhrusecky@suse.cz
+
+- updated to version 0.4.1
+  - fixed screenshot pasting script to cleanup temporaly files
+
+-------------------------------------------------------------------
+Sat Jan  1 20:45:05 CET 2011 - mhrusecky@suse.cz
+
+- updated to version 0.4
+  - adding screenshot pasting script
+
+-------------------------------------------------------------------
+Mon Dec  6 16:16:04 CET 2010 - mhrusecky@suse.cz
+
+- updated to version 0.3
+  - support for commandline option
+  - support for pasting images
+  - automatic recognition of several file types 
+
+-------------------------------------------------------------------
+Mon Aug 30 12:15:06 CEST 2010 - mhrusecky@suse.cz
+
+- adding http://paste.opensuse.org as another output
+- adding man page
+
+-------------------------------------------------------------------
+Fri Jul 30 22:46:21 CEST 2010 - mhrusecky@suse.cz
+
+- packaged first version of the script
+
