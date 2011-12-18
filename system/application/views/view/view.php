@@ -5,7 +5,6 @@
 		$(".expand").click(function(){
 			$(".paste").css("width", "90%");
 			$(".text_formatted").hide();
-			$(".text_formatted").css("width", "100%");
 			$(".text_formatted").css("margin-left", "0");
 			$(".text_formatted").fadeIn(500);
 			return false;
@@ -102,7 +101,7 @@
 	<ul style="float: right;">
 		<li><a href="<?=site_url("view/simple/".$pid)?>">Simple</a></li>
 		<li><a href="<?=site_url("view/raw/".$pid)?>">Raw</a></li>
-		<?php if(isset($oid_login) && ($oid_login == $owner)) { ?>
+		<?php if(isset($oid_login) && ($oid_login == $owner || $adminlevel > 0)) { ?>
 		<li class="danger"><a href="<?=site_url("delete/".$pid)?>">Delete</a></li>
 		<?php } ?>
 		<li><a href="<?=site_url("view/download/".$pid)?>">Download</a></li>

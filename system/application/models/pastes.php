@@ -468,7 +468,7 @@ class Pastes extends Model
 			show_error("No paste with ID " . $id . " !");
 		foreach($query->result_array() as $row)
 		{
-			if($row['login']!=$this->session->userdata('login'))
+			if($row['login']!=$this->session->userdata('login') && intval($this->session->userdata('adminlevel'))<1)
 				show_error("This paste doesn't belong to you!");
 			if($row['lang']=='image') {
 				unlink('.' . $row['raw']);

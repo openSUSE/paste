@@ -65,3 +65,9 @@ CREATE TABLE IF NOT EXISTS `keys` (
 `title` varchar(160),
 PRIMARY KEY ( `key` )
 ) ENGINE = MYISAM CHARACTER SET ascii COLLATE ascii_bin;
+
+REATE TABLE IF NOT EXISTS `users` (
+  `login` text NOT NULL,
+  `adminlevel` tinyint(4) NOT NULL
+) ENGINE = MYISAM CHARACTER SET ascii COLLATE ascii_bin;
+

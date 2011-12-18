@@ -59,6 +59,7 @@ class Main extends Controller
 		if($this->keys->verify()) {
 			$data['oid_nick']  = $this->session->userdata('nick');
 			$data['oid_login'] = $this->session->userdata('login');
+			$data['adminlevel'] = intval($this->session->userdata('adminlevel'));
 		}
 		return $data;
 	}
@@ -258,7 +259,10 @@ class Main extends Controller
 			redirect();
 		$this->load->model('pastes');
 		$this->pastes->deletePaste($this->uri->segment(2));
-		redirect('main/my_list');
+		if(intval($this->session->userdata('adminlevel'))<1)
+			redirect('main/my_list');
+		else
+			redirect('main/lists');
 	}
 
 	function login() {
@@ -283,9 +287,11 @@ class Main extends Controller
 			$sreg_resp = Auth_OpenID_SRegResponse::fromSuccessResponse($response);
 			$sreg = $sreg_resp->contents();
 			$nick = $sreg['nickname'];
+			$this->load->model('users');
 			$this->session->set_userdata(array(
 				'login' => $login,
-				'nick'  => $nick ));
+				'nick'  => $nick,
+				'adminlevel' => $this->users->getAdminLevel($login)));
 			$this->keys->add_me();
 			redirect();
 		}
