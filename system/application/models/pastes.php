@@ -438,6 +438,9 @@ class Pastes extends Model
 		$now = now();
 
 		$this->db->where('toexpire', '1');
+		$this->db->where('expire <', $now);
+		$this->db->limit(1000);
+
 		$query = $this->db->get('pastes');
 		
 		foreach($query->result_array() as $row)

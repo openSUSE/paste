@@ -456,6 +456,7 @@ class Main extends Controller
 		{
 			$this->pastes->cron(); 
 			$this->keys->cron(); 
+			show_error("Just kidding, trash was thrown away ;-)");
 			return 0;
 		}
 	}
