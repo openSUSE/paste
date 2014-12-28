@@ -82,7 +82,7 @@ fi
 
 # Real pasting and getting back the URL of the paste
 
-if [ "xselect" == "x$WINDOW" ]; then
+if [ "xselect" = "x$WINDOW" ]; then
 	WINDOW="`LANG=C wmctrl -v -a :SELECT: 2>&1 | sed -n 's|Using\ window:[[:blank:]]*0x\([0-9]*\)|0x\1|p'`"
 	[ "$TITLE"    ] || TITLE="`wmctrl -l | sed -n "s|$WINDOW[[:blank:]]\+[^[:blank:]]\+[[:blank:]]\+[^[:blank:]]\+[[:blank:]]\+\(.*\)|\1|p"`"
 else
