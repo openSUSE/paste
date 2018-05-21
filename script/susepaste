@@ -55,11 +55,14 @@ while [ "$2" ]; do
 	"x-k" )
 		KEY="$2"
 		shift 2 ;;
+        "x-s" )
+                SCHEMA="$2"
+                shift 2 ;;
 	* )
 		echo "openSUSE Paste script"
 		echo ""
 		echo " usage:"
-		echo "   susepaste [-f format] [-n nick] [-t title] [-e expire] [file]"
+		echo "   susepaste [-f format] [-n nick] [-t title] [-e expire] [-s schema] [file]"
 		echo ""
 		exit 0 ;;
 	esac
@@ -105,7 +108,8 @@ fi
 [ "$SYNTAX"   ] || SYNTAX="text"
 # Time to live for your paste in minutes (for possible values check the documentation)
 [ "$EXPIRE"   ] || EXPIRE=60
-
+# Should SSL be used as schema
+[ "$SCHEMA"   ] || SCHEMA=https
 
 # Real pasting and getting back the URL of the paste
 
@@ -113,17 +117,17 @@ URL="`
 curl -v -F "$TYPE=$INPUT" -F "title=$TITLE"  -F "expire=$EXPIRE"   \
         -F "name=$NICK"   -F "submit=submit" -F "lang=$SYNTAX"     \
 	$API_KEY                                                   \
-        http://susepaste.org 2>&1 | sed -n 's|<\ Location:\ ||p' `"
+        ${SCHEMA}://susepaste.org 2>&1 | sed -n 's|<\ Location:\ ||p' `"
 
 # Check the results and inform the user
 
-if expr "$URL" : "^http://susepaste.org/[0-9a-f]\+" > /dev/null; then
-	ID="`echo "$URL" | sed 's|^http://susepaste.org/\([0-9a-f]\+\)[^0-9a-f]*|\1|'`"
+if expr "$URL" : "^${SCHEMA}://susepaste.org/[0-9a-f]\+" > /dev/null; then
+	ID="`echo "$URL" | sed 's|^'"${SCHEMA}"'://susepaste.org/\([0-9a-f]\+\)[^0-9a-f]*|\1|'`"
 	echo "Pasted as:"
-	echo "   http://susepaste.org/$ID"
-	echo "   http://paste.opensuse.org/$ID"
+	echo "   ${SCHEMA}://susepaste.org/$ID"
+	echo "   ${SCHEMA}://paste.opensuse.org/$ID"
 	if [ -x /usr/bin/xclip ]; then
-		echo "http://susepaste.org/$ID" | xclip -selection XA_CLIPBOARD
+		echo "${SCHEMA}://susepaste.org/$ID" | xclip -selection XA_CLIPBOARD
 		echo "Link is also in your clipboard."
 	fi
 else
