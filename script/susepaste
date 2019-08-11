@@ -76,7 +76,11 @@ fi
 
 # Do we want to use stdin or paste content of the file?
 
-if [ -r "$1" ]; then
+if [ "$1" ]; then
+	if [ \! -r "$1" ]; then
+		echo "Can't read $1"
+		exit 2
+	fi
 	INPUT="<$1"
 	[ "$TITLE" ] || TITLE="`basename $1`"
 	TMP=""
