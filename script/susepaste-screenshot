@@ -96,7 +96,7 @@ URL="`
 curl -v -F "file=@$TMP" -F "title=$TITLE"  -F "expire=$EXPIRE"     \
         -F "name=$NICK" -F "submit=submit" -F "lang=image"         \
         $API_KEY                                                   \
-        http://susepaste.org 2>&1 | sed -n 's|<\ Location:\ ||p' `"
+        https://susepaste.org 2>&1 | sed -n 's|<\ [lL]ocation:\ ||p' `"
 
 rm -f "$TMP"
 
