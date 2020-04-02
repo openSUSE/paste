@@ -23,6 +23,7 @@
 
 WINDOW=select
 API_KEY=""
+DELAY=0
 
 # Read configuration file
 
