@@ -102,13 +102,13 @@ rm -f "$TMP"
 
 # Check the results and inform the user
 
-if expr "$URL" : "^http://susepaste.org/[0-9a-f]\+" > /dev/null; then
-	ID="`echo "$URL" | sed 's|^http://susepaste.org/\([0-9a-f]\+\)[^0-9a-f]*|\1|'`"
+if expr "$URL" : "^https://susepaste.org/[0-9a-f]\+" > /dev/null; then
+	ID="`echo "$URL" | sed 's|^https://susepaste.org/\([0-9a-f]\+\)[^0-9a-f]*|\1|'`"
 TEXT="Pasted as:
-   http://susepaste.org/$ID
-   http://paste.opensuse.org/$ID"
+   https://susepaste.org/$ID
+   https://paste.opensuse.org/$ID"
 	if [ -x /usr/bin/xclip ]; then
-		echo "http://susepaste.org/$ID" | xclip -selection XA_CLIPBOARD
+		echo "https://susepaste.org/$ID" | xclip -selection XA_CLIPBOARD
 		TEXT="$TEXT
 Link is also in your clipboard."
 	fi
