@@ -52,7 +52,7 @@ while [ "$1" ]; do
 		EXPIRE="$2"
 		shift 2
 		;;
-	*)
+	"x-h")
 		echo "openSUSE Paste screenshot script"
 		echo ""
 		echo " usage:"
