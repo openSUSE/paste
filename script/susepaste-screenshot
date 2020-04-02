@@ -23,6 +23,7 @@
 
 WINDOW=select
 API_KEY=""
+DELAY=0
 
 # Read configuration file
 
@@ -52,11 +53,15 @@ while [ "$1" ]; do
 		EXPIRE="$2"
 		shift 2
 		;;
-	*)
+	"x-d")
+		DELAY="$2"
+		shift 2
+		;;
+	"x-h")
 		echo "openSUSE Paste screenshot script"
 		echo ""
 		echo " usage:"
-		echo "   susepaste-screenshot [--all] [-n nick] [-t title] [-e expire] [file]"
+		echo "   susepaste-screenshot [--all] [-n nick] [-t title] [-e expire] [-d delay (sec)] [file]"
 		echo ""
 		exit 0
 		;;
@@ -82,6 +87,8 @@ fi
 
 # Real pasting and getting back the URL of the paste
 
+sleep $DELAY
+
 if [ "xselect" = "x$WINDOW" ]; then
 	WINDOW="`LANG=C wmctrl -v -a :SELECT: 2>&1 | sed -n 's|Using\ window:[[:blank:]]*0x\([0-9]*\)|0x\1|p'`"
 	[ "$TITLE"    ] || TITLE="`wmctrl -l | sed -n "s|$WINDOW[[:blank:]]\+[^[:blank:]]\+[[:blank:]]\+[^[:blank:]]\+[[:blank:]]\+\(.*\)|\1|p"`"
@@ -96,19 +103,19 @@ URL="`
 curl -v -F "file=@$TMP" -F "title=$TITLE"  -F "expire=$EXPIRE"     \
         -F "name=$NICK" -F "submit=submit" -F "lang=image"         \
         $API_KEY                                                   \
-        http://susepaste.org 2>&1 | sed -n 's|<\ Location:\ ||p' `"
+        https://susepaste.org 2>&1 | sed -n 's|<\ [lL]ocation:\ ||p' `"
 
 rm -f "$TMP"
 
 # Check the results and inform the user
 
-if expr "$URL" : "^http://susepaste.org/[0-9a-f]\+" > /dev/null; then
-	ID="`echo "$URL" | sed 's|^http://susepaste.org/\([0-9a-f]\+\)[^0-9a-f]*|\1|'`"
+if expr "$URL" : "^https://susepaste.org/[0-9a-f]\+" > /dev/null; then
+	ID="`echo "$URL" | sed 's|^https://susepaste.org/\([0-9a-f]\+\)[^0-9a-f]*|\1|'`"
 TEXT="Pasted as:
-   http://susepaste.org/$ID
-   http://paste.opensuse.org/$ID"
+   https://susepaste.org/$ID
+   https://paste.opensuse.org/$ID"
 	if [ -x /usr/bin/xclip ]; then
-		echo "http://susepaste.org/$ID" | xclip -selection XA_CLIPBOARD
+		echo "https://susepaste.org/$ID" | xclip -selection XA_CLIPBOARD
 		TEXT="$TEXT
 Link is also in your clipboard."
 	fi
