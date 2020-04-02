@@ -52,11 +52,15 @@ while [ "$1" ]; do
 		EXPIRE="$2"
 		shift 2
 		;;
+	"x-d")
+		DELAY="$2"
+		shift 2
+		;;
 	"x-h")
 		echo "openSUSE Paste screenshot script"
 		echo ""
 		echo " usage:"
-		echo "   susepaste-screenshot [--all] [-n nick] [-t title] [-e expire] [file]"
+		echo "   susepaste-screenshot [--all] [-n nick] [-t title] [-e expire] [-d delay (sec)] [file]"
 		echo ""
 		exit 0
 		;;
@@ -81,6 +85,8 @@ fi
 
 
 # Real pasting and getting back the URL of the paste
+
+sleep $DELAY
 
 if [ "xselect" = "x$WINDOW" ]; then
 	WINDOW="`LANG=C wmctrl -v -a :SELECT: 2>&1 | sed -n 's|Using\ window:[[:blank:]]*0x\([0-9]*\)|0x\1|p'`"
