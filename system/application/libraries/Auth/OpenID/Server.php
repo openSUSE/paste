@@ -22,8 +22,8 @@
  * that this user may claim the identity in question.  Exactly how you
  * do that is a matter of application policy, but it generally
  * involves making sure the user has an account with your system and
- * is logged in, checking to see if that identity is hers to claim,
- * and verifying with the user that she does consent to releasing that
+ * is logged in, checking to see if that identity is theirs to claim,
+ * and verifying with the user that they consent to releasing that
  * information to the party making the request.
  *
  * Examine the properties of the {@link Auth_OpenID_CheckIDRequest}
