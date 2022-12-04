@@ -131,7 +131,7 @@ if expr "$URL" : "^${SCHEMA}://paste.opensuse.org/[0-9a-f]\+" > /dev/null; then
 	echo "   ${SCHEMA}://susepaste.org/$ID"
 	echo "   ${SCHEMA}://paste.opensuse.org/$ID"
 	if [ -x /usr/bin/xclip ]; then
-		echo "${SCHEMA}://paste.opensuse.org.org/$ID" | xclip -selection XA_CLIPBOARD
+		echo "${SCHEMA}://paste.opensuse.org/$ID" | xclip -selection XA_CLIPBOARD
 		echo "Link is also in your clipboard."
 	fi
 else
