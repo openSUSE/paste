@@ -121,19 +121,43 @@ URL="`
 curl -v -F "$TYPE=$INPUT" -F "title=$TITLE"  -F "expire=$EXPIRE"   \
         -F "name=$NICK"   -F "submit=submit" -F "lang=$SYNTAX"     \
 	$API_KEY                                                   \
-        ${SCHEMA}://susepaste.org 2>&1 | sed -n 's|<\ [lL]ocation:\ ||p' `"
+        ${SCHEMA}://paste.opensuse.org 2>&1 | sed -n 's|<\ [lL]ocation:\ ||p' `"
 
 # Check the results and inform the user
 
-if expr "$URL" : "^${SCHEMA}://susepaste.org/[0-9a-f]\+" > /dev/null; then
-	ID="`echo "$URL" | sed 's|^'"${SCHEMA}"'://susepaste.org/\([0-9a-f]\+\)[^0-9a-f]*|\1|'`"
+
+
+if expr "$URL" : "^${SCHEMA}://paste.opensuse.org/[0-9a-f]\+" > /dev/null; then
+	ID="`echo "$URL" | sed 's|^'"${SCHEMA}"'://paste.opensuse.org/\([0-9a-f]\+\)[^0-9a-f]*|\1|'`"
 	echo "Pasted as:"
 	echo "   ${SCHEMA}://susepaste.org/$ID"
 	echo "   ${SCHEMA}://paste.opensuse.org/$ID"
-	if [ -x /usr/bin/xclip ]; then
-		echo "${SCHEMA}://susepaste.org/$ID" | xclip -selection XA_CLIPBOARD
-		echo "Link is also in your clipboard."
-	fi
+	
+	session_id=$(loginctl | grep "$(whoami)" | awk '{print $1}')
+	session_type=$(loginctl show-session "$session_id" -p Type --value)
+	
+	case "$session_type" in "x11")
+
+    		if [ -x /usr/bin/xclip ]; then
+			echo "${SCHEMA}://paste.opensuse.org/$ID" | xclip -selection XA_CLIPBOARD
+			echo "Link is also in your clipboard."
+		else
+			echo "To automatically copy the link to the clipboard, make sure that the /usr/bin/xclip is installed."
+		fi
+    		
+	;; "wayland")
+		if [ -x /usr/bin/wl-copy ]; then
+			echo "${SCHEMA}://paste.opensuse.org/$ID" | wl-copy
+			echo "Link is also in your clipboard."
+		else
+			echo "To automatically copy the link to the clipboard, make sure that the /usr/bin/wl-copy is installed."
+		fi
+	;; *)
+		echo "Graphics server not found. Copying to clipboard is not possible."
+	;;
+	esac
+
+	
 else
 	echo "Paste failed :-("
 fi
