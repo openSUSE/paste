@@ -96,19 +96,19 @@ URL="`
 curl -v -F "file=@$TMP" -F "title=$TITLE"  -F "expire=$EXPIRE"     \
         -F "name=$NICK" -F "submit=submit" -F "lang=image"         \
         $API_KEY                                                   \
-        http://susepaste.org 2>&1 | sed -n 's|<\ [lL]ocation:\ ||p' `"
+        http://paste.opensuse.org 2>&1 | sed -n 's|<\ [lL]ocation:\ ||p' `"
 
 rm -f "$TMP"
 
 # Check the results and inform the user
 
-if expr "$URL" : "^http://susepaste.org/[0-9a-f]\+" > /dev/null; then
-	ID="`echo "$URL" | sed 's|^http://susepaste.org/\([0-9a-f]\+\)[^0-9a-f]*|\1|'`"
+if expr "$URL" : "^http://paste.opensuse.org/[0-9a-f]\+" > /dev/null; then
+	ID="`echo "$URL" | sed 's|^http://paste.opensuse.org/\([0-9a-f]\+\)[^0-9a-f]*|\1|'`"
 TEXT="Pasted as:
    http://susepaste.org/$ID
    http://paste.opensuse.org/$ID"
 	if [ -x /usr/bin/xclip ]; then
-		echo "http://susepaste.org/$ID" | xclip -selection XA_CLIPBOARD
+		echo "http://paste.opensuse.org/$ID" | xclip -selection XA_CLIPBOARD
 		TEXT="$TEXT
 Link is also in your clipboard."
 	fi
