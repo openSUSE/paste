@@ -128,7 +128,6 @@ curl -v -F "$TYPE=$INPUT" -F "title=$TITLE"  -F "expire=$EXPIRE"   \
 if expr "$URL" : "^${SCHEMA}://paste.opensuse.org/[0-9a-f]\+" > /dev/null; then
 	ID="`echo "$URL" | sed 's|^'"${SCHEMA}"'://paste.opensuse.org/\([0-9a-f]\+\)[^0-9a-f]*|\1|'`"
 	echo "Pasted as:"
-	echo "   ${SCHEMA}://susepaste.org/$ID"
 	echo "   ${SCHEMA}://paste.opensuse.org/$ID"
 	if [ -x /usr/bin/xclip ]; then
 		echo "${SCHEMA}://paste.opensuse.org/$ID" | xclip -selection XA_CLIPBOARD
