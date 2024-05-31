@@ -249,7 +249,7 @@ $config['sess_match_useragent']	= FALSE;
 |
 */
 $config['cookie_prefix']	= "cookie";
-$config['cookie_domain']	= ".susepaste.org";
+$config['cookie_domain']	= ".opensuse.org";
 $config['cookie_path']		= "/";
 
 /*

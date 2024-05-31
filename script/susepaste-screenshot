@@ -105,7 +105,6 @@ rm -f "$TMP"
 if expr "$URL" : "^http://paste.opensuse.org/[0-9a-f]\+" > /dev/null; then
 	ID="`echo "$URL" | sed 's|^http://paste.opensuse.org/\([0-9a-f]\+\)[^0-9a-f]*|\1|'`"
 TEXT="Pasted as:
-   http://susepaste.org/$ID
    http://paste.opensuse.org/$ID"
 	if [ -x /usr/bin/xclip ]; then
 		echo "http://paste.opensuse.org/$ID" | xclip -selection XA_CLIPBOARD
