@@ -86,7 +86,7 @@
  * IMMEDIATE MODE
  *
  * In the flow described above, the user may need to confirm to the
- * lidentity server that it's ok to authorize his or her identity.
+ * lidentity server that it's ok to authorize their identity.
  * The server may draw pages asking for information from the user
  * before it redirects the browser back to the consumer's site.  This
  * is generally transparent to the consumer site, so it is typically
@@ -123,9 +123,9 @@
  * Next, the application should call the 'redirectURL' method of the
  * Auth_OpenID_AuthRequest object.  The 'return_to' URL parameter is
  * the URL that the OpenID server will send the user back to after
- * attempting to verify his or her identity.  The 'trust_root' is the
+ * attempting to verify their identity.  The 'trust_root' is the
  * URL (or URL pattern) that identifies your web site to the user when
- * he or she is authorizing it.  Send a redirect to the resulting URL
+ * they are authorizing it.  Send a redirect to the resulting URL
  * to the user's browser.
  *
  * That's the first half of the authentication process.  The second
@@ -1817,7 +1817,7 @@ class Auth_OpenID_AuthRequest {
      * request.
      *
      * @param string $realm The URL (or URL pattern) that identifies
-     * your web site to the user when she is authorizing it.
+     * your web site to the user when they are authorizing it.
      *
      * @param string $return_to The URL that the OpenID provider will
      * send the user back to after attempting to verify her identity.
