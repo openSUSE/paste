@@ -17,15 +17,6 @@ specified as arguments.
 --all
 takes screenshot of whole desktop instean
 .TP
--n \fBNICK\fR
-nickname of the author of the paste
-.TP
--t \fBTITLE\fR
-name of the paste
-.TP
--k \fBKEY\fR
-API key to paste as you
-.TP
 -e \fBEXPIRE\fR
 for how log will be paste stored on the server. Default is 30 minutes,
 possible values are:
@@ -35,12 +26,17 @@ possible values are:
      \fI720\fR           12 Hours
      \fI1440\fR           1 Day
      \fI10080\fR          1 Week
-     \fI40320\fR          1 Month
-     \fI151200\fR         3 Months
-     \fI604800\fR         1 Year
-     \fI1209600\fR        2 Years
-     \fI1814400\fR        3 Years
-     \fI0\fR                Never
+     \fI43200\fR          1 Month
+     \fI131040\fR         3 Months (Maximum)
+.TP
+-n \fBNICK\fR
+nickname of the author of the paste
+.TP
+-t \fBTITLE\fR
+name of the paste
+.TP
+-k \fBKEY\fR
+API key to paste as you
 
 .SH EXAMPLES
 
@@ -70,4 +66,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 .SH AUTHORS
 Michal Hrusecky <Michal@Hrusecky.net>
-
