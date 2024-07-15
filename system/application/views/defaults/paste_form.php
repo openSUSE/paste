@@ -85,7 +85,7 @@ window.onload=function() {
 
 			<div class="item">
 				<label for="private">Private
-					<span class="instruction">Private paste aren't shown in recent listings.</span>
+					<span class="instruction">Private pastes aren't shown in recent listings.</span>
 				</label>
 				<div class="text_beside">
 					<?php
@@ -96,7 +96,7 @@ window.onload=function() {
 			</div>						
 		
 			<div class="item">
-				<label for="expire">Delete After
+				<label for="expire">Delete after
 					<span class="instruction">When should we delete your paste?</span>
 				</label>
 				<?php
@@ -104,17 +104,17 @@ window.onload=function() {
 						$expire_set = 10080;
 					$expire_extra = 'id="expire" class="select" tabindex="7"';
 					$options = array(
-									"30" => "30 Minutes",
+									"30" => "30 minutes",
 									"60" => "1 hour",
-									"360" => "6 Hours",
-									"720" => "12 Hours",
-									"1440" => "1 Day",
-									"10080" => "1 Week",
-									"40320" => "1 Month",
-									"151200" => "3 Monts",
-									"604800" => "1 Year",
-									"1209600" => "2 Years",
-									"1814400" => "3 Years",
+									"360" => "6 hours",
+									"720" => "12 hours",
+									"1440" => "1 day",
+									"10080" => "1 week",
+									"40320" => "1 month",
+									"151200" => "3 months",
+									"604800" => "1 year",
+									"1209600" => "2 years",
+									"1814400" => "3 years",
 									"0" => "Never"
 								);
 				echo form_dropdown('expire', $options, $expire_set, $expire_extra); ?>
