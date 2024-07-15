@@ -556,7 +556,7 @@ class GeSHi {
      *   The /e modifier inside <code>preg_replace()</code> allows code execution.
      *   Often it is the cause for remote code execution exploits. It is wise to
      *   deactivate this feature and test where in the application it is used.
-     *   The developer using the /e modifier should be made aware that he should
+     *   The developer using the /e modifier should be made aware that they should
      *   use <code>preg_replace_callback()</code> instead
      * </blockquote>
      *
