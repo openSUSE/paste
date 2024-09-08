@@ -98,11 +98,11 @@ URL='https://paste.opensuse.org'
 OUTURL="$(
 curl    -F "file=@$TMP" -F "title=$TITLE"  -F "expire=$EXPIRE"     \
         -F "name=$NICK" -F "submit=submit" -F "lang=image"         \
-	-sSL                                                       \
+        -sLH 'Accept: application/json'                            \
         $API_KEY                                                   \
-	$URL                                                       \
-	| sed -En "s|^.*\"($URL/pastes/[0-9a-f]+)\".*$|\1|p"       \
-	)"
+        $URL                                                       \
+        | jq -r '.["human_url"]'                                   \
+        )"
 
 rm "$TMP"
 
