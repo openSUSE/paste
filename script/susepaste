@@ -136,8 +136,8 @@ if expr "$URL" : "^${SCHEMA}://paste.opensuse.org/[0-9a-f]\+" > /dev/null; then
 	if [ -x /usr/bin/loginctl ]
 	then
 	
-		session_id=$(loginctl list-sessions --no-legend | awk "/$SELF/{print \$1}")
-		session_type=$(loginctl show-session "$session_id" -P Type)
+		session_id=$(loginctl list-sessions --no-legend | awk "/$SELF seat[0-9]* /{ print \$1 ; exit }")
+		session_type=$(loginctl show-session -PType "$session_id")
 		
 		case "$session_type" in
 			"x11")
