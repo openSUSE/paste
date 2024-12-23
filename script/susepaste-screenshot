@@ -4,6 +4,7 @@
  #                                                                            #
  # SUSE Paste script                                                          #
  #                                                                            #
+ # Copyright (C) 2010-2024 openSUSE Contributors                              #
  # Copyright (C) 2007-2010 by Michal Hrusecky <Michal@Hrusecky.net>           #
  #                                                                            #
  # This program is free software: you can redistribute it and/or modify       #
@@ -92,29 +93,33 @@ fi
 TMP="`mktemp --tmpdir XXXXXXXX.jpg`"
 import -window $WINDOW -limit disk 500KiB -compress JPEG "$TMP" > /dev/null 2> /dev/null
 
-URL="`
-curl -v -F "file=@$TMP" -F "title=$TITLE"  -F "expire=$EXPIRE"     \
-        -F "name=$NICK" -F "submit=submit" -F "lang=image"         \
-        $API_KEY                                                   \
-        http://paste.opensuse.org 2>&1 | sed -n 's|<\ [lL]ocation:\ ||p' `"
+URL='https://paste.opensuse.org'
 
-rm -f "$TMP"
+OUTURL="$(
+curl    -F "file=@$TMP" -F "title=$TITLE"  -F "expire=$EXPIRE"     \
+        -F "name=$NICK" -F "submit=submit" -F "lang=image"         \
+        -sLH 'Accept: application/json'                            \
+        $API_KEY                                                   \
+        $URL                                                       \
+        | jq -r '.["human_url"]'                                   \
+        )"
+
+rm "$TMP"
 
 # Check the results and inform the user
 
-if expr "$URL" : "^http://paste.opensuse.org/[0-9a-f]\+" > /dev/null; then
-	ID="`echo "$URL" | sed 's|^http://paste.opensuse.org/\([0-9a-f]\+\)[^0-9a-f]*|\1|'`"
+if [ -n "$OUTURL" ]; then
 TEXT="Pasted as:
-   http://paste.opensuse.org/$ID"
+   $OUTURL"
 	if [ -x /usr/bin/xclip ]; then
-		echo "http://paste.opensuse.org/$ID" | xclip -selection XA_CLIPBOARD
+		echo "$OUTURL" | xclip -selection clipboard
 		TEXT="$TEXT
 Link is also in your clipboard."
 	fi
 else
 	TEXT="Paste failed :-("
 fi
-if [ "`which zenity`" ]; then
+if command -v zenity >/dev/null; then
 	zenity --info --title="openSUSE Paste" --text="$TEXT"
 else
 	echo "$TEXT" | xmessage -file -
